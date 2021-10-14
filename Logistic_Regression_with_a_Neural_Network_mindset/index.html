@@ -1,0 +1,1273 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"massivefile.com","root":"/","scheme":"Gemini","version":"7.8.0","exturl":true,"sidebar":{"position":"left","display":"post","padding":20,"offset":15,"onmobile":false},"copycode":{"enable":true,"show_result":"flat","style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":true,"color":"#222","save":false},"fancybox":true,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta property="og:type" content="article">
+<meta property="og:title" content="Logistic Regression With a Neural Network Mindset">
+<meta property="og:url" content="https://massivefile.com/Logistic_Regression_with_a_Neural_Network_mindset/index.html">
+<meta property="og:site_name" content="Massivefile.com - Blog">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://lh3.googleusercontent.com/p7ly3mtv7h5Y3fl4JtiFmtb-i_iAerowOHSG4EXhu3SESUPMjmZhwIjaXxWp9GOqejyWazhp-maQ9NsyVNsruLAErIu1N7cZjBWTN5NnV43bukiGrcBmGm_k4WqWKoLdbAoYUyNgPw=w2400">
+<meta property="og:image" content="https://lh3.googleusercontent.com/kJY-tRqpPcdQ7kqF3XJfo4RZ_-pauHBMdujmOlWP6janiuhNawemEADSBrPiqlgRi8vPHLqRVNrwqoxegsWCRDWwy8ntZMiT9BHxlPFfRfa9U4QGr7lNTWB4tNFRzryQuXPGReFn1g=w2400">
+<meta property="og:image" content="https://lh3.googleusercontent.com/02H_4u-Q1y8hDW6L6nDzXAX6bE6QqP6WXfK_hrbXFYQ9Zxm4KVDJo9gEo3511OBsuvGzNo9GD6haI8auCtBkFlaEU2UDgCK6ReeVMyGqSg7brcTSQysUZr30K-Y7dTLdRzCVR67cMw=w2400">
+<meta property="og:image" content="https://lh3.googleusercontent.com/VISa3bYoaFyoyL4EnFg4OhGXPa_aIgC3M3hDJsOQP-3PK1ICbo9ZT3udg7Jp_nCRj9rxEjREN-wP83WaR6EVAV2dCC1FogwYI91awu3uX9EF0cUh3jApJxQb-0_VKQtBc0Telo5-Kw=w2400">
+<meta property="og:image" content="https://lh3.googleusercontent.com/zRQjYeR_0i0Az8BynDY35YelX_s5nomdk0mQAlOjWdhWvSe70Ey4EKZntInJN3WwEb9i9lusqNNqtsBXc15qaEj0eyH8uYlDNxr72DjbeGaqvPjE9iZqmZcTozgW157sVuTlGePc8Q=w2400">
+<meta property="article:published_time" content="2020-06-14T18:30:00.000Z">
+<meta property="article:modified_time" content="2021-10-13T15:44:47.851Z">
+<meta property="article:author" content="Karan Arora">
+<meta property="article:tag" content="2020">
+<meta property="article:tag" content="Assignment">
+<meta property="article:tag" content="Logistic Regression with a Neural Network mindset">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://lh3.googleusercontent.com/p7ly3mtv7h5Y3fl4JtiFmtb-i_iAerowOHSG4EXhu3SESUPMjmZhwIjaXxWp9GOqejyWazhp-maQ9NsyVNsruLAErIu1N7cZjBWTN5NnV43bukiGrcBmGm_k4WqWKoLdbAoYUyNgPw=w2400">
+
+<link rel="canonical" href="https://massivefile.com/Logistic_Regression_with_a_Neural_Network_mindset/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'en'
+  };
+</script>
+
+  <title>Logistic Regression With a Neural Network Mindset | Massivefile.com - Blog</title>
+  
+    <script>
+      function sendPageView() {
+        if (CONFIG.hostname !== location.hostname) return;
+        var uid = localStorage.getItem('uid') || (Math.random() + '.' + Math.random());
+        localStorage.setItem('uid', uid);
+        navigator.sendBeacon('https://www.google-analytics.com/collect', new URLSearchParams({
+          v  : 1,
+          tid: 'UA-163312538-2',
+          cid: uid,
+          t  : 'pageview',
+          dp : encodeURIComponent(location.pathname)
+        }));
+      }
+      document.addEventListener('pjax:complete', sendPageView);
+      sendPageView();
+    </script>
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta custom-logo">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Massivefile.com - Blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">Programming & Data Science</p>
+      <a>
+        <img class="custom-logo-image" src="/images/custom-logo.jpg" alt="Massivefile.com - Blog">
+      </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags<span class="badge">43</span></a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories<span class="badge">15</span></a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives<span class="badge">43</span></a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
+
+  <a href="https://massivefile.com/karan/" class="github-corner" title="See Portfolio Website" aria-label="See Portfolio Website"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://massivefile.com/Logistic_Regression_with_a_Neural_Network_mindset/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Karan Arora">
+      <meta itemprop="description" content="Trasforming data into Information">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Massivefile.com - Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Logistic Regression With a Neural Network Mindset
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2020-06-15 00:00:00" itemprop="dateCreated datePublished" datetime="2020-06-15T00:00:00+05:30">2020-06-15</time>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="Symbols count in article">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">Symbols count in article: </span>
+              <span>39k</span>
+            </span>
+            <span class="post-meta-item" title="Reading time">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">Reading time &asymp;</span>
+              <span>35 mins.</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <body>
+  <span id="more"></span> 
+<i><b>Note - These are my notes on DeepLearning Specialization Part: 
+Logistic Regression with a Neural Network mindset || (Course- 1 Week - 2) || Neural Networks and Deep Learning (Week 2)</i></b> 
+
+<h1 id="Table-of-Contents"><a href="#Table-of-Contents" class="headerlink" title="Table of Contents"></a>Table of Contents</h1> <p><div class="lev1 toc-item"><a href="#Logistic-Regression-with-a-Neural-Network-mindset" data-toc-modified-id="Logistic-Regression-with-a-Neural-Network-mindset-1"><span class="toc-item-num">1&nbsp;&nbsp;</span>Logistic Regression with a Neural Network mindset</a></div><div class="lev2 toc-item"><a href="#1---Packages" data-toc-modified-id="1---Packages-11"><span class="toc-item-num">1.1&nbsp;&nbsp;</span>1 - Packages</a></div><div class="lev1 toc-item"><a href="#load-lr_utils.py" data-toc-modified-id="load-lr_utils.py-2"><span class="toc-item-num">2&nbsp;&nbsp;</span>load lr_utils.py</a></div><div class="lev2 toc-item"><a href="#2---Overview-of-the-Problem-set" data-toc-modified-id="2---Overview-of-the-Problem-set-21"><span class="toc-item-num">2.1&nbsp;&nbsp;</span>2 - Overview of the Problem set</a></div><div class="lev2 toc-item"><a href="#3---General-Architecture-of-the-learning-algorithm" data-toc-modified-id="3---General-Architecture-of-the-learning-algorithm-22"><span class="toc-item-num">2.2&nbsp;&nbsp;</span>3 - General Architecture of the learning algorithm</a></div><div class="lev2 toc-item"><a href="#4---Building-the-parts-of-our-algorithm" data-toc-modified-id="4---Building-the-parts-of-our-algorithm-23"><span class="toc-item-num">2.3&nbsp;&nbsp;</span>4 - Building the parts of our algorithm</a></div><div class="lev3 toc-item"><a href="#4.1---Helper-functions" data-toc-modified-id="4.1---Helper-functions-231"><span class="toc-item-num">2.3.1&nbsp;&nbsp;</span>4.1 - Helper functions</a></div><div class="lev3 toc-item"><a href="#4.2---Initializing-parameters" data-toc-modified-id="4.2---Initializing-parameters-232"><span class="toc-item-num">2.3.2&nbsp;&nbsp;</span>4.2 - Initializing parameters</a></div><div class="lev3 toc-item"><a href="#4.3---Forward-and-Backward-propagation" data-toc-modified-id="4.3---Forward-and-Backward-propagation-233"><span class="toc-item-num">2.3.3&nbsp;&nbsp;</span>4.3 - Forward and Backward propagation</a></div><div class="lev3 toc-item"><a href="#d)-Optimization" data-toc-modified-id="d)-Optimization-234"><span class="toc-item-num">2.3.4&nbsp;&nbsp;</span>d) Optimization</a></div><div class="lev2 toc-item"><a href="#5---Merge-all-functions-into-a-model" data-toc-modified-id="5---Merge-all-functions-into-a-model-24"><span class="toc-item-num">2.4&nbsp;&nbsp;</span>5 - Merge all functions into a model</a></div><div class="lev2 toc-item"><a href="#6---Further-analysis-(optional/ungraded-exercise)" data-toc-modified-id="6---Further-analysis-(optional/ungraded-exercise)-25"><span class="toc-item-num">2.5&nbsp;&nbsp;</span>6 - Further analysis (optional/ungraded exercise)</a></div><div class="lev4 toc-item"><a href="#Choice-of-learning-rate" data-toc-modified-id="Choice-of-learning-rate-2501"><span class="toc-item-num">2.5.0.1&nbsp;&nbsp;</span>Choice of learning rate</a></div><div class="lev2 toc-item"><a href="#7---Test-with-your-own-image-(optional/ungraded-exercise)" data-toc-modified-id="7---Test-with-your-own-image-(optional/ungraded-exercise)-26"><span class="toc-item-num">2.6&nbsp;&nbsp;</span>7 - Test with your own image (optional/ungraded exercise)</a></div>
+
+<h1 id="Logistic-Regression-with-a-Neural-Network-mindset"><a href="#Logistic-Regression-with-a-Neural-Network-mindset" class="headerlink" title="Logistic Regression with a Neural Network mindset"></a>Logistic Regression with a Neural Network mindset</h1><p>Welcome to your first (required) programming assignment! You will build a logistic regression classifier to recognize  cats. This assignment will step you through how to do this with a Neural Network mindset, and so will also hone your intuitions about deep learning.</p>
+<p><strong>Instructions:</strong></p>
+<ul>
+<li>Do not use loops (for/while) in your code, unless the instructions explicitly ask you to do so.</li>
+</ul>
+<p><strong>You will learn to:</strong></p>
+<ul>
+<li>Build the general architecture of a learning algorithm, including:<ul>
+<li>Initializing parameters</li>
+<li>Calculating the cost function and its gradient</li>
+<li>Using an optimization algorithm (gradient descent) </li>
+</ul>
+</li>
+<li>Gather all three functions above into a main model function, in the right order.</li>
+</ul>
+<h2 id="1-Packages"><a href="#1-Packages" class="headerlink" title="1 - Packages"></a>1 - Packages</h2><p>First, let’s run the cell below to import all the packages that you will need during this assignment. </p>
+<ul>
+<li><span class="exturl" data-url="aHR0cHM6Ly93d3cubnVtcHkub3JnLw==">numpy<i class="fa fa-external-link-alt"></i></span> is the fundamental package for scientific computing with Python.</li>
+<li><span class="exturl" data-url="aHR0cHM6Ly93d3cuaDVweS5vcmcv">h5py<i class="fa fa-external-link-alt"></i></span> is a common package to interact with a dataset that is stored on an H5 file.</li>
+<li><span class="exturl" data-url="aHR0cHM6Ly9tYXRwbG90bGliLm9yZy8=">matplotlib<i class="fa fa-external-link-alt"></i></span> is a famous library to plot graphs in Python.</li>
+<li><span class="exturl" data-url="aHR0cHM6Ly93d3cucHl0aG9ud2FyZS5jb20vcHJvZHVjdHMvcGlsLw==">PIL<i class="fa fa-external-link-alt"></i></span> and <span class="exturl" data-url="aHR0cHM6Ly93d3cuc2NpcHkub3JnLw==">scipy<i class="fa fa-external-link-alt"></i></span> are used here to test your model with your own picture at the end.</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> numpy <span class="hljs-keyword">as</span> np<br><span class="hljs-keyword">import</span> matplotlib.pyplot <span class="hljs-keyword">as</span> plt<br><span class="hljs-keyword">import</span> h5py<br><span class="hljs-keyword">import</span> scipy<br><span class="hljs-keyword">from</span> PIL <span class="hljs-keyword">import</span> Image<br><span class="hljs-keyword">from</span> scipy <span class="hljs-keyword">import</span> ndimage<br><span class="hljs-keyword">from</span> lr_utils <span class="hljs-keyword">import</span> load_dataset<br><span class="hljs-keyword">import</span> skimage<br>%matplotlib inline<br></code></pre></td></tr></table></figure>
+
+<h1 id="load-lr-utils-py"><a href="#load-lr-utils-py" class="headerlink" title="load lr_utils.py"></a>load lr_utils.py</h1><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> numpy <span class="hljs-keyword">as</span> np<br><span class="hljs-keyword">import</span> h5py<br>    <br>    <br><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">load_dataset</span>():</span><br>    train_dataset = h5py.File(<span class="hljs-string">&#x27;datasets/train_catvnoncat.h5&#x27;</span>, <span class="hljs-string">&quot;r&quot;</span>)<br>    train_set_x_orig = np.array(train_dataset[<span class="hljs-string">&quot;train_set_x&quot;</span>][:]) <span class="hljs-comment"># your train set features</span><br>    train_set_y_orig = np.array(train_dataset[<span class="hljs-string">&quot;train_set_y&quot;</span>][:]) <span class="hljs-comment"># your train set labels</span><br><br>    test_dataset = h5py.File(<span class="hljs-string">&#x27;datasets/test_catvnoncat.h5&#x27;</span>, <span class="hljs-string">&quot;r&quot;</span>)<br>    test_set_x_orig = np.array(test_dataset[<span class="hljs-string">&quot;test_set_x&quot;</span>][:]) <span class="hljs-comment"># your test set features</span><br>    test_set_y_orig = np.array(test_dataset[<span class="hljs-string">&quot;test_set_y&quot;</span>][:]) <span class="hljs-comment"># your test set labels</span><br><br>    classes = np.array(test_dataset[<span class="hljs-string">&quot;list_classes&quot;</span>][:]) <span class="hljs-comment"># the list of classes</span><br>    <br>    train_set_y_orig = train_set_y_orig.reshape((<span class="hljs-number">1</span>, train_set_y_orig.shape[<span class="hljs-number">0</span>]))<br>    test_set_y_orig = test_set_y_orig.reshape((<span class="hljs-number">1</span>, test_set_y_orig.shape[<span class="hljs-number">0</span>]))<br>    <br>    <span class="hljs-keyword">return</span> train_set_x_orig, train_set_y_orig, test_set_x_orig, test_set_y_orig, classes<br></code></pre></td></tr></table></figure>
+
+<h2 id="2-Overview-of-the-Problem-set"><a href="#2-Overview-of-the-Problem-set" class="headerlink" title="2 - Overview of the Problem set"></a>2 - Overview of the Problem set</h2><p><strong>Problem Statement</strong>: You are given a dataset (“data.h5”) containing:<br>    - a training set of m_train images labeled as cat (y=1) or non-cat (y=0)<br>    - a test set of m_test images labeled as cat or non-cat<br>    - each image is of shape (num_px, num_px, 3) where 3 is for the 3 channels (RGB). Thus, each image is square (height = num_px) and (width = num_px).</p>
+<p>You will build a simple image-recognition algorithm that can correctly classify pictures as cat or non-cat.</p>
+<p>Let’s get more familiar with the dataset. Load the data by running the following code.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment"># Loading the data (cat/non-cat)</span><br>train_set_x_orig, train_set_y, test_set_x_orig, test_set_y, classes = load_dataset()<br></code></pre></td></tr></table></figure>
+
+<p>We added “_orig” at the end of image datasets (train and test) because we are going to preprocess them. After preprocessing, we will end up with train_set_x and test_set_x (the labels train_set_y and test_set_y don’t need any preprocessing).</p>
+<p>Each line of your train_set_x_orig and test_set_x_orig is an array representing an image. You can visualize an example by running the following code. Feel free also to change the <code>index</code> value and re-run to see other images. </p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment"># Example of a picture</span><br>index = <span class="hljs-number">25</span><br>example = train_set_x_orig[index]<br>plt.imshow(train_set_x_orig[index])<br><span class="hljs-built_in">print</span> (<span class="hljs-string">&quot;y = &quot;</span> + <span class="hljs-built_in">str</span>(train_set_y[:, index]) + <span class="hljs-string">&quot;, it&#x27;s a &#x27;&quot;</span> + classes[np.squeeze(train_set_y[:, index])].decode(<span class="hljs-string">&quot;utf-8&quot;</span>) +  <span class="hljs-string">&quot;&#x27; picture.&quot;</span>)<br></code></pre></td></tr></table></figure>
+
+
+<center><img src='https://lh3.googleusercontent.com/p7ly3mtv7h5Y3fl4JtiFmtb-i_iAerowOHSG4EXhu3SESUPMjmZhwIjaXxWp9GOqejyWazhp-maQ9NsyVNsruLAErIu1N7cZjBWTN5NnV43bukiGrcBmGm_k4WqWKoLdbAoYUyNgPw=w2400' />
+</center>
+
+<p>Many software bugs in deep learning come from having matrix/vector dimensions that don’t fit. If you can keep your matrix/vector dimensions straight you will go a long way toward eliminating many bugs. </p>
+<p><strong>Exercise:</strong> Find the values for:<br>    - m_train (number of training examples)<br>    - m_test (number of test examples)<br>    - num_px (= height = width of a training image)<br>Remember that <code>train_set_x_orig</code> is a numpy-array of shape (m_train, num_px, num_px, 3). For instance, you can access <code>m_train</code> by writing <code>train_set_x_orig.shape[0]</code>.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment">### START CODE HERE ### (≈ 3 lines of code)</span><br>m_train = train_set_x_orig.shape[<span class="hljs-number">0</span>]<br>m_test = test_set_x_orig.shape[<span class="hljs-number">0</span>]<br>num_px = train_set_x_orig.shape[<span class="hljs-number">2</span>]<br><span class="hljs-comment">### END CODE HERE ###</span><br><br><span class="hljs-built_in">print</span> (<span class="hljs-string">&quot;Number of training examples: m_train = &quot;</span> + <span class="hljs-built_in">str</span>(m_train))<br><span class="hljs-built_in">print</span> (<span class="hljs-string">&quot;Number of testing examples: m_test = &quot;</span> + <span class="hljs-built_in">str</span>(m_test))<br><span class="hljs-built_in">print</span> (<span class="hljs-string">&quot;Height/Width of each image: num_px = &quot;</span> + <span class="hljs-built_in">str</span>(num_px))<br><span class="hljs-built_in">print</span> (<span class="hljs-string">&quot;Each image is of size: (&quot;</span> + <span class="hljs-built_in">str</span>(num_px) + <span class="hljs-string">&quot;, &quot;</span> + <span class="hljs-built_in">str</span>(num_px) + <span class="hljs-string">&quot;, 3)&quot;</span>)<br><span class="hljs-built_in">print</span> (<span class="hljs-string">&quot;train_set_x shape: &quot;</span> + <span class="hljs-built_in">str</span>(train_set_x_orig.shape))<br><span class="hljs-built_in">print</span> (<span class="hljs-string">&quot;train_set_y shape: &quot;</span> + <span class="hljs-built_in">str</span>(train_set_y.shape))<br><span class="hljs-built_in">print</span> (<span class="hljs-string">&quot;test_set_x shape: &quot;</span> + <span class="hljs-built_in">str</span>(test_set_x_orig.shape))<br><span class="hljs-built_in">print</span> (<span class="hljs-string">&quot;test_set_y shape: &quot;</span> + <span class="hljs-built_in">str</span>(test_set_y.shape))<br></code></pre></td></tr></table></figure>
+
+<pre><code>Number of training examples: m_train = 209
+Number of testing examples: m_test = 50
+Height/Width of each image: num_px = 64
+Each image is of size: (64, 64, 3)
+train_set_x shape: (209, 64, 64, 3)
+train_set_y shape: (1, 209)
+test_set_x shape: (50, 64, 64, 3)
+test_set_y shape: (1, 50)
+</code></pre>
+<p><strong>Expected Output for m_train, m_test and num_px</strong>: </p>
+<table style="width:15%">
+  <tr>
+    <td>**m_train**</td>
+    <td> 209 </td> 
+  </tr>
+  
+  <tr>
+    <td>**m_test**</td>
+    <td> 50 </td> 
+  </tr>
+  
+  <tr>
+    <td>**num_px**</td>
+    <td> 64 </td> 
+  </tr>
+  
+</table>
+
+
+<p>For convenience, you should now reshape images of shape (num_px, num_px, 3) in a numpy-array of shape (num_px $<em>$ num_px $</em>$ 3, 1). After this, our training (and test) dataset is a numpy-array where each column represents a flattened image. There should be m_train (respectively m_test) columns.</p>
+<p><strong>Exercise:</strong> Reshape the training and test data sets so that images of size (num_px, num_px, 3) are flattened into single vectors of shape (num_px $<em>$ num_px $</em>$ 3, 1).</p>
+<p>A trick when you want to flatten a matrix X of shape (a,b,c,d) to a matrix X_flatten of shape (b$<em>$c$</em>$d, a) is to use: </p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs python">X_flatten = X.reshape(X.shape[<span class="hljs-number">0</span>], -<span class="hljs-number">1</span>).T      <span class="hljs-comment"># X.T is the transpose of X</span><br></code></pre></td></tr></table></figure>
+
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment"># Reshape the training and test examples</span><br><br><span class="hljs-comment">### START CODE HERE ### (≈ 2 lines of code)</span><br>train_set_x_flatten = train_set_x_orig.reshape(train_set_x_orig.shape[<span class="hljs-number">0</span>], -<span class="hljs-number">1</span>).T<br>test_set_x_flatten = test_set_x_orig.reshape(test_set_x_orig.shape[<span class="hljs-number">0</span>], -<span class="hljs-number">1</span>).T<br><span class="hljs-comment">### END CODE HERE ###</span><br><br><span class="hljs-built_in">print</span> (<span class="hljs-string">&quot;train_set_x_flatten shape: &quot;</span> + <span class="hljs-built_in">str</span>(train_set_x_flatten.shape))<br><span class="hljs-built_in">print</span> (<span class="hljs-string">&quot;train_set_y shape: &quot;</span> + <span class="hljs-built_in">str</span>(train_set_y.shape))<br><span class="hljs-built_in">print</span> (<span class="hljs-string">&quot;test_set_x_flatten shape: &quot;</span> + <span class="hljs-built_in">str</span>(test_set_x_flatten.shape))<br><span class="hljs-built_in">print</span> (<span class="hljs-string">&quot;test_set_y shape: &quot;</span> + <span class="hljs-built_in">str</span>(test_set_y.shape))<br><span class="hljs-built_in">print</span> (<span class="hljs-string">&quot;sanity check after reshaping: &quot;</span> + <span class="hljs-built_in">str</span>(train_set_x_flatten[<span class="hljs-number">0</span>:<span class="hljs-number">5</span>,<span class="hljs-number">0</span>]))<br></code></pre></td></tr></table></figure>
+
+<pre><code>train_set_x_flatten shape: (12288, 209)
+train_set_y shape: (1, 209)
+test_set_x_flatten shape: (12288, 50)
+test_set_y shape: (1, 50)
+sanity check after reshaping: [17 31 56 22 33]
+</code></pre>
+<p><strong>Expected Output</strong>: </p>
+<table style="width:35%">
+  <tr>
+    <td>**train_set_x_flatten shape**</td>
+    <td> (12288, 209)</td> 
+  </tr>
+  <tr>
+    <td>**train_set_y shape**</td>
+    <td>(1, 209)</td> 
+  </tr>
+  <tr>
+    <td>**test_set_x_flatten shape**</td>
+    <td>(12288, 50)</td> 
+  </tr>
+  <tr>
+    <td>**test_set_y shape**</td>
+    <td>(1, 50)</td> 
+  </tr>
+  <tr>
+  <td>**sanity check after reshaping**</td>
+  <td>[17 31 56 22 33]</td> 
+  </tr>
+</table>
+
+<p>To represent color images, the red, green and blue channels (RGB) must be specified for each pixel, and so the pixel value is actually a vector of three numbers ranging from 0 to 255.</p>
+<p>One common preprocessing step in machine learning is to center and standardize your dataset, meaning that you substract the mean of the whole numpy array from each example, and then divide each example by the standard deviation of the whole numpy array. But for picture datasets, it is simpler and more convenient and works almost as well to just divide every row of the dataset by 255 (the maximum value of a pixel channel).</p>
+<!-- During the training of your model, you're going to multiply weights and add biases to some initial inputs in order to observe neuron activations. Then you backpropogate with the gradients to train the model. But, it is extremely important for each feature to have a similar range such that our gradients don't explode. You will see that more in detail later in the lectures. !--> 
+
+<p>Let’s standardize our dataset.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs python">train_set_x = train_set_x_flatten/<span class="hljs-number">255.</span><br>test_set_x = test_set_x_flatten/<span class="hljs-number">255.</span><br></code></pre></td></tr></table></figure>
+
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-built_in">len</span>(train_set_x)<br></code></pre></td></tr></table></figure>
+
+
+
+
+<pre><code>12288
+</code></pre>
+<p><b><h4>What you need to remember:</h4></b><br><font color='blue'></p>
+<p>Common steps for pre-processing a new dataset are:</p>
+<ul>
+<li>Figure out the dimensions and shapes of the problem (m_train, m_test, num_px, …)</li>
+<li>Reshape the datasets such that each example is now a vector of size (num_px * num_px * 3, 1)</li>
+<li>“Standardize” the data</font></li>
+</ul>
+<h2 id="3-General-Architecture-of-the-learning-algorithm"><a href="#3-General-Architecture-of-the-learning-algorithm" class="headerlink" title="3 - General Architecture of the learning algorithm"></a>3 - General Architecture of the learning algorithm</h2><p>It’s time to design a simple algorithm to distinguish cat images from non-cat images.</p>
+<p><strong>Mathematical expression of the algorithm</strong>:</p>
+<p>For one example $x^{(i)}$:<br>$$z^{(i)} = w^T x^{(i)} + b \tag{1}$$<br>$$\hat{y}^{(i)} = a^{(i)} = sigmoid(z^{(i)})\tag{2}$$<br>$$ \mathcal{L}(a^{(i)}, y^{(i)}) =  - y^{(i)}  \log(a^{(i)}) - (1-y^{(i)} ) * $$<br>$$ \ *log(1-a^{(i)})\tag{3}$$</p>
+<p>The cost is then computed by summing over all training examples:<br>$$ J = \frac{1}{m} \sum_{i=1}^m \mathcal{L}(a^{(i)}, y^{(i)})\tag{6}$$</p>
+<p><strong>Key steps</strong>:<br>In this exercise, you will carry out the following steps:<br>    - Initialize the parameters of the model<br>    - Learn the parameters for the model by minimizing the cost<br>    - Use the learned parameters to make predictions (on the test set)<br>    - Analyse the results and conclude</p>
+<h2 id="4-Building-the-parts-of-our-algorithm"><a href="#4-Building-the-parts-of-our-algorithm" class="headerlink" title="4 - Building the parts of our algorithm"></a>4 - Building the parts of our algorithm</h2><p>The main steps for building a Neural Network are:</p>
+<ol>
+<li>Define the model structure (such as number of input features) </li>
+<li>Initialize the model’s parameters</li>
+<li>Loop:<ul>
+<li>Calculate current loss (forward propagation)</li>
+<li>Calculate current gradient (backward propagation)</li>
+<li>Update parameters (gradient descent)</li>
+</ul>
+</li>
+</ol>
+<p>You often build 1-3 separately and integrate them into one function we call <code>model()</code>.</p>
+<h3 id="4-1-Helper-functions"><a href="#4-1-Helper-functions" class="headerlink" title="4.1 - Helper functions"></a>4.1 - Helper functions</h3><p><strong>Exercise</strong>: Using your code from “Python Basics”, implement <code>sigmoid()</code>. As you’ve seen in the figure above, you need to compute $sigmoid( w^T x + b) = \frac{1}{1 + e^{-(w^T x + b)}}$ to make predictions. Use np.exp().</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment"># GRADED FUNCTION: sigmoid</span><br><br><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">sigmoid</span>(<span class="hljs-params">z</span>):</span><br>    <span class="hljs-string">&quot;&quot;&quot;</span><br><span class="hljs-string">    Compute the sigmoid of z</span><br><span class="hljs-string"></span><br><span class="hljs-string">    Arguments:</span><br><span class="hljs-string">    z -- A scalar or numpy array of any size.</span><br><span class="hljs-string"></span><br><span class="hljs-string">    Return:</span><br><span class="hljs-string">    s -- sigmoid(z)</span><br><span class="hljs-string">    &quot;&quot;&quot;</span><br><br>    <span class="hljs-comment">### START CODE HERE ### (≈ 1 line of code)</span><br>    s = <span class="hljs-number">1.</span> / ( <span class="hljs-number">1</span> + np.exp(-z))<br>    <span class="hljs-comment">### END CODE HERE ###</span><br>    <br>    <span class="hljs-keyword">return</span> s<br></code></pre></td></tr></table></figure>
+
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-built_in">print</span> (<span class="hljs-string">&quot;sigmoid([0, 2]) = &quot;</span> + <span class="hljs-built_in">str</span>(sigmoid(np.array([<span class="hljs-number">0</span>,<span class="hljs-number">2</span>]))))<br></code></pre></td></tr></table></figure>
+
+<pre><code>sigmoid([0, 2]) = [0.5        0.88079708]
+</code></pre>
+<p><strong>Expected Output</strong>: </p>
+<table>
+  <tr>
+    <td>**sigmoid([0, 2])**</td>
+    <td> [ 0.5         0.88079708]</td> 
+  </tr>
+</table>
+
+<h3 id="4-2-Initializing-parameters"><a href="#4-2-Initializing-parameters" class="headerlink" title="4.2 - Initializing parameters"></a>4.2 - Initializing parameters</h3><p><strong>Exercise:</strong> Implement parameter initialization in the cell below. You have to initialize w as a vector of zeros. If you don’t know what numpy function to use, look up np.zeros() in the Numpy library’s documentation.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment"># GRADED FUNCTION: initialize_with_zeros</span><br><br><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">initialize_with_zeros</span>(<span class="hljs-params">dim</span>):</span><br>    <span class="hljs-string">&quot;&quot;&quot;</span><br><span class="hljs-string">    This function creates a vector of zeros of shape (dim, 1) for w and initializes b to 0.</span><br><span class="hljs-string">    </span><br><span class="hljs-string">    Argument:</span><br><span class="hljs-string">    dim -- size of the w vector we want (or number of parameters in this case)</span><br><span class="hljs-string">    </span><br><span class="hljs-string">    Returns:</span><br><span class="hljs-string">    w -- initialized vector of shape (dim, 1)</span><br><span class="hljs-string">    b -- initialized scalar (corresponds to the bias)</span><br><span class="hljs-string">    &quot;&quot;&quot;</span><br>    <br>    <span class="hljs-comment">### START CODE HERE ### (≈ 1 line of code)</span><br>    w = np.zeros(shape=(dim, <span class="hljs-number">1</span>), dtype=np.float32)<br>    b = <span class="hljs-number">0</span><br>    <span class="hljs-comment">### END CODE HERE ###</span><br><br>    <span class="hljs-keyword">assert</span>(w.shape == (dim, <span class="hljs-number">1</span>))<br>    <span class="hljs-keyword">assert</span>(<span class="hljs-built_in">isinstance</span>(b, <span class="hljs-built_in">float</span>) <span class="hljs-keyword">or</span> <span class="hljs-built_in">isinstance</span>(b, <span class="hljs-built_in">int</span>))<br>    <br>    <span class="hljs-keyword">return</span> w, b<br></code></pre></td></tr></table></figure>
+
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs python">dim = <span class="hljs-number">2</span><br>w, b = initialize_with_zeros(dim)<br><span class="hljs-built_in">print</span> (<span class="hljs-string">&quot;w = &quot;</span> + <span class="hljs-built_in">str</span>(w))<br><span class="hljs-built_in">print</span> (<span class="hljs-string">&quot;b = &quot;</span> + <span class="hljs-built_in">str</span>(b))<br></code></pre></td></tr></table></figure>
+
+<pre><code>w = [[0.]
+ [0.]]
+b = 0
+</code></pre>
+<p><strong>Expected Output</strong>: </p>
+<table style="width:15%">
+    <tr>
+        <td>  ** w **  </td>
+        <td> [[ 0.]
+ [ 0.]] </td>
+    </tr>
+    <tr>
+        <td>  ** b **  </td>
+        <td> 0 </td>
+    </tr>
+</table>
+
+<p>For image inputs, w will be of shape (num_px $\times$ num_px $\times$ 3, 1).</p>
+<h3 id="4-3-Forward-and-Backward-propagation"><a href="#4-3-Forward-and-Backward-propagation" class="headerlink" title="4.3 - Forward and Backward propagation"></a>4.3 - Forward and Backward propagation</h3><p>Now that your parameters are initialized, you can do the “forward” and “backward” propagation steps for learning the parameters.</p>
+<p><strong>Exercise:</strong> Implement a function <code>propagate()</code> that computes the cost function and its gradient.</p>
+<p><strong>Hints</strong>:</p>
+<p>Forward Propagation:</p>
+<ul>
+<li>You get X</li>
+<li>You compute $A = \sigma(w^T X + b) = (a^{(0)}, a^{(1)}, …, a^{(m-1)}, a^{(m)})$</li>
+<li>You calculate the cost function: $J = -\frac{1}{m}\sum_{i=1}^{m}y^{(i)}\log(a^{(i)})+(1-y^{(i)})\log(1-a^{(i)})$</li>
+</ul>
+<p>Here are the two formulas you will be using: </p>
+<p>$$ \frac{\partial J}{\partial w} = \frac{1}{m}X(A-Y)^T\tag{7}$$<br>$$ \frac{\partial J}{\partial b} = \frac{1}{m} \sum_{i=1}^m (a^{(i)}-y^{(i)})\tag{8}$$</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment"># GRADED FUNCTION: propagate</span><br><br><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">propagate</span>(<span class="hljs-params">w, b, X, Y</span>):</span><br>    <span class="hljs-string">&quot;&quot;&quot;</span><br><span class="hljs-string">    Implement the cost function and its gradient for the propagation explained above</span><br><span class="hljs-string"></span><br><span class="hljs-string">    Arguments:</span><br><span class="hljs-string">    w -- weights, a numpy array of size (num_px * num_px * 3, 1)</span><br><span class="hljs-string">    b -- bias, a scalar</span><br><span class="hljs-string">    X -- data of size (num_px * num_px * 3, number of examples)</span><br><span class="hljs-string">    Y -- true &quot;label&quot; vector (containing 0 if non-cat, 1 if cat) of size (1, number of examples)</span><br><span class="hljs-string"></span><br><span class="hljs-string">    Return:</span><br><span class="hljs-string">    cost -- negative log-likelihood cost for logistic regression</span><br><span class="hljs-string">    dw -- gradient of the loss with respect to w, thus same shape as w</span><br><span class="hljs-string">    db -- gradient of the loss with respect to b, thus same shape as b</span><br><span class="hljs-string">    </span><br><span class="hljs-string">    Tips:</span><br><span class="hljs-string">    - Write your code step by step for the propagation. np.log(), np.dot()</span><br><span class="hljs-string">    &quot;&quot;&quot;</span><br>    <br>    m = X.shape[<span class="hljs-number">1</span>]<br>    <br>    <span class="hljs-comment"># FORWARD PROPAGATION (FROM X TO COST)</span><br>    <span class="hljs-comment">### START CODE HERE ### (≈ 2 lines of code)</span><br>    A = sigmoid(np.dot(w.T, X) + b)              <span class="hljs-comment"># compute activation</span><br>    cost = (-<span class="hljs-number">1.</span> / m) * np.<span class="hljs-built_in">sum</span>((Y*np.log(A) + (<span class="hljs-number">1</span> - Y)*np.log(<span class="hljs-number">1</span>-A)), axis=<span class="hljs-number">1</span>)     <span class="hljs-comment"># compute cost</span><br><br>    <span class="hljs-comment">### END CODE HERE ###</span><br>    <br>    <span class="hljs-comment"># BACKWARD PROPAGATION (TO FIND GRAD)</span><br>    <span class="hljs-comment">### START CODE HERE ### (≈ 2 lines of code)</span><br>    dw = (<span class="hljs-number">1.</span>/m)*np.dot(X,((A-Y).T))<br>    db = (<span class="hljs-number">1.</span>/m)*np.<span class="hljs-built_in">sum</span>(A-Y, axis=<span class="hljs-number">1</span>)<br>    <span class="hljs-comment">### END CODE HERE ###</span><br><br>    <span class="hljs-keyword">assert</span>(dw.shape == w.shape)<br>    <span class="hljs-keyword">assert</span>(db.dtype == <span class="hljs-built_in">float</span>)<br>    cost = np.squeeze(cost)<br>    <span class="hljs-keyword">assert</span>(cost.shape == ())<br>    <br>    grads = &#123;<span class="hljs-string">&quot;dw&quot;</span>: dw,<br>             <span class="hljs-string">&quot;db&quot;</span>: db&#125;<br>    <br>    <span class="hljs-keyword">return</span> grads, cost<br></code></pre></td></tr></table></figure>
+
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs python">w, b, X, Y = np.array([[<span class="hljs-number">1</span>],[<span class="hljs-number">2</span>]]), <span class="hljs-number">2</span>, np.array([[<span class="hljs-number">1</span>,<span class="hljs-number">2</span>],[<span class="hljs-number">3</span>,<span class="hljs-number">4</span>]]), np.array([[<span class="hljs-number">1</span>,<span class="hljs-number">0</span>]])<br>grads, cost = propagate(w, b, X, Y)<br><span class="hljs-built_in">print</span> (<span class="hljs-string">&quot;dw = &quot;</span> + <span class="hljs-built_in">str</span>(grads[<span class="hljs-string">&quot;dw&quot;</span>]))<br><span class="hljs-built_in">print</span> (<span class="hljs-string">&quot;db = &quot;</span> + <span class="hljs-built_in">str</span>(grads[<span class="hljs-string">&quot;db&quot;</span>]))<br><span class="hljs-built_in">print</span> (<span class="hljs-string">&quot;cost = &quot;</span> + <span class="hljs-built_in">str</span>(cost))<br></code></pre></td></tr></table></figure>
+
+<pre><code>dw = [[0.99993216]
+ [1.99980262]]
+db = [0.49993523]
+cost = 6.000064773192205
+</code></pre>
+<p><strong>Expected Output</strong>:</p>
+<table style="width:50%">
+    <tr>
+        <td>  ** dw **  </td>
+        <td> [[ 0.99993216]
+ [ 1.99980262]]</td>
+    </tr>
+    <tr>
+        <td>  ** db **  </td>
+        <td> 0.499935230625 </td>
+    </tr>
+    <tr>
+        <td>  ** cost **  </td>
+        <td> 6.000064773192205</td>
+    </tr>
+
+</table>
+
+<h3 id="d-Optimization"><a href="#d-Optimization" class="headerlink" title="d) Optimization"></a>d) Optimization</h3><ul>
+<li>You have initialized your parameters.</li>
+<li>You are also able to compute a cost function and its gradient.</li>
+<li>Now, you want to update the parameters using gradient descent.</li>
+</ul>
+<p><strong>Exercise:</strong> Write down the optimization function. The goal is to learn $w$ and $b$ by minimizing the cost function $J$. For a parameter $\theta$, the update rule is $ \theta = \theta - \alpha \text{ } d\theta$, where $\alpha$ is the learning rate.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment"># GRADED FUNCTION: optimize</span><br><br><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">optimize</span>(<span class="hljs-params">w, b, X, Y, num_iterations, learning_rate, print_cost = <span class="hljs-literal">False</span></span>):</span><br>    <span class="hljs-string">&quot;&quot;&quot;</span><br><span class="hljs-string">    This function optimizes w and b by running a gradient descent algorithm</span><br><span class="hljs-string">    </span><br><span class="hljs-string">    Arguments:</span><br><span class="hljs-string">    w -- weights, a numpy array of size (num_px * num_px * 3, 1)</span><br><span class="hljs-string">    b -- bias, a scalar</span><br><span class="hljs-string">    X -- data of shape (num_px * num_px * 3, number of examples)</span><br><span class="hljs-string">    Y -- true &quot;label&quot; vector (containing 0 if non-cat, 1 if cat), of shape (1, number of examples)</span><br><span class="hljs-string">    num_iterations -- number of iterations of the optimization loop</span><br><span class="hljs-string">    learning_rate -- learning rate of the gradient descent update rule</span><br><span class="hljs-string">    print_cost -- True to print the loss every 100 steps</span><br><span class="hljs-string">    </span><br><span class="hljs-string">    Returns:</span><br><span class="hljs-string">    params -- dictionary containing the weights w and bias b</span><br><span class="hljs-string">    grads -- dictionary containing the gradients of the weights and bias with respect to the cost function</span><br><span class="hljs-string">    costs -- list of all the costs computed during the optimization, this will be used to plot the learning curve.</span><br><span class="hljs-string">    </span><br><span class="hljs-string">    Tips:</span><br><span class="hljs-string">    You basically need to write down two steps and iterate through them:</span><br><span class="hljs-string">        1) Calculate the cost and the gradient for the current parameters. Use propagate().</span><br><span class="hljs-string">        2) Update the parameters using gradient descent rule for w and b.</span><br><span class="hljs-string">    &quot;&quot;&quot;</span><br>    <br>    costs = []<br>    <br>    <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(num_iterations):<br>        <br>        <br>        <span class="hljs-comment"># Cost and gradient calculation (≈ 1-4 lines of code)</span><br>        <span class="hljs-comment">### START CODE HERE ### </span><br>        grads, cost = propagate(w=w, b=b, X=X, Y=Y)<br>        <span class="hljs-comment">### END CODE HERE ###</span><br>        <br>        <span class="hljs-comment"># Retrieve derivatives from grads</span><br>        dw = grads[<span class="hljs-string">&quot;dw&quot;</span>]<br>        db = grads[<span class="hljs-string">&quot;db&quot;</span>]<br>        <br>        <span class="hljs-comment"># update rule (≈ 2 lines of code)</span><br>        <span class="hljs-comment">### START CODE HERE ###</span><br>        w = w - learning_rate*dw<br>        b = b -  learning_rate*db<br>        <span class="hljs-comment">### END CODE HERE ###</span><br>        <br>        <span class="hljs-comment"># Record the costs</span><br>        <span class="hljs-keyword">if</span> i % <span class="hljs-number">100</span> == <span class="hljs-number">0</span>:<br>            costs.append(cost)<br>        <br>        <span class="hljs-comment"># Print the cost every 100 training examples</span><br>        <span class="hljs-keyword">if</span> print_cost <span class="hljs-keyword">and</span> i % <span class="hljs-number">100</span> == <span class="hljs-number">0</span>:<br>            <span class="hljs-built_in">print</span> (<span class="hljs-string">&quot;Cost after iteration %i: %f&quot;</span> %(i, cost))<br>    <br>    params = &#123;<span class="hljs-string">&quot;w&quot;</span>: w,<br>              <span class="hljs-string">&quot;b&quot;</span>: b&#125;<br>    <br>    grads = &#123;<span class="hljs-string">&quot;dw&quot;</span>: dw,<br>             <span class="hljs-string">&quot;db&quot;</span>: db&#125;<br>    <br>    <span class="hljs-keyword">return</span> params, grads, costs<br></code></pre></td></tr></table></figure>
+
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs python">params, grads, costs = optimize(w, b, X, Y, num_iterations= <span class="hljs-number">100</span>, learning_rate = <span class="hljs-number">0.009</span>, print_cost = <span class="hljs-literal">False</span>)<br><br><span class="hljs-built_in">print</span> (<span class="hljs-string">&quot;w = &quot;</span> + <span class="hljs-built_in">str</span>(params[<span class="hljs-string">&quot;w&quot;</span>]))<br><span class="hljs-built_in">print</span> (<span class="hljs-string">&quot;b = &quot;</span> + <span class="hljs-built_in">str</span>(params[<span class="hljs-string">&quot;b&quot;</span>]))<br><span class="hljs-built_in">print</span> (<span class="hljs-string">&quot;dw = &quot;</span> + <span class="hljs-built_in">str</span>(grads[<span class="hljs-string">&quot;dw&quot;</span>]))<br><span class="hljs-built_in">print</span> (<span class="hljs-string">&quot;db = &quot;</span> + <span class="hljs-built_in">str</span>(grads[<span class="hljs-string">&quot;db&quot;</span>]))<br></code></pre></td></tr></table></figure>
+
+<pre><code>w = [[0.1124579 ]
+ [0.23106775]]
+b = [1.55930492]
+dw = [[0.90158428]
+ [1.76250842]]
+db = [0.43046207]
+</code></pre>
+<p><strong>Expected Output</strong>: </p>
+<table style="width:40%">
+    <tr>
+       <td> **w** </td>
+       <td>[[ 0.1124579 ]
+ [ 0.23106775]] </td>
+    </tr>
+    
+<pre><code>&lt;tr&gt;
+   &lt;td&gt; **b** &lt;/td&gt;
+   &lt;td&gt; 1.55930492484 &lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+   &lt;td&gt; **dw** &lt;/td&gt;
+   &lt;td&gt; [[ 0.90158428]
+</code></pre>
+<p> [ 1.76250842]] </td><br>    </tr><br>    <tr><br>       <td> <strong>db</strong> </td><br>       <td> 0.430462071679 </td><br>    </tr></p>
+</table>
+
+<p><strong>Exercise:</strong> The previous function will output the learned w and b. We are able to use w and b to predict the labels for a dataset X. Implement the <code>predict()</code> function. There is two steps to computing predictions:</p>
+<ol>
+<li><p>Calculate $\hat{Y} = A = \sigma(w^T X + b)$</p>
+</li>
+<li><p>Convert the entries of a into 0 (if activation &lt;= 0.5) or 1 (if activation &gt; 0.5), stores the predictions in a vector <code>Y_prediction</code>. If you wish, you can use an <code>if</code>/<code>else</code> statement in a <code>for</code> loop (though there is also a way to vectorize this). </p>
+</li>
+</ol>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment"># GRADED FUNCTION: predict</span><br><br><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">predict</span>(<span class="hljs-params">w, b, X</span>):</span><br>    <span class="hljs-string">&#x27;&#x27;&#x27;</span><br><span class="hljs-string">    Predict whether the label is 0 or 1 using learned logistic regression parameters (w, b)</span><br><span class="hljs-string">    </span><br><span class="hljs-string">    Arguments:</span><br><span class="hljs-string">    w -- weights, a numpy array of size (num_px * num_px * 3, 1)</span><br><span class="hljs-string">    b -- bias, a scalar</span><br><span class="hljs-string">    X -- data of size (num_px * num_px * 3, number of examples)</span><br><span class="hljs-string">    </span><br><span class="hljs-string">    Returns:</span><br><span class="hljs-string">    Y_prediction -- a numpy array (vector) containing all predictions (0/1) for the examples in X</span><br><span class="hljs-string">    &#x27;&#x27;&#x27;</span><br>    <br>    m = X.shape[<span class="hljs-number">1</span>]<br>    Y_prediction = np.zeros((<span class="hljs-number">1</span>,m))<br>    w = w.reshape(X.shape[<span class="hljs-number">0</span>], <span class="hljs-number">1</span>)<br>    <br>    <span class="hljs-comment"># Compute vector &quot;A&quot; predicting the probabilities of a cat being present in the picture</span><br>    <span class="hljs-comment">### START CODE HERE ### (≈ 1 line of code)</span><br>    A = sigmoid(np.dot(w.T, X) + b)<br>    <span class="hljs-comment">### END CODE HERE ###</span><br>    <br>    [<span class="hljs-built_in">print</span>(x) <span class="hljs-keyword">for</span> x <span class="hljs-keyword">in</span> A]<br>    <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(A.shape[<span class="hljs-number">1</span>]):<br>        <br>        <span class="hljs-comment"># Convert probabilities A[0,i] to actual predictions p[0,i]</span><br>        <span class="hljs-comment">### START CODE HERE ### (≈ 4 lines of code)</span><br>        <span class="hljs-keyword">if</span> A[<span class="hljs-number">0</span>, i] &gt;= <span class="hljs-number">0.5</span>:<br>            Y_prediction[<span class="hljs-number">0</span>, i] = <span class="hljs-number">1</span><br>            <br>        <span class="hljs-keyword">else</span>:<br>            Y_prediction[<span class="hljs-number">0</span>, i] = <span class="hljs-number">0</span><br>        <span class="hljs-comment">### END CODE HERE ###</span><br>    <span class="hljs-keyword">assert</span>(Y_prediction.shape == (<span class="hljs-number">1</span>, m))<br>    <br>    <span class="hljs-keyword">return</span> Y_prediction<br></code></pre></td></tr></table></figure>
+
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-built_in">print</span> (<span class="hljs-string">&quot;predictions = &quot;</span> + <span class="hljs-built_in">str</span>(predict(w, b, X)))<br></code></pre></td></tr></table></figure>
+
+<pre><code>[0.99987661 0.99999386]
+predictions = [[1. 1.]]
+</code></pre>
+<p><strong>Expected Output</strong>: </p>
+<table style="width:30%">
+    <tr>
+         <td>
+             **predictions**
+         </td>
+          <td>
+            [[ 1.  1.]]
+         </td>  
+   </tr>
+
+</table>
+
+
+<p><b><h4>What to remember </h4></b><br><font color='blue'><br>You’ve implemented several functions that:</p>
+<ul>
+<li>Initialize (w,b)</li>
+<li>Optimize the loss iteratively to learn parameters (w,b):<ul>
+<li>computing the cost and its gradient </li>
+<li>updating the parameters using gradient descent</li>
+</ul>
+</li>
+<li>Use the learned (w,b) to predict the labels for a given set of examples</font>
+<br></li>
+</ul>
+<h2 id="5-Merge-all-functions-into-a-model"><a href="#5-Merge-all-functions-into-a-model" class="headerlink" title="5 - Merge all functions into a model"></a>5 - Merge all functions into a model</h2><p>You will now see how the overall model is structured by putting together all the building blocks (functions implemented in the previous parts) together, in the right order.</p>
+<p><strong>Exercise:</strong> Implement the model function. Use the following notation:<br>    - Y_prediction for your predictions on the test set<br>    - Y_prediction_train for your predictions on the train set<br>    - w, costs, grads for the outputs of optimize()</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment"># GRADED FUNCTION: model</span><br><br><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">model</span>(<span class="hljs-params">X_train, Y_train, X_test, Y_test, num_iterations = <span class="hljs-number">2000</span>, learning_rate = <span class="hljs-number">0.5</span>, print_cost = <span class="hljs-literal">False</span></span>):</span><br>    <span class="hljs-string">&quot;&quot;&quot;</span><br><span class="hljs-string">    Builds the logistic regression model by calling the function you&#x27;ve implemented previously</span><br><span class="hljs-string">    </span><br><span class="hljs-string">    Arguments:</span><br><span class="hljs-string">    X_train -- training set represented by a numpy array of shape (num_px * num_px * 3, m_train)</span><br><span class="hljs-string">    Y_train -- training labels represented by a numpy array (vector) of shape (1, m_train)</span><br><span class="hljs-string">    X_test -- test set represented by a numpy array of shape (num_px * num_px * 3, m_test)</span><br><span class="hljs-string">    Y_test -- test labels represented by a numpy array (vector) of shape (1, m_test)</span><br><span class="hljs-string">    num_iterations -- hyperparameter representing the number of iterations to optimize the parameters</span><br><span class="hljs-string">    learning_rate -- hyperparameter representing the learning rate used in the update rule of optimize()</span><br><span class="hljs-string">    print_cost -- Set to true to print the cost every 100 iterations</span><br><span class="hljs-string">    </span><br><span class="hljs-string">    Returns:</span><br><span class="hljs-string">    d -- dictionary containing information about the model.</span><br><span class="hljs-string">    &quot;&quot;&quot;</span><br>    <br>    <span class="hljs-comment">### START CODE HERE ###</span><br>    <span class="hljs-comment"># initialize parameters with zeros (≈ 1 line of code)</span><br>    w, b = initialize_with_zeros(X_train.shape[<span class="hljs-number">0</span>])<br>    <span class="hljs-comment"># Gradient descent (≈ 1 line of code)</span><br>    parameters, grads, costs = optimize(w, b, X_train, Y_train, num_iterations, learning_rate, print_cost)<br>    <br>    <span class="hljs-comment"># Retrieve parameters w and b from dictionary &quot;parameters&quot;</span><br>    w = parameters[<span class="hljs-string">&quot;w&quot;</span>]<br>    b = parameters[<span class="hljs-string">&quot;b&quot;</span>]<br>    <br>    <span class="hljs-comment"># Predict test/train set examples (≈ 2 lines of code)</span><br>    Y_prediction_test = predict(w, b, X_test)<br>    Y_prediction_train = predict(w, b, X_train)<br><br>    <span class="hljs-comment">### END CODE HERE ###</span><br><br>    <span class="hljs-comment"># Print train/test Errors</span><br>    <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;train accuracy: &#123;&#125; %&quot;</span>.<span class="hljs-built_in">format</span>(<span class="hljs-number">100</span> - np.mean(np.<span class="hljs-built_in">abs</span>(Y_prediction_train - Y_train)) * <span class="hljs-number">100</span>))<br>    <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;test accuracy: &#123;&#125; %&quot;</span>.<span class="hljs-built_in">format</span>(<span class="hljs-number">100</span> - np.mean(np.<span class="hljs-built_in">abs</span>(Y_prediction_test - Y_test)) * <span class="hljs-number">100</span>))<br><br>    <br>    d = &#123;<span class="hljs-string">&quot;costs&quot;</span>: costs,<br>         <span class="hljs-string">&quot;Y_prediction_test&quot;</span>: Y_prediction_test, <br>         <span class="hljs-string">&quot;Y_prediction_train&quot;</span> : Y_prediction_train, <br>         <span class="hljs-string">&quot;w&quot;</span> : w, <br>         <span class="hljs-string">&quot;b&quot;</span> : b,<br>         <span class="hljs-string">&quot;learning_rate&quot;</span> : learning_rate,<br>         <span class="hljs-string">&quot;num_iterations&quot;</span>: num_iterations&#125;<br>    <br>    <span class="hljs-keyword">return</span> d<br></code></pre></td></tr></table></figure>
+
+<p>Run the following cell to train your model.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs python">d = model(train_set_x, train_set_y, test_set_x, test_set_y, num_iterations = <span class="hljs-number">2000</span>, learning_rate = <span class="hljs-number">0.005</span>, print_cost = <span class="hljs-literal">True</span>)<br></code></pre></td></tr></table></figure>
+
+<pre><code>Cost after iteration 0: 0.693147
+Cost after iteration 100: 0.584508
+Cost after iteration 200: 0.466949
+Cost after iteration 300: 0.376007
+Cost after iteration 400: 0.331463
+Cost after iteration 500: 0.303273
+Cost after iteration 600: 0.279880
+Cost after iteration 700: 0.260042
+Cost after iteration 800: 0.242941
+Cost after iteration 900: 0.228004
+Cost after iteration 1000: 0.214820
+Cost after iteration 1100: 0.203078
+Cost after iteration 1200: 0.192544
+Cost after iteration 1300: 0.183033
+Cost after iteration 1400: 0.174399
+Cost after iteration 1500: 0.166521
+Cost after iteration 1600: 0.159305
+Cost after iteration 1700: 0.152667
+Cost after iteration 1800: 0.146542
+Cost after iteration 1900: 0.140872
+[0.94366988 0.86095311 0.88896715 0.93630641 0.74075403 0.52849619
+ 0.03094677 0.85707681 0.88457925 0.67279696 0.26601085 0.4823794
+ 0.74741157 0.78575729 0.00978911 0.9203284  0.02453695 0.84884703
+ 0.2050248  0.03703224 0.92931392 0.11930532 0.01411064 0.7832698
+ 0.58188015 0.66897565 0.75119007 0.01323558 0.03402649 0.99735115
+ 0.21031727 0.78123225 0.6815842  0.46647604 0.66323375 0.03424828
+ 0.08031627 0.76570656 0.34760863 0.06177743 0.6987531  0.4106426
+ 0.6648871  0.02776868 0.93053125 0.46395717 0.23971605 0.9771735
+ 0.66202407 0.10482388]
+[1.96533335e-01 8.97519936e-02 8.90887727e-01 2.05354859e-04
+ 4.10043201e-02 1.13855541e-01 3.58425358e-02 9.20256043e-01
+ 8.11815498e-02 5.09505652e-02 1.43687735e-01 7.77661312e-01
+ 2.37002682e-01 9.26822611e-01 7.20256211e-01 4.54525029e-02
+ 2.88164240e-02 4.96209946e-02 9.53642451e-02 9.27127783e-01
+ 1.46871713e-02 4.42749993e-02 1.99658284e-01 5.10794145e-02
+ 8.71854257e-01 8.54873232e-01 4.43988460e-02 8.41877286e-01
+ 5.57178266e-02 7.39175253e-01 8.73390575e-02 7.61255429e-02
+ 2.01282223e-01 2.02159519e-01 7.95065561e-02 3.69885691e-02
+ 1.14655638e-02 5.90397260e-02 8.36880946e-01 3.33057415e-01
+ 1.98548242e-02 4.46965063e-01 8.23737950e-01 4.13465923e-02
+ 4.61512591e-02 1.21739845e-01 9.76716144e-02 8.07086225e-01
+ 8.93389416e-03 3.73249849e-02 7.53711249e-01 2.47934596e-01
+ 1.47013078e-01 3.93089594e-01 9.02530607e-01 3.94290174e-03
+ 9.38300399e-01 8.14429890e-01 5.51201724e-02 9.56820776e-01
+ 8.35826040e-01 7.75371183e-01 4.97406386e-02 5.05302748e-02
+ 1.68276426e-01 7.39795683e-02 4.23114248e-02 1.80374321e-01
+ 7.36839673e-01 2.36170561e-02 4.78407244e-02 9.72682719e-01
+ 8.87430447e-02 1.40500115e-01 7.39006094e-02 5.87414480e-01
+ 8.55122639e-04 3.51320419e-02 7.21341360e-02 1.59367000e-01
+ 9.18793718e-02 2.76678199e-03 2.16954763e-02 8.75788002e-01
+ 7.48905473e-01 2.61224310e-02 1.31264831e-01 5.58549892e-02
+ 7.96470422e-01 4.31114360e-02 2.46081640e-01 9.28094796e-02
+ 5.13207713e-01 9.23532733e-01 9.11010943e-01 1.56664277e-01
+ 1.40529680e-01 8.72871654e-01 6.33390909e-02 2.04276699e-01
+ 1.50378528e-01 5.42005811e-02 7.16869008e-01 8.93930822e-02
+ 9.68748123e-01 1.16897229e-01 9.65813244e-01 7.63463753e-01
+ 8.45184245e-01 7.94804824e-01 8.77046596e-01 8.92528474e-01
+ 2.33698759e-02 1.08088606e-01 9.41045938e-02 5.06133571e-02
+ 6.14255764e-02 8.74814031e-01 7.14021606e-03 1.49573407e-01
+ 1.38752636e-02 5.75050572e-01 4.74218632e-02 2.67728414e-04
+ 8.16437270e-01 5.25431990e-03 8.27320337e-01 1.63520986e-01
+ 9.19597717e-01 9.11124533e-01 2.96731271e-01 1.37316359e-01
+ 7.56632692e-02 9.51896490e-01 7.13340131e-01 5.62771203e-01
+ 8.46803645e-01 8.81283783e-01 5.80214923e-03 3.24191787e-02
+ 3.66569448e-02 4.24241240e-02 9.02746461e-01 6.95602248e-03
+ 7.28528692e-01 8.04734016e-01 8.48847026e-01 1.97286016e-01
+ 8.73972266e-01 8.56810568e-01 4.60108117e-01 9.98074787e-02
+ 2.67726747e-02 9.16713593e-01 5.70477051e-02 2.34413956e-01
+ 9.17441504e-01 1.43642340e-02 1.48384241e-02 4.18971050e-02
+ 4.81257763e-03 6.74987512e-02 7.96958661e-01 7.94548221e-02
+ 8.88055227e-01 1.63703299e-02 9.64896262e-01 4.74597209e-02
+ 3.78354422e-02 6.75950812e-01 7.60983832e-01 8.91154251e-01
+ 2.15482871e-01 1.80695199e-02 9.46591763e-01 7.71101522e-01
+ 4.14565207e-02 8.02916154e-01 8.02541805e-02 6.89037478e-01
+ 4.92103989e-02 4.87010785e-02 1.89987579e-02 3.71043577e-02
+ 1.73595068e-03 7.71575747e-01 4.06433366e-02 6.60606392e-02
+ 8.34508562e-01 2.27408842e-02 6.17839573e-02 4.56149270e-02
+ 7.64947622e-01 6.19347921e-02 3.55887869e-03 1.03103435e-01
+ 3.83745905e-01 8.77909931e-01 7.72818586e-02 1.79082665e-02
+ 8.09911232e-01 2.02130387e-02 1.89353139e-02 1.83142729e-02
+ 1.94041166e-01 2.01151983e-01 8.48224028e-02 1.61929290e-01
+ 1.82858623e-01]
+train accuracy: 99.04306220095694 %
+test accuracy: 70.0 %
+</code></pre>
+<p><strong>Expected Output</strong>: </p>
+<table style="width:40%"> 
+    
+<pre><code>&lt;tr&gt;
+    &lt;td&gt; **Train Accuracy**  &lt;/td&gt; 
+    &lt;td&gt; 99.04306220095694 % &lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+    &lt;td&gt;**Test Accuracy** &lt;/td&gt; 
+    &lt;td&gt; 70.0 % &lt;/td&gt;
+&lt;/tr&gt;
+</code></pre>
+</table> 
+
+
+
+
+<p><strong>Comment</strong>: Training accuracy is close to 100%. This is a good sanity check: your model is working and has high enough capacity to fit the training data. Test error is 68%. It is actually not bad for this simple model, given the small dataset we used and that logistic regression is a linear classifier. But no worries, you’ll build an even better classifier next week!</p>
+<p>Also, you see that the model is clearly overfitting the training data. Later in this specialization you will learn how to reduce overfitting, for example by using regularization. Using the code below (and changing the <code>index</code> variable) you can look at predictions on pictures of the test set.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment"># Example of a picture that was wrongly classified.</span><br>index = <span class="hljs-number">1</span><br>plt.imshow(test_set_x[:,index].reshape((num_px, num_px, <span class="hljs-number">3</span>)))<br><span class="hljs-built_in">print</span> (<span class="hljs-string">&quot;y = &quot;</span> + <span class="hljs-built_in">str</span>(test_set_y[<span class="hljs-number">0</span>,index]) + <span class="hljs-string">&quot;, you predicted that it is a \&quot;&quot;</span> + classes[<span class="hljs-built_in">int</span>(d[<span class="hljs-string">&quot;Y_prediction_test&quot;</span>][<span class="hljs-number">0</span>,index])].decode(<span class="hljs-string">&quot;utf-8&quot;</span>) +  <span class="hljs-string">&quot;\&quot; picture.&quot;</span>)<br></code></pre></td></tr></table></figure>
+
+<pre><code>y = 1, you predicted that it is a &quot;cat&quot; picture.
+</code></pre>
+<center><img src='https://lh3.googleusercontent.com/kJY-tRqpPcdQ7kqF3XJfo4RZ_-pauHBMdujmOlWP6janiuhNawemEADSBrPiqlgRi8vPHLqRVNrwqoxegsWCRDWwy8ntZMiT9BHxlPFfRfa9U4QGr7lNTWB4tNFRzryQuXPGReFn1g=w2400' /></center>
+
+
+<p>Let’s also plot the cost function and the gradients.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment"># Plot learning curve (with costs)</span><br>costs = np.squeeze(d[<span class="hljs-string">&#x27;costs&#x27;</span>])<br>plt.plot(costs)<br>plt.ylabel(<span class="hljs-string">&#x27;cost&#x27;</span>)<br>plt.xlabel(<span class="hljs-string">&#x27;iterations (per hundreds)&#x27;</span>)<br>plt.title(<span class="hljs-string">&quot;Learning rate =&quot;</span> + <span class="hljs-built_in">str</span>(d[<span class="hljs-string">&quot;learning_rate&quot;</span>]))<br>plt.show()<br></code></pre></td></tr></table></figure>
+
+
+<center><img src='https://lh3.googleusercontent.com/02H_4u-Q1y8hDW6L6nDzXAX6bE6QqP6WXfK_hrbXFYQ9Zxm4KVDJo9gEo3511OBsuvGzNo9GD6haI8auCtBkFlaEU2UDgCK6ReeVMyGqSg7brcTSQysUZr30K-Y7dTLdRzCVR67cMw=w2400' /></center>
+
+<p><strong>Interpretation</strong>:<br>You can see the cost decreasing. It shows that the parameters are being learned. However, you see that you could train the model even more on the training set. Try to increase the number of iterations in the cell above and rerun the cells. You might see that the training set accuracy goes up, but the test set accuracy goes down. This is called overfitting. </p>
+<h2 id="6-Further-analysis-optional-ungraded-exercise"><a href="#6-Further-analysis-optional-ungraded-exercise" class="headerlink" title="6 - Further analysis (optional/ungraded exercise)"></a>6 - Further analysis (optional/ungraded exercise)</h2><p>Congratulations on building your first image classification model. Let’s analyze it further, and examine possible choices for the learning rate $\alpha$. </p>
+<h4 id="Choice-of-learning-rate"><a href="#Choice-of-learning-rate" class="headerlink" title="Choice of learning rate"></a>Choice of learning rate</h4><p><strong>Reminder</strong>:<br>In order for Gradient Descent to work you must choose the learning rate wisely. The learning rate $\alpha$  determines how rapidly we update the parameters. If the learning rate is too large we may “overshoot” the optimal value. Similarly, if it is too small we will need too many iterations to converge to the best values. That’s why it is crucial to use a well-tuned learning rate.</p>
+<p>Let’s compare the learning curve of our model with several choices of learning rates. Run the cell below. This should take about 1 minute. Feel free also to try different values than the three we have initialized the <code>learning_rates</code> variable to contain, and see what happens. </p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><code class="hljs python">learning_rates = [<span class="hljs-number">0.01</span>, <span class="hljs-number">0.001</span>, <span class="hljs-number">0.0001</span>]<br>models = &#123;&#125;<br><span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> learning_rates:<br>    <span class="hljs-built_in">print</span> (<span class="hljs-string">&quot;learning rate is: &quot;</span> + <span class="hljs-built_in">str</span>(i))<br>    models[<span class="hljs-built_in">str</span>(i)] = model(train_set_x, train_set_y, test_set_x, test_set_y, num_iterations = <span class="hljs-number">1500</span>, learning_rate = i, print_cost = <span class="hljs-literal">False</span>)<br>    <span class="hljs-built_in">print</span> (<span class="hljs-string">&#x27;\n&#x27;</span> + <span class="hljs-string">&quot;-------------------------------------------------------&quot;</span> + <span class="hljs-string">&#x27;\n&#x27;</span>)<br><br><span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> learning_rates:<br>    plt.plot(np.squeeze(models[<span class="hljs-built_in">str</span>(i)][<span class="hljs-string">&quot;costs&quot;</span>]), label= <span class="hljs-built_in">str</span>(models[<span class="hljs-built_in">str</span>(i)][<span class="hljs-string">&quot;learning_rate&quot;</span>]))<br><br>plt.ylabel(<span class="hljs-string">&#x27;cost&#x27;</span>)<br>plt.xlabel(<span class="hljs-string">&#x27;iterations&#x27;</span>)<br><br>legend = plt.legend(loc=<span class="hljs-string">&#x27;upper center&#x27;</span>, shadow=<span class="hljs-literal">True</span>)<br>frame = legend.get_frame()<br>frame.set_facecolor(<span class="hljs-string">&#x27;0.90&#x27;</span>)<br>plt.show()<br></code></pre></td></tr></table></figure>
+
+<pre><code>learning rate is: 0.01
+[0.97125943 0.9155338  0.92079132 0.96358044 0.78924234 0.60411297
+ 0.01179527 0.89814048 0.91522859 0.70264065 0.19380387 0.49537355
+ 0.7927164  0.85423431 0.00298587 0.96199699 0.01234735 0.9107653
+ 0.13661137 0.01424336 0.96894735 0.1033746  0.00579297 0.86081326
+ 0.53811196 0.64950178 0.83272843 0.00426307 0.0131452  0.99947804
+ 0.11468372 0.82182442 0.69611733 0.4991522  0.67231401 0.01728165
+ 0.04136099 0.80069693 0.26832359 0.03958566 0.74731239 0.32116434
+ 0.71871197 0.01205725 0.96879962 0.62310364 0.17737126 0.98960523
+ 0.74697265 0.07284605]
+[1.47839654e-01 5.78008187e-02 9.42385025e-01 4.14849240e-05
+ 2.27209941e-02 7.29254668e-02 2.23704494e-02 9.49717864e-01
+ 5.41724296e-02 2.92729895e-02 6.82412300e-02 8.33370210e-01
+ 1.71420615e-01 9.66879883e-01 8.11537151e-01 2.44343483e-02
+ 7.87634098e-03 2.64027272e-02 5.60720049e-02 9.53130353e-01
+ 5.30865324e-03 3.11020745e-02 1.43606493e-01 1.92650473e-02
+ 9.30132798e-01 8.95291211e-01 2.72790550e-02 9.01480142e-01
+ 2.73987904e-02 8.09041583e-01 6.64266068e-02 5.00479730e-02
+ 1.29245158e-01 1.40274640e-01 6.48179131e-02 1.35261338e-02
+ 4.77693620e-03 2.65922710e-02 8.89771230e-01 2.64826222e-01
+ 1.22921585e-02 6.03229153e-01 8.81822076e-01 1.35079742e-02
+ 2.49595285e-02 6.88961126e-02 5.86046930e-02 8.68932415e-01
+ 5.14520331e-03 1.21099845e-02 8.23403970e-01 1.70985647e-01
+ 9.49977566e-02 3.04227660e-01 9.48091298e-01 8.09204729e-04
+ 9.66640038e-01 8.78319466e-01 3.17284880e-02 9.76165700e-01
+ 8.81584697e-01 8.48145722e-01 2.70795160e-02 2.28390397e-02
+ 1.05295676e-01 4.45165292e-02 1.22858876e-02 1.35813814e-01
+ 8.25867437e-01 9.21552651e-03 2.49353830e-02 9.88067070e-01
+ 5.78381495e-02 8.57292849e-02 4.10128551e-02 5.70507956e-01
+ 2.11603229e-04 1.52264723e-02 6.18390722e-02 1.39187810e-01
+ 6.68993749e-02 4.14281785e-04 1.23347660e-02 9.24789062e-01
+ 8.16880995e-01 9.29503655e-03 8.23770893e-02 2.75905821e-02
+ 8.52215781e-01 2.36580782e-02 1.75344552e-01 6.15499363e-02
+ 6.58017000e-01 9.54697511e-01 9.62775471e-01 1.05372217e-01
+ 9.37239413e-02 9.29062265e-01 2.68654456e-02 1.44668290e-01
+ 9.15662947e-02 2.89260930e-02 8.02603133e-01 6.11847790e-02
+ 9.87937140e-01 5.84677169e-02 9.87171184e-01 8.37167548e-01
+ 8.94717386e-01 8.58260204e-01 9.36232298e-01 9.33067878e-01
+ 8.77279900e-03 5.88387682e-02 5.09517612e-02 2.40626781e-02
+ 3.87480256e-02 9.35343373e-01 2.35202639e-03 8.83972091e-02
+ 4.49639004e-03 6.64404296e-01 1.76677024e-02 2.75426440e-05
+ 8.71728805e-01 2.43292078e-03 8.92351131e-01 9.50411299e-02
+ 9.66495010e-01 9.27285472e-01 2.66413779e-01 8.70883114e-02
+ 5.40743542e-02 9.75155426e-01 8.02323751e-01 6.92965782e-01
+ 9.06287458e-01 9.39900204e-01 1.64790714e-03 1.91364329e-02
+ 1.66925680e-02 1.46846281e-02 9.39237709e-01 2.57925925e-03
+ 8.19134439e-01 8.54311895e-01 9.10765301e-01 1.20452016e-01
+ 9.10603560e-01 9.11977137e-01 3.72174950e-01 6.13527932e-02
+ 1.30882743e-02 9.55225821e-01 4.30680816e-02 1.37970158e-01
+ 9.60868956e-01 8.67705030e-03 5.95741909e-03 2.19466774e-02
+ 1.78308409e-03 2.57658927e-02 8.63787547e-01 3.44218954e-02
+ 9.34152347e-01 9.35483274e-03 9.90908018e-01 1.17832722e-02
+ 2.67756870e-02 7.74546160e-01 8.43831858e-01 9.38847463e-01
+ 1.48599256e-01 4.17198956e-03 9.81043189e-01 8.22764984e-01
+ 1.92120393e-02 8.58870443e-01 5.37478573e-02 7.84878423e-01
+ 3.56080493e-02 2.80545014e-02 1.09777935e-02 1.30396160e-02
+ 3.81067987e-04 8.51025984e-01 2.44476492e-02 4.57657708e-02
+ 8.81871553e-01 1.06481927e-02 2.84032919e-02 1.96773463e-02
+ 8.54577180e-01 3.01055581e-02 1.33843958e-03 7.04152762e-02
+ 3.08344786e-01 9.25167630e-01 4.53183035e-02 9.31980521e-03
+ 8.69872444e-01 4.61339718e-03 4.86286962e-03 7.32772398e-03
+ 1.26009270e-01 1.46124056e-01 4.51019670e-02 1.45139959e-01
+ 1.45971589e-01]
+train accuracy: 99.52153110047847 %
+test accuracy: 68.0 %
+
+-------------------------------------------------------
+
+learning rate is: 0.001
+[0.74458179 0.63302701 0.70621076 0.7037801  0.5322598  0.43784581
+ 0.1843739  0.71778574 0.73717649 0.59122536 0.39837511 0.44491784
+ 0.63244572 0.53976962 0.09938522 0.7227688  0.12316033 0.58301417
+ 0.28145733 0.16609522 0.61461919 0.14166416 0.0865388  0.4251847
+ 0.67719513 0.61251308 0.46730808 0.11854922 0.21041046 0.8906756
+ 0.42313203 0.56013238 0.60322016 0.37148913 0.57460259 0.11968291
+ 0.24088599 0.65905854 0.4782032  0.14862075 0.4992436  0.61682528
+ 0.4795275  0.16260336 0.70722369 0.23929218 0.36719514 0.87223907
+ 0.45484261 0.19029187]
+[0.34403391 0.18575705 0.63392388 0.00949352 0.185803   0.30979007
+ 0.13544854 0.75931407 0.18856286 0.16653711 0.47903517 0.55094252
+ 0.39894694 0.67613631 0.32941411 0.15120523 0.1515817  0.10868391
+ 0.21533234 0.78261458 0.09236643 0.13102179 0.30209379 0.22018859
+ 0.60467471 0.63089631 0.13786841 0.52162666 0.2229145  0.41807311
+ 0.20928386 0.22354737 0.51863273 0.37446655 0.12619979 0.24763606
+ 0.08217106 0.20570627 0.61668309 0.47341694 0.07578526 0.20272218
+ 0.63694514 0.17332725 0.12774778 0.38987251 0.25716102 0.57589232
+ 0.03660729 0.23627192 0.5058546  0.44851881 0.26882028 0.54506441
+ 0.63427748 0.07593065 0.79389128 0.55848777 0.20399827 0.82950311
+ 0.67551516 0.49340246 0.12825017 0.19483707 0.30405843 0.25239064
+ 0.23849329 0.28306742 0.39562206 0.1338017  0.20953382 0.84559705
+ 0.25983452 0.43347997 0.25869745 0.5275365  0.01851016 0.18226072
+ 0.11686925 0.24360522 0.11457144 0.09711829 0.11403479 0.64158072
+ 0.56492264 0.14249209 0.26621215 0.23562087 0.63347539 0.19718838
+ 0.41665293 0.2560914  0.20511226 0.75854285 0.62700096 0.22437352
+ 0.24158168 0.58986637 0.18250551 0.31168748 0.40230892 0.18766222
+ 0.37363736 0.24954905 0.81540625 0.33905562 0.85287524 0.46460165
+ 0.64873862 0.49476607 0.58689285 0.73160658 0.15974705 0.28192355
+ 0.21969254 0.17213348 0.24140747 0.59506433 0.09843999 0.4664941
+ 0.11789794 0.41615495 0.28828188 0.01549565 0.57657208 0.03491378
+ 0.56433333 0.52342054 0.58263447 0.828261   0.33112864 0.30054751
+ 0.13866344 0.7796039  0.49905825 0.23849455 0.65130553 0.54865883
+ 0.07475945 0.15289783 0.17277205 0.21093974 0.77996081 0.05731401
+ 0.43542011 0.62528802 0.58301417 0.39592429 0.62711359 0.62164606
+ 0.52142034 0.2237536  0.11263677 0.69875451 0.13460421 0.59843604
+ 0.62542932 0.06223702 0.08147044 0.16677973 0.0471795  0.29026597
+ 0.53465382 0.37298272 0.67567251 0.08157721 0.80300364 0.36035876
+ 0.12411481 0.3216639  0.50044148 0.71061923 0.38536321 0.15865892
+ 0.73153708 0.60089581 0.19123039 0.60169201 0.21145324 0.35174627
+ 0.1036799  0.15432715 0.08266478 0.1765554  0.0315303  0.4005418
+ 0.12684962 0.13818573 0.69657105 0.10353719 0.15229696 0.170385
+ 0.39005657 0.21251557 0.03788715 0.32853945 0.47339083 0.62631301
+ 0.22739755 0.0902158  0.56782331 0.17507791 0.20252309 0.09500011
+ 0.34504767 0.39618939 0.25822558 0.24550552 0.30677401]
+train accuracy: 88.99521531100478 %
+test accuracy: 64.0 %
+
+-------------------------------------------------------
+
+learning rate is: 0.0001
+[0.45098635 0.48539489 0.40959087 0.44864257 0.32818894 0.43729766
+ 0.28884626 0.46438078 0.45494399 0.45491705 0.36938309 0.41863679
+ 0.45816519 0.5031755  0.2842568  0.45155065 0.30672371 0.37824086
+ 0.26505548 0.27737934 0.40677576 0.28781555 0.24304775 0.38397796
+ 0.50642581 0.47047843 0.35358916 0.31561491 0.39430714 0.4603235
+ 0.37998879 0.3764821  0.32056264 0.38693085 0.40764828 0.23150119
+ 0.311659   0.44981144 0.43152263 0.26276732 0.37785575 0.48883282
+ 0.37790798 0.30969512 0.47842906 0.32857529 0.34457076 0.60547775
+ 0.40733226 0.28828383]
+[0.4225819  0.31692389 0.42964509 0.14896683 0.28783033 0.38652698
+ 0.29492571 0.44991522 0.31988018 0.32391139 0.39318147 0.34804173
+ 0.40099138 0.31694856 0.28102266 0.3231201  0.25486297 0.18485428
+ 0.31900054 0.52941528 0.25568417 0.27297382 0.29762542 0.35834172
+ 0.38912252 0.4552143  0.2555983  0.34830216 0.29078565 0.27432926
+ 0.31094887 0.44330557 0.47172673 0.39765449 0.22386371 0.46108148
+ 0.27055987 0.31333951 0.49901097 0.439851   0.23953174 0.29809115
+ 0.42197081 0.28385499 0.2465556  0.40478121 0.35487343 0.45521241
+ 0.1451398  0.37485678 0.36671611 0.37909623 0.30298036 0.40151709
+ 0.40460677 0.24757226 0.50122617 0.38917296 0.3687779  0.50666786
+ 0.52492017 0.37864634 0.24031899 0.30627306 0.35114005 0.37398054
+ 0.43104844 0.31851314 0.37029232 0.29232461 0.37616632 0.52373453
+ 0.32507684 0.48381803 0.39170698 0.38646363 0.17397111 0.31623794
+ 0.24714356 0.35235176 0.17699762 0.33409149 0.3249697  0.49338319
+ 0.413497   0.25575577 0.31724095 0.36456893 0.45018347 0.34698807
+ 0.38500817 0.46053573 0.23091555 0.47268593 0.43291929 0.26828088
+ 0.30258929 0.4164904  0.24453098 0.27111067 0.39272427 0.3043153
+ 0.27984468 0.39085873 0.52409691 0.34966557 0.55950717 0.37739831
+ 0.43697184 0.33557455 0.38439647 0.48607992 0.30731772 0.31028645
+ 0.30037443 0.29400226 0.42714997 0.42909528 0.30432821 0.5227302
+ 0.32144602 0.4066469  0.43683178 0.17768611 0.4354696  0.18662466
+ 0.39558874 0.48819809 0.35425959 0.57279833 0.35098941 0.33429763
+ 0.31014998 0.49175402 0.44154511 0.31203466 0.38776576 0.38352489
+ 0.29611222 0.36104647 0.33824864 0.37198268 0.52831432 0.25732676
+ 0.36743298 0.44902822 0.37824086 0.36790056 0.41246464 0.37833397
+ 0.3418507  0.30119593 0.2592477  0.46753926 0.26777792 0.43134603
+ 0.32491304 0.19700069 0.25937972 0.33143626 0.19820128 0.35468513
+ 0.36334932 0.51823778 0.37235121 0.27650473 0.47271147 0.44760504
+ 0.33240186 0.29967323 0.41157608 0.47817969 0.39048545 0.28309008
+ 0.46350184 0.41099669 0.34508275 0.4323286  0.35065016 0.33976266
+ 0.25459527 0.29233107 0.26976618 0.30004182 0.18212017 0.34254174
+ 0.26213135 0.2674514  0.45817075 0.24356149 0.25227369 0.34588203
+ 0.3783451  0.32762257 0.19831251 0.51451759 0.3792938  0.41417054
+ 0.34795587 0.25521854 0.42313521 0.32557428 0.38342989 0.21943589
+ 0.34909483 0.39399177 0.36128874 0.38042346 0.38929593]
+train accuracy: 68.42105263157895 %
+test accuracy: 36.0 %
+
+-------------------------------------------------------
+</code></pre>
+<center><img src='https://lh3.googleusercontent.com/VISa3bYoaFyoyL4EnFg4OhGXPa_aIgC3M3hDJsOQP-3PK1ICbo9ZT3udg7Jp_nCRj9rxEjREN-wP83WaR6EVAV2dCC1FogwYI91awu3uX9EF0cUh3jApJxQb-0_VKQtBc0Telo5-Kw=w2400' /></center>
+
+<p><b>Interpretation:</b> </p>
+<ul>
+<li>Different learning rates give different costs and thus different predictions results.</li>
+<li>If the learning rate is too large (0.01), the cost may oscillate up and down. It may even diverge (though in this example, using 0.01 still eventually ends up at a good value for the cost). </li>
+<li>A lower cost doesn’t mean a better model. You have to check if there is possibly overfitting. It happens when the training accuracy is a lot higher than the test accuracy.</li>
+<li>In deep learning, we usually recommend that you: <ul>
+<li>Choose the learning rate that better minimizes the cost function.</li>
+<li>If your model overfits, use other techniques to reduce overfitting. (We’ll talk about this in later videos.) </li>
+</ul>
+</li>
+</ul>
+<h2 id="7-Test-with-your-own-image-optional-ungraded-exercise"><a href="#7-Test-with-your-own-image-optional-ungraded-exercise" class="headerlink" title="7 - Test with your own image (optional/ungraded exercise)"></a>7 - Test with your own image (optional/ungraded exercise)</h2><p>Congratulations on finishing this assignment. You can use your own image and see the output of your model. To do that:<br>    1. Click on “File” in the upper bar of this notebook, then click “Open” to go on your Coursera Hub.<br>    2. Add your image to this Jupyter Notebook’s directory, in the “images” folder<br>    3. Change your image’s name in the following code<br>    4. Run the code and check if the algorithm is right (1 = cat, 0 = non-cat)!</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment">## START CODE HERE ## (PUT YOUR IMAGE NAME) </span><br>my_image = <span class="hljs-string">&quot;my_image.jpg&quot;</span>   <span class="hljs-comment"># change this to the name of your image file </span><br><span class="hljs-comment">## END CODE HERE ##</span><br><br><span class="hljs-comment"># We preprocess the image to fit your algorithm.</span><br>fname = <span class="hljs-string">&quot;images/&quot;</span> + my_image<br>image = np.array(plt.imread(fname))<br>my_image = skimage.transform.resize(image, output_shape=(num_px,num_px)).reshape((<span class="hljs-number">1</span>, num_px*num_px*<span class="hljs-number">3</span>)).T<br>my_predicted_image = predict(d[<span class="hljs-string">&quot;w&quot;</span>], d[<span class="hljs-string">&quot;b&quot;</span>], my_image)<br><br>plt.imshow(image)<br><span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;y = &quot;</span> + <span class="hljs-built_in">str</span>(np.squeeze(my_predicted_image)) + <span class="hljs-string">&quot;, your algorithm predicts a \&quot;&quot;</span> + classes[<span class="hljs-built_in">int</span>(np.squeeze(my_predicted_image)),].decode(<span class="hljs-string">&quot;utf-8&quot;</span>) +  <span class="hljs-string">&quot;\&quot; picture.&quot;</span>)<br></code></pre></td></tr></table></figure>
+
+<pre><code>/Users/abanihi/opt/miniconda3/envs/pangeo/lib/python3.6/site-packages/skimage/transform/_warps.py:105: UserWarning: The default mode, &#39;constant&#39;, will be changed to &#39;reflect&#39; in skimage 0.15.
+  warn(&quot;The default mode, &#39;constant&#39;, will be changed to &#39;reflect&#39; in &quot;
+/Users/abanihi/opt/miniconda3/envs/pangeo/lib/python3.6/site-packages/skimage/transform/_warps.py:110: UserWarning: Anti-aliasing will be enabled by default in skimage 0.15 to avoid aliasing artifacts when down-sampling images.
+  warn(&quot;Anti-aliasing will be enabled by default in skimage 0.15 to &quot;
+
+
+[0.30930831]
+y = 0.0, your algorithm predicts a &quot;non-cat&quot; picture.
+</code></pre>
+<center><img src='https://lh3.googleusercontent.com/zRQjYeR_0i0Az8BynDY35YelX_s5nomdk0mQAlOjWdhWvSe70Ey4EKZntInJN3WwEb9i9lusqNNqtsBXc15qaEj0eyH8uYlDNxr72DjbeGaqvPjE9iZqmZcTozgW157sVuTlGePc8Q=w2400' /></center>
+
+<p><b><h4>What to remember from this assignment:</h4></b><br><font color='blue'></p>
+<ol>
+<li>Preprocessing the dataset is important.</li>
+<li>You implemented each function separately: initialize(), propagate(), optimize(). Then you built a model().</li>
+<li>Tuning the learning rate (which is an example of a “hyperparameter”) can make a big difference to the algorithm. You will see more examples of this later in this course!</li>
+</ol>
+<p>Finally, if you’d like, we invite you to try different things on this Notebook. Make sure you submit before trying anything. Once you submit, things you can play with include:<br>    - Play with the learning rate and the number of iterations<br>    - Try different initialization methods and compare the results<br>    - Test other preprocessings (center the data, or divide each row by its standard deviation)<br></font></p>
+<p>Bibliography:</p>
+<ul>
+<li><span class="exturl" data-url="aHR0cHM6Ly9zdGF0cy5zdGFja2V4Y2hhbmdlLmNvbS9xdWVzdGlvbnMvMjExNDM2L3doeS1kby13ZS1ub3JtYWxpemUtaW1hZ2VzLWJ5LXN1YnRyYWN0aW5nLXRoZS1kYXRhc2V0cy1pbWFnZS1tZWFuLWFuZC1ub3QtdGhlLWM=">https://stats.stackexchange.com/questions/211436/why-do-we-normalize-images-by-subtracting-the-datasets-image-mean-and-not-the-c<i class="fa fa-external-link-alt"></i></span></li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs python">%load_ext version_information<br>%version_information skimage, numpy, matplotlib, h5py, sklearn<br></code></pre></td></tr></table></figure>
+
+
+
+
+<table><tr><th>Software</th><th>Version</th></tr><tr><td>Python</td><td>3.6.6 64bit [GCC 4.2.1 Compatible Apple LLVM 6.1.0 (clang-602.0.53)]</td></tr><tr><td>IPython</td><td>7.0.1</td></tr><tr><td>OS</td><td>Darwin 17.7.0 x86_64 i386 64bit</td></tr><tr><td>skimage</td><td>0.14.1</td></tr><tr><td>numpy</td><td>1.15.1</td></tr><tr><td>matplotlib</td><td>3.0.0</td></tr><tr><td>h5py</td><td>2.8.0</td></tr><tr><td>sklearn</td><td>0.20.0</td></tr><tr><td colspan='2'>Mon Oct 15 08:33:43 2018 MDT</td></tr></table>
+
+  <p>Learn About Data Preprocessing : <a href = "https://massivefile.com/data_preprocessing_feature/" target="_blank"> Click Here </a></p>
+
+
+
+<h5>Credits - <a href='https://www.coursera.org/' target=”_blank >Coursera</a>,  <a href = 'https://en.wikipedia.org/wiki/Andrew_Ng' title="Andrew_Ng" target=”_blank>Credits to the teacher</a> , 
+<a href ='https://www.coursera.org/specializations/deep-learning?' target=”_blank>Deeplearning.ai Course</a><h5>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          
+          <div class="post-tags">
+              <a href="/tags/2020/" rel="tag"><i class="fa fa-tag"></i> 2020</a>
+              <a href="/tags/Assignment/" rel="tag"><i class="fa fa-tag"></i> Assignment</a>
+              <a href="/tags/Logistic-Regression-with-a-Neural-Network-mindset/" rel="tag"><i class="fa fa-tag"></i> Logistic Regression with a Neural Network mindset</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/supportvectorregression/" rel="prev" title="Support Vector Regression Implementation">
+      <i class="fa fa-chevron-left"></i> Support Vector Regression Implementation
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/NaiveBayesClassifier/" rel="next" title="Naive Bayes Classification">
+      Naive Bayes Classification <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Table-of-Contents"><span class="nav-number">1.</span> <span class="nav-text">Table of Contents</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Logistic-Regression-with-a-Neural-Network-mindset"><span class="nav-number">2.</span> <span class="nav-text">Logistic Regression with a Neural Network mindset</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-Packages"><span class="nav-number">2.1.</span> <span class="nav-text">1 - Packages</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#load-lr-utils-py"><span class="nav-number">3.</span> <span class="nav-text">load lr_utils.py</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#2-Overview-of-the-Problem-set"><span class="nav-number">3.1.</span> <span class="nav-text">2 - Overview of the Problem set</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link"><span class="nav-number">3.1.0.1.</span> <span class="nav-text">What you need to remember:</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-General-Architecture-of-the-learning-algorithm"><span class="nav-number">3.2.</span> <span class="nav-text">3 - General Architecture of the learning algorithm</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-Building-the-parts-of-our-algorithm"><span class="nav-number">3.3.</span> <span class="nav-text">4 - Building the parts of our algorithm</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#4-1-Helper-functions"><span class="nav-number">3.3.1.</span> <span class="nav-text">4.1 - Helper functions</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-2-Initializing-parameters"><span class="nav-number">3.3.2.</span> <span class="nav-text">4.2 - Initializing parameters</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-3-Forward-and-Backward-propagation"><span class="nav-number">3.3.3.</span> <span class="nav-text">4.3 - Forward and Backward propagation</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#d-Optimization"><span class="nav-number">3.3.4.</span> <span class="nav-text">d) Optimization</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link"><span class="nav-number">3.3.4.1.</span> <span class="nav-text">What to remember </span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-Merge-all-functions-into-a-model"><span class="nav-number">3.4.</span> <span class="nav-text">5 - Merge all functions into a model</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#6-Further-analysis-optional-ungraded-exercise"><span class="nav-number">3.5.</span> <span class="nav-text">6 - Further analysis (optional&#x2F;ungraded exercise)</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Choice-of-learning-rate"><span class="nav-number">3.5.0.1.</span> <span class="nav-text">Choice of learning rate</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#7-Test-with-your-own-image-optional-ungraded-exercise"><span class="nav-number">3.6.</span> <span class="nav-text">7 - Test with your own image (optional&#x2F;ungraded exercise)</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link"><span class="nav-number">3.6.0.1.</span> <span class="nav-text">What to remember from this assignment:</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link"><span class="nav-number">3.6.0.1.1.</span> <span class="nav-text">Credits - Coursera,  Credits to the teacher , 
+Deeplearning.ai Course
+</span></a></li><li class="nav-item nav-level-5"><a class="nav-link"><span class="nav-number">3.6.0.1.2.</span> <span class="nav-text">
+</span></a></li></ol></li></ol></li></ol></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Karan Arora"
+      src="/images/avatar.gif">
+  <p class="site-author-name" itemprop="name">Karan Arora</p>
+  <div class="site-description" itemprop="description">Trasforming data into Information</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">43</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">15</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">43</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <span class="exturl" data-url="bWFpbHRvOm1haWxtYXNzaXZlZmlsZUBnbWFpbC5jb20=" title="Get In Touch → mailto:mailmassivefile@gmail.com"><i class="fa fa-envelope fa-fw"></i>Get In Touch</span>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Karan Arora</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+      <span class="post-meta-item-text">Symbols count total: </span>
+    <span title="Symbols count total">446k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span class="post-meta-item-text">Reading time total &asymp;</span>
+    <span title="Reading time total">6:46</span>
+</div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/pjax/pjax.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js"></script>
+  <script src="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+<script src="/js/bookmark.js"></script>
+
+  <script>
+var pjax = new Pjax({
+  selectors: [
+    'head title',
+    '#page-configurations',
+    '.content-wrap',
+    '.post-toc-wrap',
+    '.languages',
+    '#pjax'
+  ],
+  switches: {
+    '.post-toc-wrap': Pjax.switches.innerHTML
+  },
+  analytics: false,
+  cacheBust: false,
+  scrollTo : !CONFIG.bookmark.enable
+});
+
+window.addEventListener('pjax:success', () => {
+  document.querySelectorAll('script[data-pjax], script#page-configurations, #pjax script').forEach(element => {
+    var code = element.text || element.textContent || element.innerHTML || '';
+    var parent = element.parentNode;
+    parent.removeChild(element);
+    var script = document.createElement('script');
+    if (element.id) {
+      script.id = element.id;
+    }
+    if (element.className) {
+      script.className = element.className;
+    }
+    if (element.type) {
+      script.type = element.type;
+    }
+    if (element.src) {
+      script.src = element.src;
+      // Force synchronous loading of peripheral JS.
+      script.async = false;
+    }
+    if (element.dataset.pjax !== undefined) {
+      script.dataset.pjax = '';
+    }
+    if (code !== '') {
+      script.appendChild(document.createTextNode(code));
+    }
+    parent.appendChild(script);
+  });
+  NexT.boot.refresh();
+  // Define Motion Sequence & Bootstrap Motion.
+  if (CONFIG.motion.enable) {
+    NexT.motion.integrator
+      .init()
+      .add(NexT.motion.middleWares.subMenu)
+      .add(NexT.motion.middleWares.postList)
+      .bootstrap();
+  }
+  NexT.utils.updateSidebarPosition();
+});
+</script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+<script data-pjax>
+document.querySelectorAll('.pdfobject-container').forEach(element => {
+  let url = element.dataset.target;
+  let pdfOpenParams = {
+    navpanes : 0,
+    toolbar  : 0,
+    statusbar: 0,
+    pagemode : 'thumbs',
+    view     : 'FitH'
+  };
+  let pdfOpenFragment = '#' + Object.entries(pdfOpenParams).map(([key, value]) => `${key}=${encodeURIComponent(value)}`).join('&');
+  let fullURL = `/lib/pdf/web/viewer.html?file=${encodeURIComponent(url)}${pdfOpenFragment}`;
+
+  if (NexT.utils.supportsPDFs()) {
+    element.innerHTML = `<embed class="pdfobject" src="${url + pdfOpenFragment}" type="application/pdf" style="height: ${element.dataset.height};">`;
+  } else {
+    element.innerHTML = `<iframe src="${fullURL}" style="height: ${element.dataset.height};" frameborder="0"></iframe>`;
+  }
+});
+</script>
+
+
+
+
+    <div id="pjax">
+  
+
+  
+      
+
+<script>
+  if (typeof MathJax === 'undefined') {
+    window.MathJax = {
+      loader: {
+          load: ['[tex]/mhchem'],
+        source: {
+          '[tex]/amsCd': '[tex]/amscd',
+          '[tex]/AMScd': '[tex]/amscd'
+        }
+      },
+      tex: {
+        inlineMath: {'[+]': [['$', '$']]},
+          packages: {'[+]': ['mhchem']},
+        tags: 'ams'
+      },
+      options: {
+        renderActions: {
+          findScript: [10, doc => {
+            document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+              const display = !!node.type.match(/; *mode=display/);
+              const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+              const text = document.createTextNode('');
+              node.parentNode.replaceChild(text, node);
+              math.start = {node: text, delim: '', n: 0};
+              math.end = {node: text, delim: '', n: 0};
+              doc.math.push(math);
+            });
+          }, '', false],
+          insertedScript: [200, () => {
+            document.querySelectorAll('mjx-container').forEach(node => {
+              let target = node.parentNode;
+              if (target.nodeName.toLowerCase() === 'li') {
+                target.parentNode.classList.add('has-jax');
+              }
+            });
+          }, '', false]
+        }
+      }
+    };
+    (function () {
+      var script = document.createElement('script');
+      script.src = '//cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js';
+      script.defer = true;
+      document.head.appendChild(script);
+    })();
+  } else {
+    MathJax.startup.document.state(0);
+    MathJax.texReset();
+    MathJax.typeset();
+  }
+</script>
+
+    
+
+  
+
+    </div>
+</body>
+</html>

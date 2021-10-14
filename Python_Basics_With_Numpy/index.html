@@ -1,0 +1,1003 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"massivefile.com","root":"/","scheme":"Gemini","version":"7.8.0","exturl":true,"sidebar":{"position":"left","display":"post","padding":20,"offset":15,"onmobile":false},"copycode":{"enable":true,"show_result":"flat","style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":true,"color":"#222","save":false},"fancybox":true,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta property="og:type" content="article">
+<meta property="og:title" content="Python Basics With Numpy">
+<meta property="og:url" content="https://massivefile.com/Python_Basics_With_Numpy/index.html">
+<meta property="og:site_name" content="Massivefile.com - Blog">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2020-04-09T18:30:00.000Z">
+<meta property="article:modified_time" content="2021-10-13T15:46:19.979Z">
+<meta property="article:author" content="Karan Arora">
+<meta property="article:tag" content="2020">
+<meta property="article:tag" content="Assignment">
+<meta property="article:tag" content="Python Basics With Numpy">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://massivefile.com/Python_Basics_With_Numpy/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'en'
+  };
+</script>
+
+  <title>Python Basics With Numpy | Massivefile.com - Blog</title>
+  
+    <script>
+      function sendPageView() {
+        if (CONFIG.hostname !== location.hostname) return;
+        var uid = localStorage.getItem('uid') || (Math.random() + '.' + Math.random());
+        localStorage.setItem('uid', uid);
+        navigator.sendBeacon('https://www.google-analytics.com/collect', new URLSearchParams({
+          v  : 1,
+          tid: 'UA-163312538-2',
+          cid: uid,
+          t  : 'pageview',
+          dp : encodeURIComponent(location.pathname)
+        }));
+      }
+      document.addEventListener('pjax:complete', sendPageView);
+      sendPageView();
+    </script>
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta custom-logo">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Massivefile.com - Blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">Programming & Data Science</p>
+      <a>
+        <img class="custom-logo-image" src="/images/custom-logo.jpg" alt="Massivefile.com - Blog">
+      </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags<span class="badge">43</span></a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories<span class="badge">15</span></a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives<span class="badge">43</span></a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
+
+  <a href="https://massivefile.com/karan/" class="github-corner" title="See Portfolio Website" aria-label="See Portfolio Website"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://massivefile.com/Python_Basics_With_Numpy/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Karan Arora">
+      <meta itemprop="description" content="Trasforming data into Information">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Massivefile.com - Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Python Basics With Numpy
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2020-04-10 00:00:00" itemprop="dateCreated datePublished" datetime="2020-04-10T00:00:00+05:30">2020-04-10</time>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="Symbols count in article">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">Symbols count in article: </span>
+              <span>21k</span>
+            </span>
+            <span class="post-meta-item" title="Reading time">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">Reading time &asymp;</span>
+              <span>19 mins.</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <body><span id="more"></span>
+<i><b>Note - These are my notes on DeepLearning Specialization Part: 
+Python Basics With Numpy  || (Course- 1 Week - 2) || Neural Networks and Deep Learning (Week 2)</i></b>
+# Table of Contents
+ <p><div class="lev1 toc-item"><a href="#Python-Basics-with-Numpy-(optional-assignment)" data-toc-modified-id="Python-Basics-with-Numpy-(optional-assignment)-1"><span class="toc-item-num">1&nbsp;&nbsp;</span>Python Basics with Numpy (optional assignment)</a></div><div class="lev2 toc-item"><a href="#About-iPython-Notebooks" data-toc-modified-id="About-iPython-Notebooks-11"><span class="toc-item-num">1.1&nbsp;&nbsp;</span>About iPython Notebooks</a></div><div class="lev2 toc-item"><a href="#1---Building-basic-functions-with-numpy" data-toc-modified-id="1---Building-basic-functions-with-numpy-12"><span class="toc-item-num">1.2&nbsp;&nbsp;</span>1 - Building basic functions with numpy</a></div><div class="lev3 toc-item"><a href="#1.1---sigmoid-function,-np.exp()" data-toc-modified-id="1.1---sigmoid-function,-np.exp()-121"><span class="toc-item-num">1.2.1&nbsp;&nbsp;</span>1.1 - sigmoid function, np.exp()</a></div><div class="lev3 toc-item"><a href="#1.2---Sigmoid-gradient" data-toc-modified-id="1.2---Sigmoid-gradient-122"><span class="toc-item-num">1.2.2&nbsp;&nbsp;</span>1.2 - Sigmoid gradient</a></div><div class="lev3 toc-item"><a href="#1.3---Reshaping-arrays" data-toc-modified-id="1.3---Reshaping-arrays-123"><span class="toc-item-num">1.2.3&nbsp;&nbsp;</span>1.3 - Reshaping arrays</a></div><div class="lev3 toc-item"><a href="#1.4---Normalizing-rows" data-toc-modified-id="1.4---Normalizing-rows-124"><span class="toc-item-num">1.2.4&nbsp;&nbsp;</span>1.4 - Normalizing rows</a></div><div class="lev3 toc-item"><a href="#1.5---Broadcasting-and-the-softmax-function" data-toc-modified-id="1.5---Broadcasting-and-the-softmax-function-125"><span class="toc-item-num">1.2.5&nbsp;&nbsp;</span>1.5 - Broadcasting and the softmax function</a></div><div class="lev2 toc-item"><a href="#2)-Vectorization" data-toc-modified-id="2)-Vectorization-13"><span class="toc-item-num">1.3&nbsp;&nbsp;</span>2) Vectorization</a></div><div class="lev3 toc-item"><a href="#2.1-Implement-the-L1-and-L2-loss-functions" data-toc-modified-id="2.1-Implement-the-L1-and-L2-loss-functions-131"><span class="toc-item-num">1.3.1&nbsp;&nbsp;</span>2.1 Implement the L1 and L2 loss functions</a></div>
+
+<h1 id="Python-Basics-with-Numpy-optional-assignment"><a href="#Python-Basics-with-Numpy-optional-assignment" class="headerlink" title="Python Basics with Numpy (optional assignment)"></a>Python Basics with Numpy (optional assignment)</h1><p>Welcome to your first assignment. This exercise gives you a brief introduction to Python. Even if you’ve used Python before, this will help familiarize you with functions we’ll need.  </p>
+<p><strong>Instructions:</strong></p>
+<ul>
+<li>You will be using Python 3.</li>
+<li>Avoid using for-loops and while-loops, unless you are explicitly told to do so.</li>
+<li>Do not modify the (GRADED FUNCTION [function name]) comment in some cells. Your work would not be graded if you change this. Each cell containing that comment should only contain one function.</li>
+<li>After coding your function, run the cell right below it to check if your result is correct.</li>
+</ul>
+<p><strong>After this assignment you will:</strong></p>
+<ul>
+<li>Be able to use iPython Notebooks</li>
+<li>Be able to use numpy functions and numpy matrix/vector operations</li>
+<li>Understand the concept of “broadcasting”</li>
+<li>Be able to vectorize code</li>
+</ul>
+<p>Let’s get started!</p>
+<h2 id="About-iPython-Notebooks"><a href="#About-iPython-Notebooks" class="headerlink" title="About iPython Notebooks"></a>About iPython Notebooks</h2><p>iPython Notebooks are interactive coding environments embedded in a webpage. You will be using iPython notebooks in this class. You only need to write code between the ### START CODE HERE ### and ### END CODE HERE ### comments. After writing your code, you can run the cell by either pressing “SHIFT”+”ENTER” or by clicking on “Run Cell” (denoted by a play symbol) in the upper bar of the notebook. </p>
+<p>We will often specify “(≈ X lines of code)” in the comments to tell you about how much code you need to write. It is just a rough estimate, so don’t feel bad if your code is longer or shorter.</p>
+<p><strong>Exercise</strong>: Set test to <code>&quot;Hello World&quot;</code> in the cell below to print “Hello World” and run the two cells below.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment">### START CODE HERE ### (≈ 1 line of code)</span><br>test = <span class="hljs-string">&quot;Hello World&quot;</span><br><span class="hljs-comment">### END CODE HERE ###</span><br></code></pre></td></tr></table></figure>
+
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-built_in">print</span> (<span class="hljs-string">&quot;test: &quot;</span> + test)<br></code></pre></td></tr></table></figure>
+
+<pre><code>test: Hello World
+</code></pre>
+<p><strong>Expected output</strong>:<br>test: Hello World</p>
+<font color='blue'>
+**What you need to remember**:
+- Run your cells using SHIFT+ENTER (or "Run cell")
+- Write code in the designated areas using Python 3 only
+- Do not modify the code outside of the designated areas
+</font>
+
+<h3> 1 - Building basic functions with numpy </h3>
+
+<p>Numpy is the main package for scientific computing in Python. It is maintained by a large community (<span class="exturl" data-url="aHR0cHM6Ly93d3cubnVtcHkub3JnLw==">https://www.numpy.org<i class="fa fa-external-link-alt"></i></span>). In this exercise you will learn several key numpy functions such as np.exp, np.log, and np.reshape. You will need to know how to use these functions for future assignments.</p>
+<h3 id="1-1-sigmoid-function-np-exp"><a href="#1-1-sigmoid-function-np-exp" class="headerlink" title="1.1 - sigmoid function, np.exp()"></a>1.1 - sigmoid function, np.exp()</h3><p>Before using np.exp(), you will use math.exp() to implement the sigmoid function. You will then see why np.exp() is preferable to math.exp().</p>
+<p><strong>Exercise</strong>: Build a function that returns the sigmoid of a real number x. Use math.exp(x) for the exponential function.</p>
+<p><strong>Reminder</strong>:<br>$sigmoid(x) = \frac{1}{1+e^{-x}}$ is sometimes also known as the logistic function. It is a non-linear function used not only in Machine Learning (Logistic Regression), but also in Deep Learning.</p>
+<p>To refer to a function belonging to a specific package you could call it using package_name.function(). Run the code below to see an example with math.exp().</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment"># GRADED FUNCTION: basic_sigmoid</span><br><br><span class="hljs-keyword">import</span> math<br><br><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">basic_sigmoid</span>(<span class="hljs-params">x</span>):</span><br>    <span class="hljs-string">&quot;&quot;&quot;</span><br><span class="hljs-string">    Compute sigmoid of x.</span><br><span class="hljs-string"></span><br><span class="hljs-string">    Arguments:</span><br><span class="hljs-string">    x -- A scalar</span><br><span class="hljs-string"></span><br><span class="hljs-string">    Return:</span><br><span class="hljs-string">    s -- sigmoid(x)</span><br><span class="hljs-string">    &quot;&quot;&quot;</span><br>    <br>    <span class="hljs-comment">### START CODE HERE ### (≈ 1 line of code)</span><br>    s = <span class="hljs-number">1</span> / (<span class="hljs-number">1</span> + math.exp(-x))<br>    <span class="hljs-comment">### END CODE HERE ###</span><br>    <br>    <span class="hljs-keyword">return</span> s<br></code></pre></td></tr></table></figure>
+
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs python">basic_sigmoid(<span class="hljs-number">3</span>)<br></code></pre></td></tr></table></figure>
+
+
+
+
+<pre><code>0.9525741268224334
+</code></pre>
+<p><strong>Expected Output</strong>: </p>
+<table style = "width:40%">
+    <tr>
+    <td>** basic_sigmoid(3) **</td> 
+        <td>0.9525741268224334 </td> 
+    </tr>
+
+</table>
+
+<p>Actually, we rarely use the “math” library in deep learning because the inputs of the functions are real numbers. In deep learning we mostly use matrices and vectors. This is why numpy is more useful. </p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment">### One reason why we use &quot;numpy&quot; instead of &quot;math&quot; in Deep Learning ###</span><br><span class="hljs-comment"># x = [1, 2, 3]</span><br><span class="hljs-comment"># basic_sigmoid(x) # you will see this give an error when you run it, because x is a vector.</span><br></code></pre></td></tr></table></figure>
+
+
+<pre><code>---------------------------------------------------------------------------
+
+TypeError                                 Traceback (most recent call last)
+
+&lt;ipython-input-5-8ccefa5bf989&gt; in &lt;module&gt;
+      1 ### One reason why we use &quot;numpy&quot; instead of &quot;math&quot; in Deep Learning ###
+      2 x = [1, 2, 3]
+----&gt; 3 basic_sigmoid(x) # you will see this give an error when you run it, because x is a vector.
+
+
+&lt;ipython-input-3-6bbe580769a3&gt; in basic_sigmoid(x)
+     15 
+     16     ### START CODE HERE ### (≈ 1 line of code)
+---&gt; 17     s = 1 / (1 + math.exp(-x))
+     18     ### END CODE HERE ###
+     19 
+
+
+TypeError: bad operand type for unary -: &#39;list&#39;
+</code></pre>
+<p>In fact, if $ x = (x_1, x_2, …, x_n)$ is a row vector then $np.exp(x)$ will apply the exponential function to every element of x. The output will thus be: $np.exp(x) = (e^{x_1}, e^{x_2}, …, e^{x_n})$</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> numpy <span class="hljs-keyword">as</span> np<br><br><span class="hljs-comment"># example of np.exp</span><br>x = np.array([<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>])<br><span class="hljs-built_in">print</span>(np.exp(x)) <span class="hljs-comment"># result is (exp(1), exp(2), exp(3))</span><br></code></pre></td></tr></table></figure>
+
+<pre><code>[ 2.71828183  7.3890561  20.08553692]
+</code></pre>
+<p>Furthermore, if x is a vector, then a Python operation such as $s = x + 3$ or $s = \frac{1}{x}$ will output s as a vector of the same size as x.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment"># example of vector operation</span><br>x = np.array([<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>])<br><span class="hljs-built_in">print</span> (x + <span class="hljs-number">3</span>)<br></code></pre></td></tr></table></figure>
+
+<pre><code>[4 5 6]
+</code></pre>
+<p>Any time you need more info on a numpy function, we encourage you to look at <span class="exturl" data-url="aHR0cHM6Ly9kb2NzLnNjaXB5Lm9yZy9kb2MvbnVtcHktMS4xMC4xL3JlZmVyZW5jZS9nZW5lcmF0ZWQvbnVtcHkuZXhwLmh0bWw=">the official documentation<i class="fa fa-external-link-alt"></i></span>. </p>
+<p>You can also create a new cell in the notebook and write <code>np.exp?</code> (for example) to get quick access to the documentation.</p>
+<p><strong>Exercise</strong>: Implement the sigmoid function using numpy. </p>
+<p><strong>Instructions</strong>: x could now be either a real number, a vector, or a matrix. The data structures we use in numpy to represent these shapes (vectors, matrices…) are called numpy arrays. You don’t need to know more for now.<br>$$<br>\text{For } x \in \mathbb{R}^n \<br>\text{,     } sigmoid(x) = $$<br>sigmoid<br>$$<br>\begin{pmatrix}<br>    x_1  \<br>    x_2  \<br>    …  \<br>    x_n  \<br>\end{pmatrix} =<br>\begin{pmatrix}<br>    \frac{1}{1+e^{-x_1}}  \<br>    \frac{1}{1+e^{-x_2}}  \<br>    …  \<br>    \frac{1}{1+e^{-x_n}}  \<br>\end{pmatrix}\tag{1} $$</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment"># GRADED FUNCTION: sigmoid</span><br><br><span class="hljs-keyword">import</span> numpy <span class="hljs-keyword">as</span> np <span class="hljs-comment"># this means you can access numpy functions by writing np.function() instead of numpy.function()</span><br><br><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">sigmoid</span>(<span class="hljs-params">x</span>):</span><br>    <span class="hljs-string">&quot;&quot;&quot;</span><br><span class="hljs-string">    Compute the sigmoid of x</span><br><span class="hljs-string"></span><br><span class="hljs-string">    Arguments:</span><br><span class="hljs-string">    x -- A scalar or numpy array of any size</span><br><span class="hljs-string"></span><br><span class="hljs-string">    Return:</span><br><span class="hljs-string">    s -- sigmoid(x)</span><br><span class="hljs-string">    &quot;&quot;&quot;</span><br>    <br>    <span class="hljs-comment">### START CODE HERE ### (≈ 1 line of code)</span><br>    s = <span class="hljs-number">1.</span> / (<span class="hljs-number">1</span> + np.exp(-x))<br>    <span class="hljs-comment">### END CODE HERE ###</span><br>    <br>    <span class="hljs-keyword">return</span> s<br></code></pre></td></tr></table></figure>
+
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs python">x = np.array([<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>])<br>sigmoid(x)<br></code></pre></td></tr></table></figure>
+
+
+
+
+<pre><code>array([0.73105858, 0.88079708, 0.95257413])
+</code></pre>
+<p><strong>Expected Output</strong>: </p>
+<table>
+    <tr> 
+        <td> **sigmoid([1,2,3])**</td> 
+        <td> array([ 0.73105858,  0.88079708,  0.95257413]) </td> 
+    </tr>
+</table> 
+
+
+<h3 id="1-2-Sigmoid-gradient"><a href="#1-2-Sigmoid-gradient" class="headerlink" title="1.2 - Sigmoid gradient"></a>1.2 - Sigmoid gradient</h3><p>As you’ve seen in lecture, you will need to compute gradients to optimize loss functions using backpropagation. Let’s code your first gradient function.</p>
+<p><strong>Exercise</strong>: Implement the function sigmoid_grad() to compute the gradient of the sigmoid function with respect to its input x. The formula is: $$sigmoid_derivative(x) = \sigma’(x) = $$<br>$$ \sigma(x) (1 - \sigma(x))\tag{2}$$<br>You often code this function in two steps:</p>
+<ol>
+<li>Set s to be the sigmoid of x. You might find your sigmoid(x) function useful.</li>
+<li>Compute $\sigma’(x) = s(1-s)$</li>
+</ol>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment"># GRADED FUNCTION: sigmoid_derivative</span><br><br><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">sigmoid_derivative</span>(<span class="hljs-params">x</span>):</span><br>    <span class="hljs-string">&quot;&quot;&quot;</span><br><span class="hljs-string">    Compute the gradient (also called the slope or derivative) of the sigmoid function with respect to its input x.</span><br><span class="hljs-string">    You can store the output of the sigmoid function into variables and then use it to calculate the gradient.</span><br><span class="hljs-string">    </span><br><span class="hljs-string">    Arguments:</span><br><span class="hljs-string">    x -- A scalar or numpy array</span><br><span class="hljs-string"></span><br><span class="hljs-string">    Return:</span><br><span class="hljs-string">    ds -- Your computed gradient.</span><br><span class="hljs-string">    &quot;&quot;&quot;</span><br>    <br>    <span class="hljs-comment">### START CODE HERE ### (≈ 2 lines of code)</span><br>    s = sigmoid(x)<br>    ds = s * (<span class="hljs-number">1</span>-s)<br>    <span class="hljs-comment">### END CODE HERE ###</span><br>    <br>    <span class="hljs-keyword">return</span> ds<br></code></pre></td></tr></table></figure>
+
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs python">x = np.array([<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>])<br><span class="hljs-built_in">print</span> (<span class="hljs-string">&quot;sigmoid_derivative(x) = &quot;</span> + <span class="hljs-built_in">str</span>(sigmoid_derivative(x)))<br></code></pre></td></tr></table></figure>
+
+<pre><code>sigmoid_derivative(x) = [0.19661193 0.10499359 0.04517666]
+</code></pre>
+<p><strong>Expected Output</strong>: </p>
+<table>
+    <tr> 
+        <td> **sigmoid_derivative([1,2,3])**</td> 
+        <td> [ 0.19661193  0.10499359  0.04517666] </td> 
+    </tr>
+</table> 
+
+
+
+<h3 id="1-3-Reshaping-arrays"><a href="#1-3-Reshaping-arrays" class="headerlink" title="1.3 - Reshaping arrays"></a>1.3 - Reshaping arrays</h3><p>Two common numpy functions used in deep learning are <span class="exturl" data-url="aHR0cHM6Ly9kb2NzLnNjaXB5Lm9yZy9kb2MvbnVtcHkvcmVmZXJlbmNlL2dlbmVyYXRlZC9udW1weS5uZGFycmF5LnNoYXBlLmh0bWw=">np.shape<i class="fa fa-external-link-alt"></i></span> and <span class="exturl" data-url="aHR0cHM6Ly9kb2NzLnNjaXB5Lm9yZy9kb2MvbnVtcHkvcmVmZXJlbmNlL2dlbmVyYXRlZC9udW1weS5yZXNoYXBlLmh0bWw=">np.reshape()<i class="fa fa-external-link-alt"></i></span>. </p>
+<ul>
+<li>X.shape is used to get the shape (dimension) of a matrix/vector X. </li>
+<li>X.reshape(…) is used to reshape X into some other dimension. </li>
+</ul>
+<p>For example, in computer science, an image is represented by a 3D array of shape $$ (length, height, depth = 3) $$. However, when you read an image as the input of an algorithm you convert it to a vector of shape - (length<em>height</em>3, 1) </p>
+<p>In other words, you “unroll”, or reshape, the 3D array into a 1D vector.</p>
+<p><strong>Exercise</strong>: Implement <code>image2vector()</code> that takes an input of shape (length, height, 3) and returns a vector of shape (length*height*3, 1). For example, if you would like to reshape an array v of shape (a, b, c) into a vector of shape (a*b,c) you would do:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs python">v = v.reshape((v.shape[<span class="hljs-number">0</span>]*v.shape[<span class="hljs-number">1</span>], v.shape[<span class="hljs-number">2</span>])) <span class="hljs-comment"># v.shape[0] = a ; v.shape[1] = b ; v.shape[2] = c</span><br></code></pre></td></tr></table></figure>
+<ul>
+<li>Please don’t hardcode the dimensions of image as a constant. Instead look up the quantities you need with <code>image.shape[0]</code>, etc. </li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment"># GRADED FUNCTION: image2vector</span><br><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">image2vector</span>(<span class="hljs-params">image</span>):</span><br>    <span class="hljs-string">&quot;&quot;&quot;</span><br><span class="hljs-string">    Argument:</span><br><span class="hljs-string">    image -- a numpy array of shape (length, height, depth)</span><br><span class="hljs-string">    </span><br><span class="hljs-string">    Returns:</span><br><span class="hljs-string">    v -- a vector of shape (length*height*depth, 1)</span><br><span class="hljs-string">    &quot;&quot;&quot;</span><br>    <br>    <span class="hljs-comment">### START CODE HERE ### (≈ 1 line of code)</span><br>    v = image.reshape(image.size, <span class="hljs-number">1</span>)<br>    <span class="hljs-comment">### END CODE HERE ###</span><br>    <br>    <span class="hljs-keyword">return</span> v<br></code></pre></td></tr></table></figure>
+
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment"># This is a 3 by 3 by 2 array, typically images will be (num_px_x, num_px_y,3) where 3 represents the RGB values</span><br>image = np.array([[[ <span class="hljs-number">0.67826139</span>,  <span class="hljs-number">0.29380381</span>],<br>        [ <span class="hljs-number">0.90714982</span>,  <span class="hljs-number">0.52835647</span>],<br>        [ <span class="hljs-number">0.4215251</span> ,  <span class="hljs-number">0.45017551</span>]],<br><br>       [[ <span class="hljs-number">0.92814219</span>,  <span class="hljs-number">0.96677647</span>],<br>        [ <span class="hljs-number">0.85304703</span>,  <span class="hljs-number">0.52351845</span>],<br>        [ <span class="hljs-number">0.19981397</span>,  <span class="hljs-number">0.27417313</span>]],<br><br>       [[ <span class="hljs-number">0.60659855</span>,  <span class="hljs-number">0.00533165</span>],<br>        [ <span class="hljs-number">0.10820313</span>,  <span class="hljs-number">0.49978937</span>],<br>        [ <span class="hljs-number">0.34144279</span>,  <span class="hljs-number">0.94630077</span>]]])<br><br><span class="hljs-built_in">print</span> (<span class="hljs-string">&quot;image2vector(image) = &quot;</span> + <span class="hljs-built_in">str</span>(image2vector(image)))<br></code></pre></td></tr></table></figure>
+
+<pre><code>image2vector(image) = [[0.67826139]
+ [0.29380381]
+ [0.90714982]
+ [0.52835647]
+ [0.4215251 ]
+ [0.45017551]
+ [0.92814219]
+ [0.96677647]
+ [0.85304703]
+ [0.52351845]
+ [0.19981397]
+ [0.27417313]
+ [0.60659855]
+ [0.00533165]
+ [0.10820313]
+ [0.49978937]
+ [0.34144279]
+ [0.94630077]]
+</code></pre>
+<p><strong>Expected Output</strong>: </p>
+<table style="width:100%">
+     <tr> 
+       <td> **image2vector(image)** </td> 
+       <td> [[ 0.67826139]
+ [ 0.29380381]
+ [ 0.90714982]
+ [ 0.52835647]
+ [ 0.4215251 ]
+ [ 0.45017551]
+ [ 0.92814219]
+ [ 0.96677647]
+ [ 0.85304703]
+ [ 0.52351845]
+ [ 0.19981397]
+ [ 0.27417313]
+ [ 0.60659855]
+ [ 0.00533165]
+ [ 0.10820313]
+ [ 0.49978937]
+ [ 0.34144279]
+ [ 0.94630077]]</td> 
+     </tr>
+    
+   
+</table>
+
+<h3 id="1-4-Normalizing-rows"><a href="#1-4-Normalizing-rows" class="headerlink" title="1.4 - Normalizing rows"></a>1.4 - Normalizing rows</h3><p>Another common technique we use in Machine Learning and Deep Learning is to normalize our data. It often leads to a better performance because gradient descent converges faster after normalization. Here, by normalization we mean changing x to $ \frac{x}{| x|} $ (dividing each row vector of x by its norm).</p>
+<p>For example, if $$x =<br>\begin{bmatrix}<br>    0 &amp; 3 &amp; 4 \<br>    2 &amp; 6 &amp; 4 \<br>\end{bmatrix}\tag{3}$$ then $$| x| = \<br>np.linalg.norm(x, axis = 1, keepdims = True) = $$<br>$$<br> \begin{bmatrix} \<br>    5 \<br>    \sqrt{56} \<br>\end{bmatrix}\tag{4} $$<br>and<br>$$ x_normalized = \frac{x}{| x|} = $$<br>$$ \begin{bmatrix} \<br>    0 &amp; \frac{3}{5} &amp; \frac{4}{5} \<br>    \frac{2}{\sqrt{56}} &amp; \frac{6}{\sqrt{56}} &amp; \frac{4}{\sqrt{56}} \<br>\end{bmatrix}\tag{5}$$<br>Note that you can divide matrices of different sizes and it works fine: this is called broadcasting and you’re going to learn about it in part 5.</p>
+<p><strong>Exercise</strong>: Implement normalizeRows() to normalize the rows of a matrix. After applying this function to an input matrix x, each row of x should be a vector of unit length (meaning length 1).</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment"># GRADED FUNCTION: normalizeRows</span><br><br><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">normalizeRows</span>(<span class="hljs-params">x</span>):</span><br>    <span class="hljs-string">&quot;&quot;&quot;</span><br><span class="hljs-string">    Implement a function that normalizes each row of the matrix x (to have unit length).</span><br><span class="hljs-string">    </span><br><span class="hljs-string">    Argument:</span><br><span class="hljs-string">    x -- A numpy matrix of shape (n, m)</span><br><span class="hljs-string">    </span><br><span class="hljs-string">    Returns:</span><br><span class="hljs-string">    x -- The normalized (by row) numpy matrix. You are allowed to modify x.</span><br><span class="hljs-string">    &quot;&quot;&quot;</span><br>    <br>    <span class="hljs-comment">### START CODE HERE ### (≈ 2 lines of code)</span><br>    <span class="hljs-comment"># Compute x_norm as the norm 2 of x. Use np.linalg.norm(..., ord = 2, axis = ..., keepdims = True)</span><br>    x_norm = np.linalg.norm(x, <span class="hljs-built_in">ord</span>=<span class="hljs-number">2</span>, axis=<span class="hljs-number">1</span>, keepdims=<span class="hljs-literal">True</span>)<br>    <br>    <span class="hljs-comment"># Divide x by its norm.</span><br>    x = x / x_norm<br>    <span class="hljs-comment">### END CODE HERE ###</span><br><br>    <span class="hljs-keyword">return</span> x<br></code></pre></td></tr></table></figure>
+
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs python">x = np.array([<br>    [<span class="hljs-number">0</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span>],<br>    [<span class="hljs-number">2</span>, <span class="hljs-number">6</span>, <span class="hljs-number">4</span>]])<br><span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;normalizeRows(x) = &quot;</span> + <span class="hljs-built_in">str</span>(normalizeRows(x)))<br></code></pre></td></tr></table></figure>
+
+<pre><code>normalizeRows(x) = [[0.         0.6        0.8       ]
+ [0.26726124 0.80178373 0.53452248]]
+</code></pre>
+<p><strong>Expected Output</strong>: </p>
+<table style="width:60%">
+
+<pre><code> &lt;tr&gt; 
+   &lt;td&gt; **normalizeRows(x)** &lt;/td&gt; 
+   &lt;td&gt; [[ 0.          0.6         0.8       ]
+</code></pre>
+<p> [ 0.13736056  0.82416338  0.54944226]]</td><br>     </tr></p>
+</table>
+
+<p><strong>Note</strong>:<br>In normalizeRows(), you can try to print the shapes of x_norm and x, and then rerun the assessment. You’ll find out that they have different shapes. This is normal given that x_norm takes the norm of each row of x. So x_norm has the same number of rows but only 1 column. So how did it work when you divided x by x_norm? This is called broadcasting and we’ll talk about it now! </p>
+<h3 id="1-5-Broadcasting-and-the-softmax-function"><a href="#1-5-Broadcasting-and-the-softmax-function" class="headerlink" title="1.5 - Broadcasting and the softmax function"></a>1.5 - Broadcasting and the softmax function</h3><p>A very important concept to understand in numpy is “broadcasting”. It is very useful for performing mathematical operations between arrays of different shapes. For the full details on broadcasting, you can read the official <span class="exturl" data-url="aHR0cHM6Ly9kb2NzLnNjaXB5Lm9yZy9kb2MvbnVtcHkvdXNlci9iYXNpY3MuYnJvYWRjYXN0aW5nLmh0bWw=">broadcasting documentation<i class="fa fa-external-link-alt"></i></span>.</p>
+<p><strong>Exercise</strong>: Implement a softmax function using numpy. You can think of softmax as a normalizing function used when your algorithm needs to classify two or more classes. You will learn more about softmax in the second course of this specialization.</p>
+<p><strong>Instructions</strong>:</p>
+<ul>
+<li><p>$ \text{for } x \in \mathbb{R}^{1\times n} \<br>\text{,     } softmax(x) =<br>softmax(\begin{bmatrix} \<br>  x_1  &amp;&amp; \<br>  x_2 &amp;&amp; \<br>  …  &amp;&amp; \<br>  x_n  \<br>\end{bmatrix}) = $</p>
+<br>
+$$  
+\begin{bmatrix} 
+   \frac{e^{x_1}}{\sum_{j}e^{x_j}}  && \\
+  \frac{e^{x_2}}{\sum_{j}e^{x_j}}  && \\
+  ...  && \\
+  \frac{e^{x_n}}{\sum_{j}e^{x_j}} \\
+\end{bmatrix} $$ </li>
+<li><p>$\text{for a matrix } x \in \mathbb{R}^{m \times n} \text{,  $x_{ij}$<br>maps to the element in the $i^{th}$ row and $j^{th}$<br>column of $x$, thus we have: }$  $$softmax(x) = softmax\begin{bmatrix}<br>  x_{11} &amp; x_{12} &amp; x_{13} &amp; \dots  &amp; x_{1n} \<br>  x_{21} &amp; x_{22} &amp; x_{23} &amp; \dots  &amp; x_{2n} \<br>  \vdots &amp; \vdots &amp; \vdots &amp; \ddots &amp; \vdots \<br>  x_{m1} &amp; x_{m2} &amp; x_{m3} &amp; \dots  &amp; x_{mn}<br>\end{bmatrix} = \begin{bmatrix}<br>  \frac{e^{x_{11}}}{\sum_{j}e^{x_{1j}}} &amp; \frac{e^{x_{12}}}{\sum_{j}e^{x_{1j}}} &amp; \frac{e^{x_{13}}}{\sum_{j}e^{x_{1j}}} &amp; \dots  &amp; \frac{e^{x_{1n}}}{\sum_{j}e^{x_{1j}}} \<br>  \frac{e^{x_{21}}}{\sum_{j}e^{x_{2j}}} &amp; \frac{e^{x_{22}}}{\sum_{j}e^{x_{2j}}} &amp; \frac{e^{x_{23}}}{\sum_{j}e^{x_{2j}}} &amp; \dots  &amp; \frac{e^{x_{2n}}}{\sum_{j}e^{x_{2j}}} \<br>  \vdots &amp; \vdots &amp; \vdots &amp; \ddots &amp; \vdots \<br>  \frac{e^{x_{m1}}}{\sum_{j}e^{x_{mj}}} &amp; \frac{e^{x_{m2}}}{\sum_{j}e^{x_{mj}}} &amp; \frac{e^{x_{m3}}}{\sum_{j}e^{x_{mj}}} &amp; \dots  &amp; \frac{e^{x_{mn}}}{\sum_{j}e^{x_{mj}}}<br>\end{bmatrix} = \begin{pmatrix}<br>  softmax\text{(first row of x)}  \<br>  softmax\text{(second row of x)} \<br>  …  \<br>  softmax\text{(last row of x)} \<br>\end{pmatrix} $$</p>
+</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment"># GRADED FUNCTION: softmax</span><br><br><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">softmax</span>(<span class="hljs-params">x</span>):</span><br>    <span class="hljs-string">&quot;&quot;&quot;Calculates the softmax for each row of the input x.</span><br><span class="hljs-string"></span><br><span class="hljs-string">    Your code should work for a row vector and also for matrices of shape (n, m).</span><br><span class="hljs-string"></span><br><span class="hljs-string">    Argument:</span><br><span class="hljs-string">    x -- A numpy matrix of shape (n,m)</span><br><span class="hljs-string"></span><br><span class="hljs-string">    Returns:</span><br><span class="hljs-string">    s -- A numpy matrix equal to the softmax of x, of shape (n,m)</span><br><span class="hljs-string">    &quot;&quot;&quot;</span><br>    <br>    <span class="hljs-comment">### START CODE HERE ### (≈ 3 lines of code)</span><br>    <span class="hljs-comment"># Apply exp() element-wise to x. Use np.exp(...).</span><br>    x_exp = np.exp(x)<br><br>    <span class="hljs-comment"># Create a vector x_sum that sums each row of x_exp. Use np.sum(..., axis = 1, keepdims = True).</span><br>    x_sum = np.<span class="hljs-built_in">sum</span>(x_exp, axis=<span class="hljs-number">1</span>, keepdims=<span class="hljs-literal">True</span>)<br>    <br>    <span class="hljs-comment"># Compute softmax(x) by dividing x_exp by x_sum. It should automatically use numpy broadcasting.</span><br>    s = x_exp / x_sum<br><br>    <span class="hljs-comment">### END CODE HERE ###</span><br>    <br>    <span class="hljs-keyword">return</span> s<br></code></pre></td></tr></table></figure>
+
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs python">x = np.array([<br>    [<span class="hljs-number">9</span>, <span class="hljs-number">2</span>, <span class="hljs-number">5</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>],<br>    [<span class="hljs-number">7</span>, <span class="hljs-number">5</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0</span> ,<span class="hljs-number">0</span>]])<br><span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;softmax(x) = &quot;</span> + <span class="hljs-built_in">str</span>(softmax(x)))<br></code></pre></td></tr></table></figure>
+
+<pre><code>softmax(x) = [[9.80897665e-01 8.94462891e-04 1.79657674e-02 1.21052389e-04
+  1.21052389e-04]
+ [8.78679856e-01 1.18916387e-01 8.01252314e-04 8.01252314e-04
+  8.01252314e-04]]
+</code></pre>
+<p><strong>Expected Output</strong>:</p>
+<table style="width:60%">
+
+<pre><code> &lt;tr&gt; 
+   &lt;td&gt; **softmax(x)** &lt;/td&gt; 
+   &lt;td&gt; [[  9.80897665e-01   8.94462891e-04   1.79657674e-02   1.21052389e-04
+1.21052389e-04]
+</code></pre>
+<p> [  8.78679856e-01   1.18916387e-01   8.01252314e-04   8.01252314e-04<br>    8.01252314e-04]]</td><br>     </tr></p>
+</table>
+
+
+<p><strong>Note</strong>:</p>
+<ul>
+<li>If you print the shapes of x_exp, x_sum and s above and rerun the assessment cell, you will see that x_sum is of shape (2,1) while x_exp and s are of shape (2,5). <strong>x_exp/x_sum</strong> works due to python broadcasting.</li>
+</ul>
+<p>Congratulations! You now have a pretty good understanding of python numpy and have implemented a few useful functions that you will be using in deep learning.</p>
+<font color='blue'>
+**What you need to remember:**
+- np.exp(x) works for any np.array x and applies the exponential function to every coordinate
+- the sigmoid function and its gradient
+- image2vector is commonly used in deep learning
+- np.reshape is widely used. In the future, you'll see that keeping your matrix/vector dimensions straight will go toward eliminating a lot of bugs. 
+- numpy has efficient built-in functions
+- broadcasting is extremely useful
+</font>
+<h2> 2) Vectorization </h2>
+
+
+<p>In deep learning, you deal with very large datasets. Hence, a non-computationally-optimal function can become a huge bottleneck in your algorithm and can result in a model that takes ages to run. To make sure that your code is  computationally efficient, you will use vectorization. For example, try to tell the difference between the following implementations of the dot/outer/elementwise product.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> time<br><br>x1 = [<span class="hljs-number">9</span>, <span class="hljs-number">2</span>, <span class="hljs-number">5</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">7</span>, <span class="hljs-number">5</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">9</span>, <span class="hljs-number">2</span>, <span class="hljs-number">5</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>]<br>x2 = [<span class="hljs-number">9</span>, <span class="hljs-number">2</span>, <span class="hljs-number">2</span>, <span class="hljs-number">9</span>, <span class="hljs-number">0</span>, <span class="hljs-number">9</span>, <span class="hljs-number">2</span>, <span class="hljs-number">5</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">9</span>, <span class="hljs-number">2</span>, <span class="hljs-number">5</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>]<br><br><span class="hljs-comment">### CLASSIC DOT PRODUCT OF VECTORS IMPLEMENTATION ###</span><br>tic = time.process_time()<br>dot = <span class="hljs-number">0</span><br><span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-built_in">len</span>(x1)):<br>    dot+= x1[i]*x2[i]<br>toc = time.process_time()<br><span class="hljs-built_in">print</span> (<span class="hljs-string">&quot;dot = &quot;</span> + <span class="hljs-built_in">str</span>(dot) + <span class="hljs-string">&quot;\n ----- Computation time = &quot;</span> + <span class="hljs-built_in">str</span>(<span class="hljs-number">1000</span>*(toc - tic)) + <span class="hljs-string">&quot;ms&quot;</span>)<br><br><span class="hljs-comment">### CLASSIC OUTER PRODUCT IMPLEMENTATION ###</span><br>tic = time.process_time()<br>outer = np.zeros((<span class="hljs-built_in">len</span>(x1),<span class="hljs-built_in">len</span>(x2))) <span class="hljs-comment"># we create a len(x1)*len(x2) matrix with only zeros</span><br><span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-built_in">len</span>(x1)):<br>    <span class="hljs-keyword">for</span> j <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-built_in">len</span>(x2)):<br>        outer[i,j] = x1[i]*x2[j]<br>toc = time.process_time()<br><span class="hljs-built_in">print</span> (<span class="hljs-string">&quot;outer = &quot;</span> + <span class="hljs-built_in">str</span>(outer) + <span class="hljs-string">&quot;\n ----- Computation time = &quot;</span> + <span class="hljs-built_in">str</span>(<span class="hljs-number">1000</span>*(toc - tic)) + <span class="hljs-string">&quot;ms&quot;</span>)<br><br><span class="hljs-comment">### CLASSIC ELEMENTWISE IMPLEMENTATION ###</span><br>tic = time.process_time()<br>mul = np.zeros(<span class="hljs-built_in">len</span>(x1))<br><span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-built_in">len</span>(x1)):<br>    mul[i] = x1[i]*x2[i]<br>toc = time.process_time()<br><span class="hljs-built_in">print</span> (<span class="hljs-string">&quot;elementwise multiplication = &quot;</span> + <span class="hljs-built_in">str</span>(mul) + <span class="hljs-string">&quot;\n ----- Computation time = &quot;</span> + <span class="hljs-built_in">str</span>(<span class="hljs-number">1000</span>*(toc - tic)) + <span class="hljs-string">&quot;ms&quot;</span>)<br><br><span class="hljs-comment">### CLASSIC GENERAL DOT PRODUCT IMPLEMENTATION ###</span><br>W = np.random.rand(<span class="hljs-number">3</span>,<span class="hljs-built_in">len</span>(x1)) <span class="hljs-comment"># Random 3*len(x1) numpy array</span><br>tic = time.process_time()<br>gdot = np.zeros(W.shape[<span class="hljs-number">0</span>])<br><span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(W.shape[<span class="hljs-number">0</span>]):<br>    <span class="hljs-keyword">for</span> j <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-built_in">len</span>(x1)):<br>        gdot[i] += W[i,j]*x1[j]<br>toc = time.process_time()<br><span class="hljs-built_in">print</span> (<span class="hljs-string">&quot;gdot = &quot;</span> + <span class="hljs-built_in">str</span>(gdot) + <span class="hljs-string">&quot;\n ----- Computation time = &quot;</span> + <span class="hljs-built_in">str</span>(<span class="hljs-number">1000</span>*(toc - tic)) + <span class="hljs-string">&quot;ms&quot;</span>)<br></code></pre></td></tr></table></figure>
+
+<pre><code>dot = 278
+ ----- Computation time = 0.10799999999999699ms
+outer = [[81. 18. 18. 81.  0. 81. 18. 45.  0.  0. 81. 18. 45.  0.  0.]
+ [18.  4.  4. 18.  0. 18.  4. 10.  0.  0. 18.  4. 10.  0.  0.]
+ [45. 10. 10. 45.  0. 45. 10. 25.  0.  0. 45. 10. 25.  0.  0.]
+ [ 0.  0.  0.  0.  0.  0.  0.  0.  0.  0.  0.  0.  0.  0.  0.]
+ [ 0.  0.  0.  0.  0.  0.  0.  0.  0.  0.  0.  0.  0.  0.  0.]
+ [63. 14. 14. 63.  0. 63. 14. 35.  0.  0. 63. 14. 35.  0.  0.]
+ [45. 10. 10. 45.  0. 45. 10. 25.  0.  0. 45. 10. 25.  0.  0.]
+ [ 0.  0.  0.  0.  0.  0.  0.  0.  0.  0.  0.  0.  0.  0.  0.]
+ [ 0.  0.  0.  0.  0.  0.  0.  0.  0.  0.  0.  0.  0.  0.  0.]
+ [ 0.  0.  0.  0.  0.  0.  0.  0.  0.  0.  0.  0.  0.  0.  0.]
+ [81. 18. 18. 81.  0. 81. 18. 45.  0.  0. 81. 18. 45.  0.  0.]
+ [18.  4.  4. 18.  0. 18.  4. 10.  0.  0. 18.  4. 10.  0.  0.]
+ [45. 10. 10. 45.  0. 45. 10. 25.  0.  0. 45. 10. 25.  0.  0.]
+ [ 0.  0.  0.  0.  0.  0.  0.  0.  0.  0.  0.  0.  0.  0.  0.]
+ [ 0.  0.  0.  0.  0.  0.  0.  0.  0.  0.  0.  0.  0.  0.  0.]]
+ ----- Computation time = 0.26900000000007473ms
+elementwise multiplication = [81.  4. 10.  0.  0. 63. 10.  0.  0.  0. 81.  4. 25.  0.  0.]
+ ----- Computation time = 0.12699999999998823ms
+gdot = [19.74599905 16.58699591 26.1890302 ]
+ ----- Computation time = 0.19999999999997797ms
+</code></pre>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><code class="hljs python">x1 = [<span class="hljs-number">9</span>, <span class="hljs-number">2</span>, <span class="hljs-number">5</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">7</span>, <span class="hljs-number">5</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">9</span>, <span class="hljs-number">2</span>, <span class="hljs-number">5</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>]<br>x2 = [<span class="hljs-number">9</span>, <span class="hljs-number">2</span>, <span class="hljs-number">2</span>, <span class="hljs-number">9</span>, <span class="hljs-number">0</span>, <span class="hljs-number">9</span>, <span class="hljs-number">2</span>, <span class="hljs-number">5</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">9</span>, <span class="hljs-number">2</span>, <span class="hljs-number">5</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>]<br><br><span class="hljs-comment">### VECTORIZED DOT PRODUCT OF VECTORS ###</span><br>tic = time.process_time()<br>dot = np.dot(x1,x2)<br>toc = time.process_time()<br><span class="hljs-built_in">print</span> (<span class="hljs-string">&quot;dot = &quot;</span> + <span class="hljs-built_in">str</span>(dot) + <span class="hljs-string">&quot;\n ----- Computation time = &quot;</span> + <span class="hljs-built_in">str</span>(<span class="hljs-number">1000</span>*(toc - tic)) + <span class="hljs-string">&quot;ms&quot;</span>)<br><br><span class="hljs-comment">### VECTORIZED OUTER PRODUCT ###</span><br>tic = time.process_time()<br>outer = np.outer(x1,x2)<br>toc = time.process_time()<br><span class="hljs-built_in">print</span> (<span class="hljs-string">&quot;outer = &quot;</span> + <span class="hljs-built_in">str</span>(outer) + <span class="hljs-string">&quot;\n ----- Computation time = &quot;</span> + <span class="hljs-built_in">str</span>(<span class="hljs-number">1000</span>*(toc - tic)) + <span class="hljs-string">&quot;ms&quot;</span>)<br><br><span class="hljs-comment">### VECTORIZED ELEMENTWISE MULTIPLICATION ###</span><br>tic = time.process_time()<br>mul = np.multiply(x1,x2)<br>toc = time.process_time()<br><span class="hljs-built_in">print</span> (<span class="hljs-string">&quot;elementwise multiplication = &quot;</span> + <span class="hljs-built_in">str</span>(mul) + <span class="hljs-string">&quot;\n ----- Computation time = &quot;</span> + <span class="hljs-built_in">str</span>(<span class="hljs-number">1000</span>*(toc - tic)) + <span class="hljs-string">&quot;ms&quot;</span>)<br><br><span class="hljs-comment">### VECTORIZED GENERAL DOT PRODUCT ###</span><br>tic = time.process_time()<br>dot = np.dot(W,x1)<br>toc = time.process_time()<br><span class="hljs-built_in">print</span> (<span class="hljs-string">&quot;gdot = &quot;</span> + <span class="hljs-built_in">str</span>(dot) + <span class="hljs-string">&quot;\n ----- Computation time = &quot;</span> + <span class="hljs-built_in">str</span>(<span class="hljs-number">1000</span>*(toc - tic)) + <span class="hljs-string">&quot;ms&quot;</span>)<br></code></pre></td></tr></table></figure>
+
+<pre><code>dot = 278
+ ----- Computation time = 0.11099999999997223ms
+outer = [[81 18 18 81  0 81 18 45  0  0 81 18 45  0  0]
+ [18  4  4 18  0 18  4 10  0  0 18  4 10  0  0]
+ [45 10 10 45  0 45 10 25  0  0 45 10 25  0  0]
+ [ 0  0  0  0  0  0  0  0  0  0  0  0  0  0  0]
+ [ 0  0  0  0  0  0  0  0  0  0  0  0  0  0  0]
+ [63 14 14 63  0 63 14 35  0  0 63 14 35  0  0]
+ [45 10 10 45  0 45 10 25  0  0 45 10 25  0  0]
+ [ 0  0  0  0  0  0  0  0  0  0  0  0  0  0  0]
+ [ 0  0  0  0  0  0  0  0  0  0  0  0  0  0  0]
+ [ 0  0  0  0  0  0  0  0  0  0  0  0  0  0  0]
+ [81 18 18 81  0 81 18 45  0  0 81 18 45  0  0]
+ [18  4  4 18  0 18  4 10  0  0 18  4 10  0  0]
+ [45 10 10 45  0 45 10 25  0  0 45 10 25  0  0]
+ [ 0  0  0  0  0  0  0  0  0  0  0  0  0  0  0]
+ [ 0  0  0  0  0  0  0  0  0  0  0  0  0  0  0]]
+ ----- Computation time = 0.2409999999999357ms
+elementwise multiplication = [81  4 10  0  0 63 10  0  0  0 81  4 25  0  0]
+ ----- Computation time = 0.08300000000005525ms
+gdot = [19.74599905 16.58699591 26.1890302 ]
+ ----- Computation time = 0.1049999999997997ms
+</code></pre>
+<p>As you may have noticed, the vectorized implementation is much cleaner and more efficient. For bigger vectors/matrices, the differences in running time become even bigger. </p>
+<p><strong>Note</strong> that <code>np.dot()</code> performs a matrix-matrix or matrix-vector multiplication. This is different from <code>np.multiply()</code> and the <code>*</code> operator (which is equivalent to  <code>.*</code> in Matlab/Octave), which performs an element-wise multiplication.</p>
+<h3 id="2-1-Implement-the-L1-and-L2-loss-functions"><a href="#2-1-Implement-the-L1-and-L2-loss-functions" class="headerlink" title="2.1 Implement the L1 and L2 loss functions"></a>2.1 Implement the L1 and L2 loss functions</h3><p><strong>Exercise</strong>: Implement the numpy vectorized version of the L1 loss. You may find the function abs(x) (absolute value of x) useful.</p>
+<p><strong>Reminder</strong>:</p>
+<ul>
+<li>The loss is used to evaluate the performance of your model. The bigger your loss is, the more different your predictions ($ \hat{y} $) are from the true values ($y$). In deep learning, you use optimization algorithms like Gradient Descent to train your model and to minimize the cost.</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment"># GRADED FUNCTION: L1</span><br><br><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">L1</span>(<span class="hljs-params">yhat, y</span>):</span><br>    <span class="hljs-string">&quot;&quot;&quot;</span><br><span class="hljs-string">    Arguments:</span><br><span class="hljs-string">    yhat -- vector of size m (predicted labels)</span><br><span class="hljs-string">    y -- vector of size m (true labels)</span><br><span class="hljs-string">    </span><br><span class="hljs-string">    Returns:</span><br><span class="hljs-string">    loss -- the value of the L1 loss function defined above</span><br><span class="hljs-string">    &quot;&quot;&quot;</span><br>    <br>    <span class="hljs-comment">### START CODE HERE ### (≈ 1 line of code)</span><br>    loss = np.<span class="hljs-built_in">sum</span>(np.<span class="hljs-built_in">abs</span>((y - yhat)))<br>    <span class="hljs-comment">### END CODE HERE ###</span><br>    <br>    <span class="hljs-keyword">return</span> loss<br></code></pre></td></tr></table></figure>
+
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs python">yhat = np.array([<span class="hljs-number">.9</span>, <span class="hljs-number">0.2</span>, <span class="hljs-number">0.1</span>, <span class="hljs-number">.4</span>, <span class="hljs-number">.9</span>])<br>y = np.array([<span class="hljs-number">1</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">1</span>, <span class="hljs-number">1</span>])<br><span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;L1 = &quot;</span> + <span class="hljs-built_in">str</span>(L1(yhat,y)))<br></code></pre></td></tr></table></figure>
+
+<pre><code>L1 = 1.1
+</code></pre>
+<p><strong>Expected Output</strong>:</p>
+<table style="width:20%">
+
+<pre><code> &lt;tr&gt; 
+   &lt;td&gt; **L1** &lt;/td&gt; 
+   &lt;td&gt; 1.1 &lt;/td&gt; 
+ &lt;/tr&gt;
+</code></pre>
+</table>
+
+
+<p><strong>Exercise</strong>: Implement the numpy vectorized version of the L2 loss. There are several way of implementing the L2 loss but you may find the function np.dot() useful. As a reminder, if $x = [x_1, x_2, …, x_n]$, then <code>np.dot(x,x)</code> = $\sum_{j=0}^n x_j^{2}$. </p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment"># GRADED FUNCTION: L2</span><br><br><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">L2</span>(<span class="hljs-params">yhat, y</span>):</span><br>    <span class="hljs-string">&quot;&quot;&quot;</span><br><span class="hljs-string">    Arguments:</span><br><span class="hljs-string">    yhat -- vector of size m (predicted labels)</span><br><span class="hljs-string">    y -- vector of size m (true labels)</span><br><span class="hljs-string">    </span><br><span class="hljs-string">    Returns:</span><br><span class="hljs-string">    loss -- the value of the L2 loss function defined above</span><br><span class="hljs-string">    &quot;&quot;&quot;</span><br>    <br>    <span class="hljs-comment">### START CODE HERE ### (≈ 1 line of code)</span><br>    loss = np.<span class="hljs-built_in">sum</span>(np.square(yhat - y))<br>    <span class="hljs-comment">### END CODE HERE ###</span><br>    <br>    <span class="hljs-keyword">return</span> loss<br></code></pre></td></tr></table></figure>
+
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs python">yhat = np.array([<span class="hljs-number">.9</span>, <span class="hljs-number">0.2</span>, <span class="hljs-number">0.1</span>, <span class="hljs-number">.4</span>, <span class="hljs-number">.9</span>])<br>y = np.array([<span class="hljs-number">1</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">1</span>, <span class="hljs-number">1</span>])<br><span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;L2 = &quot;</span> + <span class="hljs-built_in">str</span>(L2(yhat,y)))<br></code></pre></td></tr></table></figure>
+
+<pre><code>L2 = 0.43
+</code></pre>
+<p><strong>Expected Output</strong>: </p>
+<table style="width:20%">
+     <tr> 
+       <td> **L2** </td> 
+       <td> 0.43 </td> 
+     </tr>
+</table>
+
+<p>Congratulations on completing this assignment. We hope that this little warm-up exercise helps you in the future assignments, which will be more exciting and interesting!</p>
+<font color='blue'>
+**What to remember:**
+- Vectorization is very important in deep learning. It provides computational efficiency and clarity.
+- You have reviewed the L1 and L2 loss.
+- You are familiar with many numpy functions such as np.sum, np.dot, np.multiply, np.maximum, etc...
+</font>
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs python">%load_ext version_information<br>%version_information numpy<br></code></pre></td></tr></table></figure>
+
+
+
+
+<table><tr><th>Software</th><th>Version</th></tr><tr><td>Python</td><td>3.6.6 64bit [GCC 4.2.1 Compatible Apple LLVM 6.1.0 (clang-602.0.53)]</td></tr><tr><td>IPython</td><td>7.0.1</td></tr><tr><td>OS</td><td>Darwin 17.7.0 x86_64 i386 64bit</td></tr><tr><td>numpy</td><td>1.15.1</td></tr><tr><td colspan='2'>Mon Oct 15 09:25:10 2018 MDT</td></tr></table>
+
+
+  <p>Learn About Data Preprocessing : <a href = "https://massivefile.com/data_preprocessing_feature/" target="_blank"> Click Here </a></p>
+
+<h5>Credits - <a href='https://www.coursera.org/' target=”_blank >Coursera</a>,  <a href = 'https://en.wikipedia.org/wiki/Andrew_Ng' title="Andrew_Ng" target=”_blank>Credits to the teacher</a> , 
+<a href ='https://www.coursera.org/specializations/deep-learning?' target=”_blank>Deeplearning.ai Course</a><h5>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          
+          <div class="post-tags">
+              <a href="/tags/2020/" rel="tag"><i class="fa fa-tag"></i> 2020</a>
+              <a href="/tags/Assignment/" rel="tag"><i class="fa fa-tag"></i> Assignment</a>
+              <a href="/tags/Python-Basics-With-Numpy/" rel="tag"><i class="fa fa-tag"></i> Python Basics With Numpy</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/quiz2/" rel="prev" title="Quiz 2 || Neural Networks and Deep Learning">
+      <i class="fa fa-chevron-left"></i> Quiz 2 || Neural Networks and Deep Learning
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/SettingUpOptimisation/" rel="next" title="Setting Up Optimisation (Normalization | Vanishing/Exploding Gradients , Weight Initialization , Gradient Checking)">
+      Setting Up Optimisation (Normalization | Vanishing/Exploding Gradients , Weight Initialization , Gradient Checking) <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Python-Basics-with-Numpy-optional-assignment"><span class="nav-number">1.</span> <span class="nav-text">Python Basics with Numpy (optional assignment)</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#About-iPython-Notebooks"><span class="nav-number">1.1.</span> <span class="nav-text">About iPython Notebooks</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link"><span class="nav-number">1.1.1.</span> <span class="nav-text"> 1 - Building basic functions with numpy </span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-1-sigmoid-function-np-exp"><span class="nav-number">1.1.2.</span> <span class="nav-text">1.1 - sigmoid function, np.exp()</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-2-Sigmoid-gradient"><span class="nav-number">1.1.3.</span> <span class="nav-text">1.2 - Sigmoid gradient</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-3-Reshaping-arrays"><span class="nav-number">1.1.4.</span> <span class="nav-text">1.3 - Reshaping arrays</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-4-Normalizing-rows"><span class="nav-number">1.1.5.</span> <span class="nav-text">1.4 - Normalizing rows</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-5-Broadcasting-and-the-softmax-function"><span class="nav-number">1.1.6.</span> <span class="nav-text">1.5 - Broadcasting and the softmax function</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link"><span class="nav-number">1.2.</span> <span class="nav-text"> 2) Vectorization </span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-1-Implement-the-L1-and-L2-loss-functions"><span class="nav-number">1.2.1.</span> <span class="nav-text">2.1 Implement the L1 and L2 loss functions</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link"><span class="nav-number">1.2.1.0.1.</span> <span class="nav-text">Credits - Coursera,  Credits to the teacher , 
+Deeplearning.ai Course
+</span></a></li><li class="nav-item nav-level-5"><a class="nav-link"><span class="nav-number">1.2.1.0.2.</span> <span class="nav-text">
+</span></a></li></ol></li></ol></li></ol></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Karan Arora"
+      src="/images/avatar.gif">
+  <p class="site-author-name" itemprop="name">Karan Arora</p>
+  <div class="site-description" itemprop="description">Trasforming data into Information</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">43</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">15</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">43</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <span class="exturl" data-url="bWFpbHRvOm1haWxtYXNzaXZlZmlsZUBnbWFpbC5jb20=" title="Get In Touch → mailto:mailmassivefile@gmail.com"><i class="fa fa-envelope fa-fw"></i>Get In Touch</span>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Karan Arora</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+      <span class="post-meta-item-text">Symbols count total: </span>
+    <span title="Symbols count total">446k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span class="post-meta-item-text">Reading time total &asymp;</span>
+    <span title="Reading time total">6:46</span>
+</div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/pjax/pjax.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js"></script>
+  <script src="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+<script src="/js/bookmark.js"></script>
+
+  <script>
+var pjax = new Pjax({
+  selectors: [
+    'head title',
+    '#page-configurations',
+    '.content-wrap',
+    '.post-toc-wrap',
+    '.languages',
+    '#pjax'
+  ],
+  switches: {
+    '.post-toc-wrap': Pjax.switches.innerHTML
+  },
+  analytics: false,
+  cacheBust: false,
+  scrollTo : !CONFIG.bookmark.enable
+});
+
+window.addEventListener('pjax:success', () => {
+  document.querySelectorAll('script[data-pjax], script#page-configurations, #pjax script').forEach(element => {
+    var code = element.text || element.textContent || element.innerHTML || '';
+    var parent = element.parentNode;
+    parent.removeChild(element);
+    var script = document.createElement('script');
+    if (element.id) {
+      script.id = element.id;
+    }
+    if (element.className) {
+      script.className = element.className;
+    }
+    if (element.type) {
+      script.type = element.type;
+    }
+    if (element.src) {
+      script.src = element.src;
+      // Force synchronous loading of peripheral JS.
+      script.async = false;
+    }
+    if (element.dataset.pjax !== undefined) {
+      script.dataset.pjax = '';
+    }
+    if (code !== '') {
+      script.appendChild(document.createTextNode(code));
+    }
+    parent.appendChild(script);
+  });
+  NexT.boot.refresh();
+  // Define Motion Sequence & Bootstrap Motion.
+  if (CONFIG.motion.enable) {
+    NexT.motion.integrator
+      .init()
+      .add(NexT.motion.middleWares.subMenu)
+      .add(NexT.motion.middleWares.postList)
+      .bootstrap();
+  }
+  NexT.utils.updateSidebarPosition();
+});
+</script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+<script data-pjax>
+document.querySelectorAll('.pdfobject-container').forEach(element => {
+  let url = element.dataset.target;
+  let pdfOpenParams = {
+    navpanes : 0,
+    toolbar  : 0,
+    statusbar: 0,
+    pagemode : 'thumbs',
+    view     : 'FitH'
+  };
+  let pdfOpenFragment = '#' + Object.entries(pdfOpenParams).map(([key, value]) => `${key}=${encodeURIComponent(value)}`).join('&');
+  let fullURL = `/lib/pdf/web/viewer.html?file=${encodeURIComponent(url)}${pdfOpenFragment}`;
+
+  if (NexT.utils.supportsPDFs()) {
+    element.innerHTML = `<embed class="pdfobject" src="${url + pdfOpenFragment}" type="application/pdf" style="height: ${element.dataset.height};">`;
+  } else {
+    element.innerHTML = `<iframe src="${fullURL}" style="height: ${element.dataset.height};" frameborder="0"></iframe>`;
+  }
+});
+</script>
+
+
+
+
+    <div id="pjax">
+  
+
+  
+      
+
+<script>
+  if (typeof MathJax === 'undefined') {
+    window.MathJax = {
+      loader: {
+          load: ['[tex]/mhchem'],
+        source: {
+          '[tex]/amsCd': '[tex]/amscd',
+          '[tex]/AMScd': '[tex]/amscd'
+        }
+      },
+      tex: {
+        inlineMath: {'[+]': [['$', '$']]},
+          packages: {'[+]': ['mhchem']},
+        tags: 'ams'
+      },
+      options: {
+        renderActions: {
+          findScript: [10, doc => {
+            document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+              const display = !!node.type.match(/; *mode=display/);
+              const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+              const text = document.createTextNode('');
+              node.parentNode.replaceChild(text, node);
+              math.start = {node: text, delim: '', n: 0};
+              math.end = {node: text, delim: '', n: 0};
+              doc.math.push(math);
+            });
+          }, '', false],
+          insertedScript: [200, () => {
+            document.querySelectorAll('mjx-container').forEach(node => {
+              let target = node.parentNode;
+              if (target.nodeName.toLowerCase() === 'li') {
+                target.parentNode.classList.add('has-jax');
+              }
+            });
+          }, '', false]
+        }
+      }
+    };
+    (function () {
+      var script = document.createElement('script');
+      script.src = '//cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js';
+      script.defer = true;
+      document.head.appendChild(script);
+    })();
+  } else {
+    MathJax.startup.document.state(0);
+    MathJax.texReset();
+    MathJax.typeset();
+  }
+</script>
+
+    
+
+  
+
+    </div>
+</body>
+</html>

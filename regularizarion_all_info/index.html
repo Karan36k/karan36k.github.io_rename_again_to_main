@@ -1,0 +1,747 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"massivefile.com","root":"/","scheme":"Gemini","version":"7.8.0","exturl":true,"sidebar":{"position":"left","display":"post","padding":20,"offset":15,"onmobile":false},"copycode":{"enable":true,"show_result":"flat","style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":true,"color":"#222","save":false},"fancybox":true,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta property="og:type" content="article">
+<meta property="og:title" content="Regularization || Improving Deep Neural Networks">
+<meta property="og:url" content="https://massivefile.com/regularizarion_all_info/index.html">
+<meta property="og:site_name" content="Massivefile.com - Blog">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://lh3.googleusercontent.com/sWOu6Am4oV1_G_Wj-TsBgIfSxa93f76O4d2HNImLm6aHzOjbjfovcgTZlLUdhgtp8HiENZ88QB0gJLgRc5c4Dmkujw3XzX7fbjzAWdN65-OUSOwQAoQGF23IGobJ5hYodUvTegUlCg=w2400">
+<meta property="og:image" content="https://lh3.googleusercontent.com/FHNMcPVOi2k8SROzVlvatlBSoHm_Z-D8Z1BSPmXesbCG7ZNoXs3h8sXC7MI6QBnpjgHGIFNpEMFBnRHnJEQdzfF2NbOcra3FRZvzyPxpWkSdFgJ-_0mrZfTE9SAnGycgDRbn356kcQ=w2400">
+<meta property="og:image" content="https://lh3.googleusercontent.com/rFlM7K_gswGP0l-ma4cZZ-1gVYJ6bfy2oCvPMzZBWhgkT6dJi5UROEHNv_n1TQkU2LOplBtZRLj2kaAbHCa0dXQUM1R7jrZRvbDFSrPgPscN9mH22rpbpnN0WgD27ajYmtbSrUTQxQ=w2400">
+<meta property="og:image" content="https://lh3.googleusercontent.com/JfTz4qNmxAanFm5Jw4LFySSbPwQAlS831GBSwisc_YZYKn92wzaCkKWy5f_bYV4j7_cJ28rGeYlq5k7BJlzhT4LF2jkur3oUnPV3JlhrrARUjpzGSpK3BzAv40OPX9GfHTEfSERhKQ=w2400">
+<meta property="og:image" content="https://lh3.googleusercontent.com/Fi03rYl86k7FWsqUCAFCc79c-F9M_wbUn6ByFbjv3zvcRw5r9ZT9lmlBbXdgqellkC2nRZjkllmH6kLV2fVcCFkB3N32jRimkeMwZH2Wa47DdHOe4sJDFYECd6ltKQrQDoT_SkMs8Q=w2400">
+<meta property="og:image" content="https://lh3.googleusercontent.com/XOvtoZLjKVzuCa6Sg5VPg-Y3Q1B9iIuhdcaSV9BuLVFHtUx9XxR7UNrO_KxG7RPya0Db5xOv5cC0qFGB6DWdS6o9REhLWRkqkOgMDSPQjNaszGNfbaFRcEzVqfubH0vnwyT1ZYpEcQ=w2400">
+<meta property="og:image" content="https://lh3.googleusercontent.com/i8iTmh22B_C9MbDioL-Qk4WH5QS0AikkJxkoiQ11nth8Sqp_AOepqSh0r43xboelt8q0cEYRLamafiDycm-ZVlz1K8TklSB-lCKs1wqXa6_j8E3qyZ5DKxv8FpJBJgcJhF9mMHeseA=w2400">
+<meta property="og:image" content="https://lh3.googleusercontent.com/4gwG300GPm8Cl3rC1VcXzQV2SI8EQvbHqIni5OZXEZDmndgwIhtlL9fe9tted-xq-4fVXpeFjR9Y_8PflUvDKfhILCTJAIBBq1-bq_QghBiU7ZzDgmoyvMPQzDYW2N0EhutB9k8Z6A=w2400">
+<meta property="og:image" content="https://lh3.googleusercontent.com/V29kERc26WxVJlGBykQSvR-n57e3dU5xGPY2X41EfK140hD15n9cZjQ2o0aSNsvrJKcRMSLdPuPxdjDSBgwdjkEiYTc2d1Hfqwda3Sqqh14cfmUxwJu7hZyBHMIZo0nddy79CS3kMw=w2400">
+<meta property="article:published_time" content="2020-04-20T00:56:53.000Z">
+<meta property="article:modified_time" content="2021-10-13T15:48:01.123Z">
+<meta property="article:author" content="Karan Arora">
+<meta property="article:tag" content="2020">
+<meta property="article:tag" content="Regularization">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://lh3.googleusercontent.com/sWOu6Am4oV1_G_Wj-TsBgIfSxa93f76O4d2HNImLm6aHzOjbjfovcgTZlLUdhgtp8HiENZ88QB0gJLgRc5c4Dmkujw3XzX7fbjzAWdN65-OUSOwQAoQGF23IGobJ5hYodUvTegUlCg=w2400">
+
+<link rel="canonical" href="https://massivefile.com/regularizarion_all_info/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'en'
+  };
+</script>
+
+  <title>Regularization || Improving Deep Neural Networks | Massivefile.com - Blog</title>
+  
+    <script>
+      function sendPageView() {
+        if (CONFIG.hostname !== location.hostname) return;
+        var uid = localStorage.getItem('uid') || (Math.random() + '.' + Math.random());
+        localStorage.setItem('uid', uid);
+        navigator.sendBeacon('https://www.google-analytics.com/collect', new URLSearchParams({
+          v  : 1,
+          tid: 'UA-163312538-2',
+          cid: uid,
+          t  : 'pageview',
+          dp : encodeURIComponent(location.pathname)
+        }));
+      }
+      document.addEventListener('pjax:complete', sendPageView);
+      sendPageView();
+    </script>
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta custom-logo">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Massivefile.com - Blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">Programming & Data Science</p>
+      <a>
+        <img class="custom-logo-image" src="/images/custom-logo.jpg" alt="Massivefile.com - Blog">
+      </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags<span class="badge">43</span></a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories<span class="badge">15</span></a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives<span class="badge">43</span></a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
+
+  <a href="https://massivefile.com/karan/" class="github-corner" title="See Portfolio Website" aria-label="See Portfolio Website"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://massivefile.com/regularizarion_all_info/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Karan Arora">
+      <meta itemprop="description" content="Trasforming data into Information">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Massivefile.com - Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Regularization || Improving Deep Neural Networks
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2020-04-20 06:26:53" itemprop="dateCreated datePublished" datetime="2020-04-20T06:26:53+05:30">2020-04-20</time>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="Symbols count in article">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">Symbols count in article: </span>
+              <span>35k</span>
+            </span>
+            <span class="post-meta-item" title="Reading time">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">Reading time &asymp;</span>
+              <span>32 mins.</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <body><span id="more"></span>
+
+<p><i><b>Note - These are my notes on DeepLearning Specialization Part:<br>Regularization || Deeplearning (Course - 2 Week - 1) || Improving Deep Neural Networks(Week 1)</b></i></p>
+<h3><b>Introduction: </b></h3>
+If you suspect your neural network is over fitting your data. That is you have a high variance problem, one of the first things you should try per probably regularization. The other way to address high variance, is to get more training data that's also quite reliable. But you can't always get more training data, or it could be expensive to get more data. But adding regularization will often help to prevent overfitting, or to reduce the errors in your network. So let's see how regularization works. Let's develop these ideas using logistic regression. Recall that for logistic regression, you try to minimize the cost function J, which is defined as this cost function.
+In other words, instead of simply aiming to minimize loss (empirical risk minimization):
+Because here, you're using the Euclidean normals, or else the L2 norm with the prime to vector w. Now, why do you regularize just the parameter w? Why don't we add something here about b as well? In practice, you could do this, but I usually just omit this. Because if you look at your parameters, w is usually a pretty high dimensional parameter vector, especially with a high variance problem. Maybe w just has a lot of parameters, so you aren't fitting all the parameters well, whereas b is just a single number. So almost all the parameters are in w rather b. And if you add this last term, in practice, it won't make much of a difference, because b is just one parameter over a very large number of parameters. In practice, I usually just don't bother to include it. But you can if you want. 
+<b>So L2 regularization is the most common type of regularization. </b>
+You might have also heard of some people talk about L1 regularization. And that's when you add, instead of this L2 norm, you instead add a term that is lambda/m of sum over of this. 
+And this is also called the L1 norm of the parameter vector w, so the little subscript 1 down there, right? And I guess whether you put m or 2m in the denominator, is just a scaling constant. 
+<b>L1 Regularization</b>
+If you use L1 regularization, then w will end up being sparse. And what that means is that the w vector will have a lot of zeros in it. And some people say that this can help with compressing the model, because the set of parameters are zero, and you need less memory to store the model. Although, I find that, in practice, L1 regularization to make your model sparse, helps only a little bit. So I don't think it's used that much, at least not for the purpose of compressing your model. And when people train your networks, L2 regularization is just used much much more often. Sorry, just fixing up some of the notation here. So one last detail. Lambda here is called the regularization, Parameter.
+
+<p>And usually, you set this using your development set, or using [INAUDIBLE] cross validation. When you a variety of values and see what does the best, in terms of trading off between doing well in your training set versus also setting that two normal of your parameters to be small. Which helps prevent over fitting. So lambda is another hyper parameter that you might have to tune. And by the way, for the programming exercises, lambda is a reserved keyword in the Python programming language. So in the programming exercise, we’ll have lambd,<br>]without the a, so as not to clash with the reserved keyword in Python. So we use lambd to represent the lambda regularization parameter.</p>
+<p>$$<br>\text{minimize(Loss(Data|Model))}<br>$$<br>we’ll now minimize loss+complexity, which is called structural risk minimization:</p>
+<p>$$\text{minimize(Loss(Data|Model) + complexity(Model))}$$<br>Our training optimization algorithm is now a function of two terms: the loss term, which measures how well the model fits the data, and the regularization term, which measures model complexity.</p>
+<p>Model complexity as a function of the weights of all the features in the model.<br>Model complexity as a function of the total number of features with nonzero weights. (A later module covers this approach.)<br>If model complexity is a function of weights, a feature weight with a high absolute value is more complex than a feature weight with a low absolute value.</p>
+<p>We can quantify complexity using the L2 regularization formula, which defines the regularization term as the sum of the squares of all the feature weights:</p>
+<p>$$<br>L_2 \text{ regularization term} = ||\boldsymbol w||_2^2 = {w_1^2 + w_2^2 + … + w_n^2}<br>$$</p>
+<p>In this formula, weights close to zero have little effect on model complexity, while outlier weights can have a huge impact.</p>
+<p>For example, a linear model with the following weights:</p>
+<p>$$<br>{w_1 = 0.2, w_2 = 0.5, w_3 = 5, w_4 = 1, w_5 = 0.25, w_6 = 0.75}<br>$$</p>
+<p>Has an L2 regularization term of 26.915:</p>
+<p>$$<br>w_1^2 + w_2^2 + \boldsymbol{w_3^2} + w_4^2 + w_5^2 + w_6^2$$ $$= 0.2^2 + 0.5^2 + \boldsymbol{5^2} + 1^2 + 0.25^2 + 0.75^2$$ $$= 0.04 + 0.25 + \boldsymbol{25} + 1 + 0.0625 + 0.5625<br>$$<br>$$<br>= 26.915$$<br>But (w_3) (bolded above), with a squared value of 25, contributes nearly all the complexity. The sum of the squares of all five other weights adds just 1.915 to the L2 regularization term.</p>
+<h3><b>Lambda Introduction</b></h3>
+Model developers tune the overall impact of the regularization term by multiplying its value by a scalar known as lambda (also called the regularization rate). That is, model developers aim to do the following:
+
+<p>$$ \text{minimize(Loss(Data|Model)} + \lambda \text{ complexity(Model))} $$<br>Performing L2 regularization has the following effect on a model</p>
+<p>Encourages weight values toward 0 (but not exactly 0)<br>Encourages the mean of the weights toward 0, with a normal (bell-shaped or Gaussian) distribution.<br>Increasing the lambda value strengthens the regularization effect. For example, the histogram of weights for a high value of lambda<br>Some of your training examples of the losses of the individual predictions in the different examples, where you recall that w and b in the logistic regression, are the parameters. So w is an x-dimensional parameter vector, and b is a real number. And so to add regularization to the logistic regression, what you do is add to it this thing, lambda, which is called the regularization parameter. I’ll say more about that in a second. But lambda/2m times the norm of w squared. So here, the norm of w squared is just equal to sum from j equals 1 to nx of wj squared, or this can also be written w transpose w, it’s just a square Euclidean norm of the prime to vector w. And this is called L2 regularization.</p>
+<p>When choosing a lambda value, the goal is to strike the right balance between simplicity and training-data fit:</p>
+<p>If your lambda value is too high, your model will be simple, but you run the risk of underfitting your data. Your model won’t learn enough about the training data to make useful predictions.</p>
+<p>If your lambda value is too low, your model will be more complex, and you run the risk of overfitting your data. Your model will learn too much about the particularities of the training data, and won’t be able to generalize to new data.</p>
+<p>Note: Setting lambda to zero removes regularization completely. In this case, training focuses exclusively on minimizing loss, which poses the highest possible overfitting risk.<br>The ideal value of lambda produces a model that generalizes well to new, previously unseen data. Unfortunately, that ideal value of lambda is data-dependent, so you’ll need to do some tuning.</p>
+<p><b>L2 Regularization and lambda (Regularization Parameter): relation </b><br>There’s a close connection between learning rate and lambda. Strong L2 regularization values tend to drive feature weights closer to 0. Lower learning rates (with early stopping) often produce the same effect because the steps away from 0 aren’t as large. Consequently, tweaking learning rate and lambda simultaneously may have confounding effects.</p>
+<p>Early stopping means ending training before the model fully reaches convergence. In practice, we often end up with some amount of implicit early stopping when training in an online (continuous) fashion. That is, some new trends just haven’t had enough data yet to converge.</p>
+<p>As noted, the effects from changes to regularization parameters can be confounded with the effects from changes in learning rate or number of iterations. One useful practice (when training across a fixed batch of data) is to give yourself a high enough number of iterations that early stopping doesn’t play into things.</p>
+<h3><b>Implementing L2 Regularisation in a Neural Network</b></h3>
+So this is how you implement L2 regularization for logistic regression. How about a neural network? In a neural network, you have a cost function<b>(J)</b> that's a function of all of your parameters, w[1], b[1] through w[L], b[L], where capital L is the number of layers in your neural network. And so the cost function is this, sum of the losses, summed over your m training examples. 
+<center><img src='https://lh3.googleusercontent.com/sWOu6Am4oV1_G_Wj-TsBgIfSxa93f76O4d2HNImLm6aHzOjbjfovcgTZlLUdhgtp8HiENZ88QB0gJLgRc5c4Dmkujw3XzX7fbjzAWdN65-OUSOwQAoQGF23IGobJ5hYodUvTegUlCg=w2400' /></a></center>
+And says at regularization, you add lambda over 2m of sum over all of your parameters W, your parameter matrix is w, of their, that's called the squared norm. Where this norm of a matrix, meaning the squared norm is defined as the sum of the i sum of j, of each of the elements of that matrix, squared. And if you want the indices of this summation. This is sum from i=1 through n[l-1]. Sum from j=1 through n[l], because w is an n[l-1] by n[l] dimensional matrix, where these are the number of units in layers [l-1] in layer l. So this matrix norm, it turns out is called the Frobenius norm of the matrix, denoted with a F in the subscript. So for arcane linear algebra technical reasons, this is not called the l2 normal of a matrix. Instead, it's called the Frobenius norm of a matrix. I know it sounds like it would be more natural to just call the l2 norm of the matrix, but for really arcane reasons that you don't need to know, by convention, this is called the Frobenius norm. It just means the sum of square of elements of a matrix. So how do you implement gradient descent with this? Previously, we would complete dw using backprop, where backprop would give us the partial derivative of J with respect to w, or really w for any given [l]. And then you update w[l], as w[l]- the learning rate times d. So this is before we added this extra regularization term to the objective. Now that we've added this regularization term to the objective, what you do is you take dw and you add to it, lambda/m times w. And then you just compute this update, same as before. And it turns out that with this new definition of dw[l], this new dw[l] is still a correct definition of the derivative of your cost function, with respect to your parameters, now that you've added the extra regularization term at the end.
+<h4><b>L2 Norm ~ Weight Deacy</b></h4>And it's for this reason that L2 regularization is sometimes also called weight decay. So if I take this definition of dw[l] and just plug it in here, then you see that the update is w[l] = w[l] times the learning rate alpha times the thing from backprop,
++lambda of m times w[l]. Throw the minus sign there. And so this is equal to $$ (w[l]- alpha * lambda / m) * (w[l]- alpha) $$ times the thing you got from backpop.
+And so this term shows that whatever the matrix w[l] is, you're going to make it a little bit smaller, right? This is actually as if you're taking the matrix w and you're multiplying it by $$ 1-alpha*lambda/m$$ . You're really taking the matrix w and subtracting $$ alpha*lambda/m $$ with L2 Regularization penalty . Like you're multiplying matrix w by this number, which is going to be a little bit less than 1. So this is why L2 norm regularization is also called weight decay. Because it's just like the ordinally gradient descent, where you update w by subtracting alpha times the original gradient you got from backprop. But now you're also multiplying w by this thing, which is a little bit less than 1. So the alternative name for L2 regularization is weight decay. I'm not really going to use that name, but the intuition for it's called weight decay is that this first term here, is equal to this. So you're just multiplying the weight metrics by a number slightly less than 1. So that's how you implement L2 regularization in neural network.
+Now, one question that he has asked me is, why does regularization prevent over-fitting? Let's look at the next Section, and gain some intuition for how regularization prevents over-fitting.
+
+<h3><b>How do regularization Prevent Overfitting?</b></h3>
+Why does regularization help with overfitting? Why does it help with reducing variance problems? Let's go through a couple examples to gain some intuition about how it works. So, recall that high bias, high variance. And I just write pictures from our earlier section that looks something like this. 
+<center><img src='https://lh3.googleusercontent.com/FHNMcPVOi2k8SROzVlvatlBSoHm_Z-D8Z1BSPmXesbCG7ZNoXs3h8sXC7MI6QBnpjgHGIFNpEMFBnRHnJEQdzfF2NbOcra3FRZvzyPxpWkSdFgJ-_0mrZfTE9SAnGycgDRbn356kcQ=w2400' /></a></center>
+Now, let's see a fitting large and deep neural network. I know I haven't drawn this one too large or too deep, unless you think some neural network and this currently overfitting. So you have some cost function like J of W, B equals sum of the losses. 
+
+<p>$$\text{minimize(Loss(Data|Model)} + \lambda \text{ complexity(Model))}$$</p>
+<p>So what we did for regularization was add this extra term that penalizes the weight matrices from being too large. So that was the Frobenius norm. So why is it that shrinking the L two norm or the Frobenius norm or the parameters might cause less overfitting? One piece of intuition is that if you crank regularisation lambda to be really, really big, they’ll be really incentivized to set the weight matrices W to be reasonably close to zero. So one piece of intuition is maybe it set the weight to be so close to zero for a lot of hidden units that’s basically zeroing out a lot of the impact of these hidden units. And if that’s the case, then this much simplified neural network becomes a much smaller neural network. In fact, it is almost like a logistic regression unit, but stacked most probably as deep. And so that will take you from this overfitting case much closer to the left to other high bias case. But hopefully there’ll be an intermediate value of lambda that results in a result closer to this just right case in the middle.<br>But the intuition is that by cranking up lambda to be really big they’ll set W close to zero, which in practice this isn’t actually what happens. We can think of it as zeroing out or at least reducing the impact of a lot of the hidden units so you end up with what might feel like a simpler network.<br>They get closer and closer as if you’re just using logistic regression.<br>The intuition of completely zeroing out of a bunch of hidden units isn’t quite right.<br>It turns out that what actually happens is they’ll still use all the hidden units, but each of them would just have a much smaller effect. But you do end up with a simpler network and as if you have a smaller network that is therefore less prone to overfitting.<br>So a lot of this intuition helps better when you implement regularization in the program exercise, you actually see some of these variance reduction results yourself. </p>
+<h3>Another Intution with TanH as activation Function instead of Sigmoid </h3>
+Here's another attempt at additional intuition for why regularization helps prevent overfitting. And for this, I'm going to assume that we're using the tanh activation function which looks like this.
+<center><img src='https://lh3.googleusercontent.com/rFlM7K_gswGP0l-ma4cZZ-1gVYJ6bfy2oCvPMzZBWhgkT6dJi5UROEHNv_n1TQkU2LOplBtZRLj2kaAbHCa0dXQUM1R7jrZRvbDFSrPgPscN9mH22rpbpnN0WgD27ajYmtbSrUTQxQ=w2400' /></a></center>
+This is a g of z equals tanh of z. So if that's the case, notice that so long as Z is quite small, so if Z takes on only a smallish range of parameters, maybe around here, then you're just using the linear regime of the tanh function. Is only if Z is allowed to wander up to larger values or smaller values like so, that the activation function starts to become less linear. 
+<h3>Takeaway:</h3>
+So the intuition you might take away from this is that if lambda, the regularization parameter, is large, then you have that your parameters will be relatively small, because they are penalized being large into a cos function. And so if the blades W are small then because Z is equal to W and then technically is plus b, but if W tends to be very small, then Z will also be relatively small. And in particular, if Z ends up taking relatively small values, just in this whole range, then G of Z will be roughly linear. So it's as if every layer will be roughly linear. As if it is just linear regression. And we saw in course one that if every layer is linear then your whole network is just a linear network. And so even a very deep network, with a deep network with a linear activation function is at the end they are only able to compute a linear function. So it's not able to fit those very very complicated decision. Very non-linear decision boundaries that allow it to really overfit right to data sets like we saw on the overfitting high variance case on the previous slide. 
+<h4><b>So just to summarize</b></h4> 
+If the regularization becomes very large, the parameters W very small, so Z will be relatively small, kind of ignoring the effects of b for now, so Z will be relatively small or, really, 
+<center><a target="_blank" rel="noopener" href='https://photos.google.com/share/AF1QipM2Xp4gWyc88SkPOjkiyF9p0HCmee0RykiqXJIrcXLLmGpDjhO94h6AOF8fmTeVJQ?key=MVJNVGZnTmQ2TXY1aUgwOVk4eXN0aEN1eEVEX1l3&source=ctrlq.org'><img src='https://lh3.googleusercontent.com/JfTz4qNmxAanFm5Jw4LFySSbPwQAlS831GBSwisc_YZYKn92wzaCkKWy5f_bYV4j7_cJ28rGeYlq5k7BJlzhT4LF2jkur3oUnPV3JlhrrARUjpzGSpK3BzAv40OPX9GfHTEfSERhKQ=w2400' /></a></center>
+I should say it takes on a small range of values. And so the activation function if is tanh, say, will be relatively linear. And so your whole neural network will be computing something not too far from a big linear function which is therefore pretty simple function rather than a very complex highly non-linear function. 
+And so is also much less able to overfit. And again, when you enter in regularization for yourself in the program exercise, you'll be able to see some of these effects yourself. 
+<h4><b>Tip</b></h4> 
+Before wrapping up our def discussion on regularization, I just want to give you one implementational tip. Which is that, when implanting regularization, we took our definition of the cost function J and we actually modified it by adding this extra term that penalizes the weight being too large. And so if you implement gradient descent, one of the steps to debug gradient descent is to plot the cost function J as a function of the number of elevations of gradient descent and you want to see that the cost function J decreases monotonically after every elevation of gradient descent. And if you're implementing regularization then please remember that J now has this new definition. If you plot the old definition of J, just this first term, then you might not see a decrease monotonically. So to debug gradient descent make sure that you're plotting this new definition of J that includes this second term as well. Otherwise you might not see J decrease monotonically on every single elevation. So that's it for L two regularization which is actually a regularization technique that I use the most in training deep learning modules. In deep learning there is another sometimes used regularization technique called dropout regularization. Let's take a look at that in the next section.
+
+<h3><b>Dropout Regularization</b></h3> 
+In addition to L2 regularization, another very powerful regularization techniques is called "dropout." Let's see how that works. Let's say you train a neural network like the one on the left and there's over-fitting. Here's what you do with dropout. Let me make a copy of the neural network. 
+<center><img src='https://lh3.googleusercontent.com/Fi03rYl86k7FWsqUCAFCc79c-F9M_wbUn6ByFbjv3zvcRw5r9ZT9lmlBbXdgqellkC2nRZjkllmH6kLV2fVcCFkB3N32jRimkeMwZH2Wa47DdHOe4sJDFYECd6ltKQrQDoT_SkMs8Q=w2400' /></a></center> 
+With dropout, what we're going to do is go through each of the layers of the network and set some probability of eliminating a node in neural network. Let's say that for each of these layers, we're going to- for each node, toss a coin and have a 0.5 chance of keeping each node and 0.5 chance of removing each node. So, after the coin tosses, maybe we'll decide to eliminate those nodes, then what you do is actually remove all the outgoing things from that no as well. So you end up with a much smaller, really much diminished network. And then you do back propagation training. There's one example on this much diminished network. And then on different examples, you would toss a set of coins again and keep a different set of nodes and then dropout or eliminate different than nodes. And so for each training example, you would train it using one of these neural based networks. So, maybe it seems like a slightly crazy technique. They just go around coding those are random, but this actually works. But you can imagine that because you're training a much smaller network on each example or maybe just give a sense for why you end up able to regularize the network, because these much smaller networks are being trained. 
+<h3>Implementing Dropout</h3>
+Let's look at how you implement dropout. There are a few ways of implementing dropout. I'm going to show you the most common one, which is technique called inverted dropout. For the sake of completeness, let's say we want to illustrate this with layer l=3. So, in the code I'm going to write- there will be a bunch of 3s here. I'm just illustrating how to represent dropout in a single layer. So, what we are going to do is set a vector d and d^3 is going to be the dropout vector for the layer 3. 
+<h3><b>Inverted Dropout</b></h3>
+That's what the 3 is to be np.random.rand(a). And this is going to be the same shape as a3. And when I see if this is less than some number, which I'm going to call keep.prob. And so, keep.prob is a number. It was 0.5 on the previous time, and maybe now I'll use 0.8 in this example,
+
+<center><img src='https://lh3.googleusercontent.com/XOvtoZLjKVzuCa6Sg5VPg-Y3Q1B9iIuhdcaSV9BuLVFHtUx9XxR7UNrO_KxG7RPya0Db5xOv5cC0qFGB6DWdS6o9REhLWRkqkOgMDSPQjNaszGNfbaFRcEzVqfubH0vnwyT1ZYpEcQ=w2400' /></a></center> 
+and there will be the probability that a given hidden unit will be kept. So keep.prob = 0.8, then this means that there's a 0.2 chance of eliminating any hidden unit. So, what it does is it generates a random matrix. And this works as well if you have factorized. So d3 will be a matrix. Therefore, each example have a each hidden unit there's a 0.8 chance that the corresponding d3 will be one, and a 20% chance there will be zero. So, this random numbers being less than 0.8 it has a 0.8 chance of being one or be true, and 20% or 0.2 chance of being false, of being zero. And then what you are going to do is take your activations from the third layer, let me just call it a3 in this low example. So, a3 has the activations you computate. And you can set a3 to be equal to the old a3, times- There is element wise multiplication. Or you can also write this as a3* = d3. 
+But what this does is for every element of d3 that's equal to zero. And there was a 20% ch
+ance of each of the elements being zero, just multiply operation ends up zeroing out, the corresponding element of d3. If you do this in python, technically d3 will be a boolean array where value is true and false, rather than one and zero. But the multiply operation works and will interpret the true and false values as one and zero.
+If you try this yourself in python, you'll see. 
+Then finally, we're going to take a3 and scale it up by dividing by 0.8 or really dividing by our keep.prob parameter. So, let me explain what this final step is doing. Let's say for the sake of argument that you have 50 units or 50 neurons in the third hidden layer. So maybe a3 is 50 by one dimensional or if you- factorization maybe it's 50 by m dimensional. So, if you have a 80% chance of keeping them and 20% chance of eliminating them. This means that on average, you end up with 10 units shut off or 10 units zeroed out. And so now, if you look at the value of z^4, z^4 is going to be equal to $$ w^4 * a^3 + b^4 $$. And so, on expectation, this will be reduced by 20%. By which I mean that 20% of the elements of a3 will be zeroed out. So, in order to not reduce the expected value of z^4, what you do is you need to take this, and divide it by 0.8 because this will correct or just a bump that back up by roughly 20% that you need. So it's not changed the expected value of a3. And, so this line here is what's called the inverted dropout technique. And its effect is that, no matter what you set to keep.prob to, whether it's 0.8 or 0.9 or even one, if it's set to one then there's no dropout, because it's keeping everything or 0.5 or whatever, this inverted dropout technique by dividing by the keep.prob, it ensures that the expected value of a3 remains the same. And it turns out that at test time, when you trying to evaluate a neural network, which we'll talk about on the next slide, this inverted dropout technique, there is there is line to are due to the green box at dropping out. 
+This makes test time easier because you have less of a scaling problem. By far the most common implementation of dropouts today as far as I know is inverted dropouts. 
+I recommend you just implement this. But there were some early iterations of dropout that missed this divide by keep.prob line, and so at test time the average becomes more and more complicated. But again, people tend not to use those other versions. So, what you do is you use the d vector, and you'll notice that for different training examples, you zero out different hidden units. And in fact, if you make multiple passes through the same training set, then on different pauses through the training set, you should randomly zero out different hidden units. 
+So, it's not that for one example, you should keep zeroing out the same hidden units is that, on iteration one of grade and descent, you might zero out some hidden units. 
+And on the second iteration of great descent where you go through the training set the second time, maybe you'll zero out a different pattern of hidden units. And the vector d or d3, for the third layer, is used to decide what to zero out, both in for prob as well as in that prob. 
+We are just showing for prob here. 
+Now, having trained the algorithm at test time, here's what you would do. At test time, you're given some x or which you want to make a prediction. And using our standard notation, I'm going to use a^0, the activations of the zeroes layer to denote just test example x. So what we're going to do is not to use dropout at test time in particular which is in a sense. $$ Z^1= w^1.a^0 + b^1. a^1 = g^1(z^1 Z). Z^2 = w^2.a^1 + b^2. a^2 =... $$ And so on. 
+Until you get to the last layer and that you make a prediction y^. But notice that the test time you're not using dropout explicitly and you're not tossing coins at random, you're not flipping coins to decide which hidden units to eliminate. And that's because when you are making predictions at the test time, you don't really want your output to be random. If you are implementing dropout at test time, that just add noise to your predictions. 
+<h4><b>Introspect Results:</b></h4>
+In theory, one thing you could do is run a prediction process many times with different hidden units randomly dropped out and have it across them. But that's computationally inefficient and will give you roughly the same result; very, very similar results to this different procedure as well. And just to mention, the inverted dropout thing, you remember the step on the previous line when we divided by the cheap.prob. The effect of that was to ensure that even when you don't see men dropout at test time to the scaling, the expected value of these activations don't change. So, you don't need to add in an extra funny scaling parameter at test time. That's different than when you have that training time. So that's dropouts. And when you implement this in week's premier exercise, you gain more firsthand experience with it as well. But why does it really work? What I want to do the next section is give you some better intuition about what dropout really is doing. Let's go on to the next section.
+<h2><b>Understanding Dropout</b></h2>
+Drop out does this seemingly crazy thing of randomly knocking out units on your network. Why does it work so well with a regularizer? Let's gain some better intuition. In the previous section, I gave this intuition that drop-out randomly knocks out units in your network. So it's as if on every iteration you're working with a smaller neural network, and so using a smaller neural network seems like it should have a regularizing effect. 
+
+<h4><b>Why Does Dropout Work ? </b></h4>
+Here's a second intuition which is, let's look at it from the perspective of a single unit. Let's say this one. 
+Now, for this unit to do his job as for inputs and it needs to generate some meaningful output. 
+Now with drop out, the inputs can get randomly eliminated. Sometimes those two units will get eliminated, sometimes a different unit will get eliminated. 
+<center><img src='https://lh3.googleusercontent.com/i8iTmh22B_C9MbDioL-Qk4WH5QS0AikkJxkoiQ11nth8Sqp_AOepqSh0r43xboelt8q0cEYRLamafiDycm-ZVlz1K8TklSB-lCKs1wqXa6_j8E3qyZ5DKxv8FpJBJgcJhF9mMHeseA=w2400' /></a></center>
+So, what this means is that this unit, which I'm circling in purple, it can't rely on any one feature because any one feature could go away at random or any one of its own inputs could go away at random. Some particular would be reluctant to put all of its bets on, say, just this input, right? The weights, we're reluctant to put too much weight on any one input because it can go away. So this unit will be more motivated to spread out this way and give you a little bit of weight to each of the four inputs to this unit. And by spreading all the weights, this will tend to have an effect of shrinking the squared norm of the weights. And so, similar to what we saw with L2 regularization, the effect of implementing drop out is that it shrinks the weights and does some of those outer regularization that helps prevent over-fitting. But it turns out that drop out can formally be shown to be an adaptive form without a regularization. But L2 penalty on different weights are different, depending on the size of the activations being multiplied that way. But to summarize, it is possible to show that drop out has a similar effect to L2 regularization. Only to L2 regularization applied to different ways can be a little bit different and even more adaptive to the scale of different inputs. One more detail for when you're implementing drop out. Here's a network where you have three input features. This is seven hidden units here, seven, three, two, one. So, one of the parameters we had to choose was the cheap prop which has a chance of keeping a unit in each layer. So, it is also feasible to vary key prop by layer. So for the first layer, your matrix W1 will be three by seven. Your second weight matrix will be seven by seven. W3 will be seven by three and so on. And so W2 is actually the biggest weight matrix, because they're actually the largest set of parameters would be in W2 which is seven by seven. So to prevent, to reduce over-fitting of that matrix, maybe for this layer, I guess this is layer two, you might have a key prop that's relatively low, say zero point five, whereas for different layers where you might worry less about over-fitting, you could have a higher key prop, maybe just zero point seven. And if a layers we don't worry about over-fitting at all, you can have a key prop of one point zero. 
+<h4><b>For clarity</b></h4>
+These numbers I'm drawing on the purple boxes, These could be different key props for different layers. Notice that the key prop of one point zero means that you're keeping every unit and so, you're really not using drop out for that layer. But for layers where you're more worried about over-fitting, really the layers with a lot of parameters, you can set the key prop to be smaller to apply a more powerful form of drop out. It's kind of like cranking up the regularization parameter lambda of L2 regularization where you try to regularize some layers more than others. And technically, you can also apply drop out to the input layer, where you can have some chance of just maxing out one or more of the input features. 
+Although in practice, usually don't do that that often. And so, a key prop of one point zero was quite common for the input there. You can also use a very high value, maybe zero point nine, but it's much less likely that you want to eliminate half of the input features. 
+So usually key prop, if you apply the law, will be a number close to one if you even apply drop out at all to the input there. So just to summarize, if you're more worried about some layers overfitting than others, you can set a lower key prop for some layers than others. 
+<h3><b>Downside of Dropout</b></h3>
+The downside is, this gives you even more hyper parameters to search for using cross-validation. One other alternative might be to have some layers where you apply drop out and some layers where you don't apply drop out and then just have one hyper parameter, which is a key prop for the layers for which you do apply drop outs. And before we wrap up, just a couple implementational tips. Many of the first successful implementations of drop outs were to computer vision. So in computer vision, the input size is so big, inputting all these pixels that you almost never have enough data. 
+And so drop out is very frequently used by computer vision. And there's some computer vision researchers that pretty much always use it, almost as a default. 
+But really the thing to remember is that drop out is a regularization technique, it helps prevent over-fitting. And so, unless my algorithm is over-fitting, I wouldn't actually bother to use drop out. 
+So it's used somewhat less often than other application areas. 
+There's just with computer vision, you usually just don't have enough data, so you're almost always overfitting, which is why there tends to be some computer vision researchers who swear by drop out. But their intuition doesn't always generalize I think to other disciplines. 
+One big downside of drop out is that the cost function J is no longer well-defined. On every iteration, you are randomly killing off a bunch of nodes. And so, if you are double checking the performance of grade and dissent, it's actually harder to double check that you have a well defined cost function J that is going downhill on every iteration. Because the cost function J that you're optimizing is actually less. Less well defined, or is certainly hard to calculate. 
+
+<p>So you lose this debugging tool to will a plot, a graph like this. So what I usually do is turn off drop out, you will set key prop equals one, and I run my code and make sure that it is monotonically decreasing J, and then turn on drop out and hope that I didn’t introduce bugs into my code during drop out. Because you need other ways, I guess, but not plotting these figures to make sure that your code is working to greatness and it’s working even with drop outs. So with that, there’s still a few more regularization techniques that are worth your knowing. Let’s talk about a few more such techniques in the next section.</p>
+<h2><b>Other regularization methods</b></h2>
+In addition to L2 regularization and drop out regularization there are few other techniques to reducing over fitting in your neural network. 
+<h3><b>Data Augmentation</b></h3>
+Let's take a look. Let's say you fitting a CAD crossfire. If you are over fitting getting more training data can help, but getting more training data can be expensive and sometimes you just can't get more data. But what you can do is augment your training set by taking image like this. 
+<center><img src='https://lh3.googleusercontent.com/4gwG300GPm8Cl3rC1VcXzQV2SI8EQvbHqIni5OZXEZDmndgwIhtlL9fe9tted-xq-4fVXpeFjR9Y_8PflUvDKfhILCTJAIBBq1-bq_QghBiU7ZzDgmoyvMPQzDYW2N0EhutB9k8Z6A=w2400' /></a></center> 
+And for example, flipping it horizontally and adding that also with your training set. So now instead of just this one example in your training set, you can add this to your training example. So by flipping the images horizontally, you could double the size of your training set. Because you're training set is now a bit redundant this isn't as good as if you had collected an additional set of brand new independent examples. But you could do this Without needing to pay the expense of going out to take more pictures of cats. And then other than flipping horizontally, you can also take random crops of the image. So here we're rotated and sort of randomly zoom into the image and this still looks like a cat. So by taking random distortions and translations of the image you could augment your data set and make additional fake training examples. Again, these extra fake training examples they don't add as much information as they were to call they get a brand new independent example of a cat. But because you can do this, almost for free, other than for some confrontational costs. This can be an inexpensive way to give your algorithm more data and therefore sort of regularize it and reduce over fitting. And by synthesizing examples like this what you're really telling your algorithm is that If something is a cat then flipping it horizontally is still a cat. Notice I didn't flip it vertically, because maybe we don't want upside down cats, right? And then also maybe randomly zooming in to part of the image it's probably still a cat. For optical character recognition you can also bring your data set by taking digits and imposing random rotations and distortions to it. So If you add these things to your training set, these are also still digit force.
+For illustration I applied a very strong distortion. So this look very wavy for, in practice you don't need to distort the four quite as aggressively, but just a more subtle distortion than what I'm showing here, to make this example clearer for you, right? But a more subtle distortion is usually used in practice, because this looks like really warped fours. So data augmentation can be used as a regularization technique, in fact similar to regularization. 
+
+<h3><b>Early Stopping</b></h3>
+There's one other technique that is often used called early stopping. So what you're going to do is as you run gradient descent you're going to plot your, either the training error, you'll use 01 classification error on the training set. Or just plot the cost function J optimizing, and that should decrease monotonically, like so, all right? Because as you trade, hopefully, you're trading around your cost function J should decrease.
+<center><b><img src='https://lh3.googleusercontent.com/V29kERc26WxVJlGBykQSvR-n57e3dU5xGPY2X41EfK140hD15n9cZjQ2o0aSNsvrJKcRMSLdPuPxdjDSBgwdjkEiYTc2d1Hfqwda3Sqqh14cfmUxwJu7hZyBHMIZo0nddy79CS3kMw=w2400' /></a></b></center>
+So with early stopping, what you do is you plot this, and you also plot your dev set error.
+And again, this could be a classification error in a development sense, or something like the cost function, like the logistic loss or the log loss of the dev set. Now what you find is that your dev set error will usually go down for a while, and then it will increase from there. So what early stopping does is, you will say well, it looks like your neural network was doing best around that iteration, so we just want to stop trading on your neural network halfway and take whatever value achieved this dev set error. So why does this work? Well when you've haven't run many iterations for your neural network yet your parameters w will be close to zero. Because with random initialization you probably initialize w to small random values so before you train for a long time, w is still quite small. And as you iterate, as you train, w will get bigger and bigger and bigger until here maybe you have a much larger value of the parameters w for your neural network. So what early stopping does is by stopping halfway you have only a mid-size rate w. 
+
+<p>And so similar to L2 regularization by picking a neural network with smaller norm for your parameters w, hopefully your neural network is over fitting less. And the term early stopping refers to the fact that you’re just stopping the training of your neural network earlier. </p>
+<h3><b>Downside of early stopping</h3></b></h3>
+I sometimes use early stopping when training a neural network. But it does have one downside, let me explain. I think of the machine learning process as comprising several different steps. One, is that you want an algorithm to optimize the cost function j and we have various tools to do that, such as grade intersect. And then we'll talk later about other algorithms, like momentum and RMS prop and Atom and so on. But after optimizing the cost function j, you also wanted to not over-fit. And we have some tools to do that such as your regularization, getting more data and so on. Now in machine learning, we already have so many hyper-parameters it surge over. It's already very complicated to choose among the space of possible algorithms. And so I find machine learning easier to think about when you have one set of tools for optimizing the cost function J, and when you're focusing on authorizing the cost function J. All you care about is finding w and b, so that J(w,b) is as small as possible. You just don't think about anything else other than reducing this. And then it's completely separate task to not over fit, in other words, to reduce variance. And when you're doing that, you have a separate set of tools for doing it. And this principle is sometimes called orthogonalization. And there's this idea, that you want to be able to think about one task at a time. I'll say more about orthorganization in a later section, so if you don't fully get the concept yet, don't worry about it. But, to me the main downside of early stopping is that this couples these two tasks. So you no longer can work on these two problems independently, because by stopping gradient decent early, you're sort of breaking whatever you're doing to optimize cost function J, because now you're not doing a great job reducing the cost function J. You've sort of not done that that well. And then you also simultaneously trying to not over fit. So instead of using different tools to solve the two problems, you're using one that kind of mixes the two. And this just makes the set of
+things you could try are more complicated to think about. Rather than using early stopping, one alternative is just use L2 regularization then you can just train the neural network as long as possible. I find that this makes the search space of hyper parameters easier to decompose, and easier to search over. But the downside of this though is that you might have to try a lot of values of the regularization parameter lambda. And so this makes searching over many values of lambda more computationally expensive. And the advantage of early stopping is that running the gradient descent process just once, you get to try out values of small w, mid-size w, and large w, without needing to try a lot of values of the L2 regularization hyperparameter lambda. 
+
+<p>If this concept doesn’t completely make sense to you yet, don’t worry about it. We’re going to talk about it in greater detail in a later section, I think this will make a bit more sense. Despite it’s disadvantages, many people do use it. I personally prefer to just use L2 regularization and try different values of lambda. That’s assuming you can afford the computation to do so. But early stopping does let you get a similar effect without needing to explicitly try lots of different values of lambda. So you’ve now seen how to use data augmentation as well as if you wish early stopping in order to reduce variance or prevent over fitting your neural network. Next let’s talk about some techniques for setting up your optimization problem to make your training go quickly.</p>
+<h5>Credits - <a href='https://www.coursera.org/' target=”_blank >Coursera</a>,  <a href = 'https://en.wikipedia.org/wiki/Andrew_Ng' title="Andrew_Ng" target=”_blank>Credits to the teacher</a> , 
+<a href ='https://www.coursera.org/specializations/deep-learning?' target=”_blank>Deeplearning.ai Course</a><h5>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          
+          <div class="post-tags">
+              <a href="/tags/2020/" rel="tag"><i class="fa fa-tag"></i> 2020</a>
+              <a href="/tags/Regularization/" rel="tag"><i class="fa fa-tag"></i> Regularization</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/Vectorization/" rel="prev" title="Vectorization || Neural Networks and Deep Learning">
+      <i class="fa fa-chevron-left"></i> Vectorization || Neural Networks and Deep Learning
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/hand_recognition/" rel="next" title="Hand Recognition || Improving Deep Neural Networks">
+      Hand Recognition || Improving Deep Neural Networks <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link"><span class="nav-number">1.</span> <span class="nav-text">Introduction: </span></a></li><li class="nav-item nav-level-3"><a class="nav-link"><span class="nav-number">2.</span> <span class="nav-text">Lambda Introduction</span></a></li><li class="nav-item nav-level-3"><a class="nav-link"><span class="nav-number">3.</span> <span class="nav-text">Implementing L2 Regularisation in a Neural Network</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link"><span class="nav-number">3.1.</span> <span class="nav-text">L2 Norm ~ Weight Deacy</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link"><span class="nav-number">4.</span> <span class="nav-text">How do regularization Prevent Overfitting?</span></a></li><li class="nav-item nav-level-3"><a class="nav-link"><span class="nav-number">5.</span> <span class="nav-text">Another Intution with TanH as activation Function instead of Sigmoid </span></a></li><li class="nav-item nav-level-3"><a class="nav-link"><span class="nav-number">6.</span> <span class="nav-text">Takeaway:</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link"><span class="nav-number">6.1.</span> <span class="nav-text">So just to summarize</span></a></li><li class="nav-item nav-level-4"><a class="nav-link"><span class="nav-number">6.2.</span> <span class="nav-text">Tip</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link"><span class="nav-number">7.</span> <span class="nav-text">Dropout Regularization</span></a></li><li class="nav-item nav-level-3"><a class="nav-link"><span class="nav-number">8.</span> <span class="nav-text">Implementing Dropout</span></a></li><li class="nav-item nav-level-3"><a class="nav-link"><span class="nav-number">9.</span> <span class="nav-text">Inverted Dropout</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link"><span class="nav-number">9.1.</span> <span class="nav-text">Introspect Results:</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link"><span class="nav-number"></span> <span class="nav-text">Understanding Dropout</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link"><span class="nav-number">0.1.</span> <span class="nav-text">Why Does Dropout Work ? </span></a></li><li class="nav-item nav-level-4"><a class="nav-link"><span class="nav-number">0.2.</span> <span class="nav-text">For clarity</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link"><span class="nav-number">1.</span> <span class="nav-text">Downside of Dropout</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link"><span class="nav-number"></span> <span class="nav-text">Other regularization methods</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link"><span class="nav-number">1.</span> <span class="nav-text">Data Augmentation</span></a></li><li class="nav-item nav-level-3"><a class="nav-link"><span class="nav-number">2.</span> <span class="nav-text">Early Stopping</span></a></li><li class="nav-item nav-level-3"><a class="nav-link"><span class="nav-number">3.</span> <span class="nav-text">Downside of early stopping</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link"><span class="nav-number">3.0.1.</span> <span class="nav-text">Credits - Coursera,  Credits to the teacher , 
+Deeplearning.ai Course
+</span></a></li><li class="nav-item nav-level-5"><a class="nav-link"><span class="nav-number">3.0.2.</span> <span class="nav-text">
+</span></a></li></ol></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Karan Arora"
+      src="/images/avatar.gif">
+  <p class="site-author-name" itemprop="name">Karan Arora</p>
+  <div class="site-description" itemprop="description">Trasforming data into Information</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">43</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">15</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">43</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <span class="exturl" data-url="bWFpbHRvOm1haWxtYXNzaXZlZmlsZUBnbWFpbC5jb20=" title="Get In Touch → mailto:mailmassivefile@gmail.com"><i class="fa fa-envelope fa-fw"></i>Get In Touch</span>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Karan Arora</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+      <span class="post-meta-item-text">Symbols count total: </span>
+    <span title="Symbols count total">446k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span class="post-meta-item-text">Reading time total &asymp;</span>
+    <span title="Reading time total">6:46</span>
+</div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/pjax/pjax.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js"></script>
+  <script src="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+<script src="/js/bookmark.js"></script>
+
+  <script>
+var pjax = new Pjax({
+  selectors: [
+    'head title',
+    '#page-configurations',
+    '.content-wrap',
+    '.post-toc-wrap',
+    '.languages',
+    '#pjax'
+  ],
+  switches: {
+    '.post-toc-wrap': Pjax.switches.innerHTML
+  },
+  analytics: false,
+  cacheBust: false,
+  scrollTo : !CONFIG.bookmark.enable
+});
+
+window.addEventListener('pjax:success', () => {
+  document.querySelectorAll('script[data-pjax], script#page-configurations, #pjax script').forEach(element => {
+    var code = element.text || element.textContent || element.innerHTML || '';
+    var parent = element.parentNode;
+    parent.removeChild(element);
+    var script = document.createElement('script');
+    if (element.id) {
+      script.id = element.id;
+    }
+    if (element.className) {
+      script.className = element.className;
+    }
+    if (element.type) {
+      script.type = element.type;
+    }
+    if (element.src) {
+      script.src = element.src;
+      // Force synchronous loading of peripheral JS.
+      script.async = false;
+    }
+    if (element.dataset.pjax !== undefined) {
+      script.dataset.pjax = '';
+    }
+    if (code !== '') {
+      script.appendChild(document.createTextNode(code));
+    }
+    parent.appendChild(script);
+  });
+  NexT.boot.refresh();
+  // Define Motion Sequence & Bootstrap Motion.
+  if (CONFIG.motion.enable) {
+    NexT.motion.integrator
+      .init()
+      .add(NexT.motion.middleWares.subMenu)
+      .add(NexT.motion.middleWares.postList)
+      .bootstrap();
+  }
+  NexT.utils.updateSidebarPosition();
+});
+</script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+<script data-pjax>
+document.querySelectorAll('.pdfobject-container').forEach(element => {
+  let url = element.dataset.target;
+  let pdfOpenParams = {
+    navpanes : 0,
+    toolbar  : 0,
+    statusbar: 0,
+    pagemode : 'thumbs',
+    view     : 'FitH'
+  };
+  let pdfOpenFragment = '#' + Object.entries(pdfOpenParams).map(([key, value]) => `${key}=${encodeURIComponent(value)}`).join('&');
+  let fullURL = `/lib/pdf/web/viewer.html?file=${encodeURIComponent(url)}${pdfOpenFragment}`;
+
+  if (NexT.utils.supportsPDFs()) {
+    element.innerHTML = `<embed class="pdfobject" src="${url + pdfOpenFragment}" type="application/pdf" style="height: ${element.dataset.height};">`;
+  } else {
+    element.innerHTML = `<iframe src="${fullURL}" style="height: ${element.dataset.height};" frameborder="0"></iframe>`;
+  }
+});
+</script>
+
+
+
+
+    <div id="pjax">
+  
+
+  
+      
+
+<script>
+  if (typeof MathJax === 'undefined') {
+    window.MathJax = {
+      loader: {
+          load: ['[tex]/mhchem'],
+        source: {
+          '[tex]/amsCd': '[tex]/amscd',
+          '[tex]/AMScd': '[tex]/amscd'
+        }
+      },
+      tex: {
+        inlineMath: {'[+]': [['$', '$']]},
+          packages: {'[+]': ['mhchem']},
+        tags: 'ams'
+      },
+      options: {
+        renderActions: {
+          findScript: [10, doc => {
+            document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+              const display = !!node.type.match(/; *mode=display/);
+              const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+              const text = document.createTextNode('');
+              node.parentNode.replaceChild(text, node);
+              math.start = {node: text, delim: '', n: 0};
+              math.end = {node: text, delim: '', n: 0};
+              doc.math.push(math);
+            });
+          }, '', false],
+          insertedScript: [200, () => {
+            document.querySelectorAll('mjx-container').forEach(node => {
+              let target = node.parentNode;
+              if (target.nodeName.toLowerCase() === 'li') {
+                target.parentNode.classList.add('has-jax');
+              }
+            });
+          }, '', false]
+        }
+      }
+    };
+    (function () {
+      var script = document.createElement('script');
+      script.src = '//cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js';
+      script.defer = true;
+      document.head.appendChild(script);
+    })();
+  } else {
+    MathJax.startup.document.state(0);
+    MathJax.texReset();
+    MathJax.typeset();
+  }
+</script>
+
+    
+
+  
+
+    </div>
+</body>
+</html>

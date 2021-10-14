@@ -1,0 +1,673 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"massivefile.com","root":"/","scheme":"Gemini","version":"7.8.0","exturl":true,"sidebar":{"position":"left","display":"post","padding":20,"offset":15,"onmobile":false},"copycode":{"enable":true,"show_result":"flat","style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":true,"color":"#222","save":false},"fancybox":true,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta property="og:type" content="article">
+<meta property="og:title" content="Setting Up Optimisation (Normalization | Vanishing&#x2F;Exploding Gradients , Weight Initialization , Gradient Checking)">
+<meta property="og:url" content="https://massivefile.com/SettingUpOptimisation/index.html">
+<meta property="og:site_name" content="Massivefile.com - Blog">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://lh3.googleusercontent.com/9OxDjLP6PApTrbdaOtPMTsOBqC77w1d7NxUMG_58trd9ohPA1DTFjRMR_c9wzrP3VUmCqVPk4xcRKNXVbDdzYG58GEam1OLOWvUtu9CfLWRh4nBHUoQW4Wm72kGbpF3aD4SlMlEQMw=w2400">
+<meta property="og:image" content="https://lh3.googleusercontent.com/QmNrK_RkPKU6RVMKeVydmkTHzL-IK540_a7N_eXvGPBvtO2_LBiQp_-koFsgtg-oN6slWtaSM5iQFUmTTgg6MHNeCNzbil34FFbdI0iH0Ym5NoELeoNcZ-D8EWgs3XeQQQ0i-kDKPw=w2400">
+<meta property="og:image" content="https://lh3.googleusercontent.com/Q3W0fEM_mFd1V-qLMWT2svKLYl3lbOuSNk9ph1X8G6cwIVq9J-kIwVoq08hBnjJOgiDpzfzZcwIahtiu2Mzd50rUmy5ZNE7cB8NxwjDijZdGjHBryf2OibhL-SjmamUpemehoaqhQQ=w2400">
+<meta property="og:image" content="https://lh3.googleusercontent.com/Q3W0fEM_mFd1V-qLMWT2svKLYl3lbOuSNk9ph1X8G6cwIVq9J-kIwVoq08hBnjJOgiDpzfzZcwIahtiu2Mzd50rUmy5ZNE7cB8NxwjDijZdGjHBryf2OibhL-SjmamUpemehoaqhQQ=w2400">
+<meta property="og:image" content="https://lh3.googleusercontent.com/USFAtdNm0RCsytlythdEzQqlTQeNrFTMj5XPbfpS4tWNlw35ylqQknNdWPVaappekVIwfv7t9FAoPPWpWv-8QXOtGxPmKvEulSc2nqxI_gVlpiMxEgclAVFliY-P5nVQ5da-VKkqnw=w2400">
+<meta property="og:image" content="https://lh3.googleusercontent.com/USFAtdNm0RCsytlythdEzQqlTQeNrFTMj5XPbfpS4tWNlw35ylqQknNdWPVaappekVIwfv7t9FAoPPWpWv-8QXOtGxPmKvEulSc2nqxI_gVlpiMxEgclAVFliY-P5nVQ5da-VKkqnw=w2400">
+<meta property="og:image" content="https://lh3.googleusercontent.com/ZXRr2_3cQYJLeXZ_Phe9zhE7DKQvVXUdIu_YFbSymXPziknQV_UvkQn3L0z5etZUc-c9uRmnMXZVCWpwnJ2KEcAokMrEx7vgPS0LWUvUvUIP-Ln3cXbdt4acFNttc2QBumTfC-CocA=w2400">
+<meta property="og:image" content="https://lh3.googleusercontent.com/KHzqEvI8T5YKBV4GgCXppFjMXhZthr2mCvQAODoROrh2M5xtnpdvdC3_RGEG7qFRUTRy2pxxzYLz-FfcTGQC23i-QhFvGTT_3S24bZmV5ihyZFdCKuMmWBPjEMMZswP5cOll-ioWYg=w2400">
+<meta property="og:image" content="https://lh3.googleusercontent.com/KHzqEvI8T5YKBV4GgCXppFjMXhZthr2mCvQAODoROrh2M5xtnpdvdC3_RGEG7qFRUTRy2pxxzYLz-FfcTGQC23i-QhFvGTT_3S24bZmV5ihyZFdCKuMmWBPjEMMZswP5cOll-ioWYg=w2400">
+<meta property="article:published_time" content="2020-04-18T00:56:53.000Z">
+<meta property="article:modified_time" content="2021-10-13T15:48:27.323Z">
+<meta property="article:author" content="Karan Arora">
+<meta property="article:tag" content="2020">
+<meta property="article:tag" content="Setting Up Optimisation Problem">
+<meta property="article:tag" content="Normalization">
+<meta property="article:tag" content="Vanishing &#x2F; Exploding gradients">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://lh3.googleusercontent.com/9OxDjLP6PApTrbdaOtPMTsOBqC77w1d7NxUMG_58trd9ohPA1DTFjRMR_c9wzrP3VUmCqVPk4xcRKNXVbDdzYG58GEam1OLOWvUtu9CfLWRh4nBHUoQW4Wm72kGbpF3aD4SlMlEQMw=w2400">
+
+<link rel="canonical" href="https://massivefile.com/SettingUpOptimisation/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'en'
+  };
+</script>
+
+  <title>Setting Up Optimisation (Normalization | Vanishing/Exploding Gradients , Weight Initialization , Gradient Checking) | Massivefile.com - Blog</title>
+  
+    <script>
+      function sendPageView() {
+        if (CONFIG.hostname !== location.hostname) return;
+        var uid = localStorage.getItem('uid') || (Math.random() + '.' + Math.random());
+        localStorage.setItem('uid', uid);
+        navigator.sendBeacon('https://www.google-analytics.com/collect', new URLSearchParams({
+          v  : 1,
+          tid: 'UA-163312538-2',
+          cid: uid,
+          t  : 'pageview',
+          dp : encodeURIComponent(location.pathname)
+        }));
+      }
+      document.addEventListener('pjax:complete', sendPageView);
+      sendPageView();
+    </script>
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta custom-logo">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Massivefile.com - Blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">Programming & Data Science</p>
+      <a>
+        <img class="custom-logo-image" src="/images/custom-logo.jpg" alt="Massivefile.com - Blog">
+      </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags<span class="badge">43</span></a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories<span class="badge">15</span></a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives<span class="badge">43</span></a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
+
+  <a href="https://massivefile.com/karan/" class="github-corner" title="See Portfolio Website" aria-label="See Portfolio Website"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://massivefile.com/SettingUpOptimisation/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Karan Arora">
+      <meta itemprop="description" content="Trasforming data into Information">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Massivefile.com - Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Setting Up Optimisation (Normalization | Vanishing/Exploding Gradients , Weight Initialization , Gradient Checking)
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2020-04-18 06:26:53" itemprop="dateCreated datePublished" datetime="2020-04-18T06:26:53+05:30">2020-04-18</time>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="Symbols count in article">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">Symbols count in article: </span>
+              <span>17k</span>
+            </span>
+            <span class="post-meta-item" title="Reading time">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">Reading time &asymp;</span>
+              <span>15 mins.</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <body><span id="more"></span>
+
+
+<p><i><b>Note - These are my notes on DeepLearning Specialization Course 2 Part:<br>Setting Up Optimisation (Normalization | Vanishing/Exploding Gradients , Weight Initialization , Gradient Checking || Improving Deep Neural Networks (Week 1 - Part 1)<br></i></b> </p>
+<h3><b>Introduction: </b></h3>
+When training a neural network, one of the techniques that will speed up your training is if you normalize your inputs. Let's see what that means. Let's see if a training sets with two input features. So the input features x are two dimensional, and here's a scatter plot of your training set.
+<center><img src='https://lh3.googleusercontent.com/9OxDjLP6PApTrbdaOtPMTsOBqC77w1d7NxUMG_58trd9ohPA1DTFjRMR_c9wzrP3VUmCqVPk4xcRKNXVbDdzYG58GEam1OLOWvUtu9CfLWRh4nBHUoQW4Wm72kGbpF3aD4SlMlEQMw=w2400' /></center> 
+
+<p>Normalizing your inputs corresponds to two steps. The first is to subtract out or to zero out the mean. So you set mu = 1 over M sum over I of Xi. So this is a vector, and then X gets set as X- mu for every training example, so this means you just move the training set until it has 0 mean. And then the second step is to normalize the variances. So notice here that the feature X1 has a much larger variance than the feature X2 here. So what we do is set sigma = 1 over m sum of Xi**2.<br>I guess this is a element y squaring. And so now sigma squared is a vector with the variances of each of the features, and notice we’ve already subtracted out the mean, so Xi squared, element y squared is just the variances. And you take each example and divide it by this vector sigma squared. And so in pictures, you end up with this. Where now the variance of X1 and X2 are both equal to one.</p>
+<p>And one tip, if you use this to scale your training data, then use the same mu and sigma squared to normalize your test set, right? In particular, you don’t want to normalize the training set and the test set differently. Whatever this value is and whatever this value is, use them in these two formulas so that you scale your test set in exactly the same way, rather than estimating mu and sigma squared separately on your training set and test set. Because you want your data, both training and test examples, to go through the same transformation defined by the same mu and sigma squared calculated on your training data.<br><b><h3>So, why do we do Normalization?</h3></b><br>Why do we want to normalize the input features? Recall that a cost function is defined as written on the top right. It turns out that if you use unnormalized input features, it’s more likely that your cost function will look like this, it’s a very squished out bowl, very elongated cost function, where the minimum you’re trying to find is maybe over there. But if your features are on very different scales, say the feature X1 ranges from 1 to 1,000, and the feature X2 ranges from 0 to 1, then it turns out that the ratio or the range of values for the parameters w1 and w2 will end up taking on very different values. And so maybe these axes should be w1 and w2, but I’ll plot w and b, then your cost function can be a very elongated bowl like that. </p>
+<center><img src='https://lh3.googleusercontent.com/QmNrK_RkPKU6RVMKeVydmkTHzL-IK540_a7N_eXvGPBvtO2_LBiQp_-koFsgtg-oN6slWtaSM5iQFUmTTgg6MHNeCNzbil34FFbdI0iH0Ym5NoELeoNcZ-D8EWgs3XeQQQ0i-kDKPw=w2400' /></center>
+So if you part the contours of this function, you can have a very elongated function like that. Whereas if you normalize the features, then your cost function will on average look more symmetric. And if you're running gradient descent on the cost function like the one on the left, then you might have to use a very small learning rate because if you're here that gradient descent might need a lot of steps to oscillate back and forth before it finally finds its way to the minimum. Whereas if you have a more spherical contours, then wherever you start gradient descent can pretty much go straight to the minimum. You can take much larger steps with gradient descent rather than needing to oscillate around like like the picture on the left. Of course in practice w is a high-dimensional vector, and so trying to plot this in 2D doesn't convey all the intuitions correctly. But the rough intuition that your cost function will be more round and easier to optimize when your features are all on similar scales. Not from one to 1000, zero to one, but mostly from minus one to one or of about similar variances of each other. That just makes your cost function J easier and faster to optimize. In practice if one feature, say X1, ranges from zero to one, and X2 ranges from minus one to one, and X3 ranges from one to two, these are fairly similar ranges, so this will work just fine. It's when they're on dramatically different ranges like ones from 1 to a 1000, and the another from 0 to 1, that that really hurts your authorization algorithm. But by just setting all of them to a 0 mean and say, variance 1, like we did in the last slide, that just guarantees that all your features on a similar scale and will usually help your learning algorithm run faster. So, if your input features came from very different scales, maybe some features are from 0 to 1, some from 1 to 1,000, then it's important to normalize your features. If your features came in on similar scales, then this step is less important. Although performing this type of normalization pretty much never does any harm, so I'll often do it anyway if I'm not sure whether or not it will help with speeding up training for your algebra.
+
+<p>So that’s it for normalizing your input features. Next, let’s keep talking about ways to speed up the training of your new network.<br>When training a neural network, one of the techniques</p>
+<h2><b>Vanishing / Exploding gradients</b></h2>
+
+<p>One of the problems of training neural network, especially very deep neural networks, is data vanishing and exploding gradients. What that means is that when you’re training a very deep network your derivatives or your slopes can sometimes get either very, very big or very, very small, maybe even exponentially small, and this makes training difficult. In this Topic you see what this problem of exploding and vanishing gradients really means, as well as how you can use careful choices of the random weight initialization to significantly reduce this problem. Unless you’re training a very deep neural network like this, to save space on the slide, I’ve drawn it as if you have only two hidden units per layer, but it could be more as well. But this neural network will have parameters W1, W2, W3 and so on up to WL. <center><img src='https://lh3.googleusercontent.com/Q3W0fEM_mFd1V-qLMWT2svKLYl3lbOuSNk9ph1X8G6cwIVq9J-kIwVoq08hBnjJOgiDpzfzZcwIahtiu2Mzd50rUmy5ZNE7cB8NxwjDijZdGjHBryf2OibhL-SjmamUpemehoaqhQQ=w2400' /></center> For the sake of simplicity, let’s say we’re using an activation function G of Z equals Z, so linear activation function. And let’s ignore B, let’s say B of L equals zero. So in that case you can show that the output Y will be WL times WL minus one times WL minus two, dot, dot, dot down to the W3, W2, W1 times X. But if you want to just check my math, W1 times X is going to be Z1, because B is equal to zero. So Z1 is equal to, I guess, W1 times X and then plus B which is zero. But then A1 is equal to G of Z1.<br>But because we use linear activation function, this is just equal to Z1. So this first term W1X is equal to A1. And then by the reasoning you can figure out that W2 times W1 times X is equal to A2, because that’s going to be G of Z2, is going to be G of W2 times A1 which you can plug that in here. So this thing is going to be equal to A2, and then this thing is going to be A3 and so on until the protocol of all these matrices gives you Y-hat, not Y. Now, let’s say that each of you weight matrices WL is just a little bit larger than one times the identity. So it’s 1.5_1.5_0_0. </p>
+<p>Technically, the last one has different dimensions so maybe this is just the rest of these weight matrices. Then Y-hat will be, ignoring this last one with different dimension, this 1.5_0_0_1.5 matrix to the power of L minus 1 times X, because we assume that each one of these matrices is equal to this thing. It’s really 1.5 times the identity matrix, then you end up with this calculation. And so Y-hat will be essentially 1.5 to the power of L, to the power of L minus 1 times X, and if L was large for very deep neural network, Y-hat will be very large. In fact, it just grows exponentially, it grows like 1.5 to the number of layers. And so if you have a very deep neural network, the value of Y will explode. Now, conversely, if we replace this with 0.5, so something less than 1, then this becomes 0.5 to the power of L. This matrix becomes 0.5 to the L minus one times X, again ignoring WL. And so each of your matrices are less than 1, then let’s say X1, X2 were one one, then the activations will be one half, one half, one fourth, one fourth, one eighth, one eighth, and so on until this becomes one over two to the L. So the activation values will decrease exponentially as a function of the def, as a function of the number of layers L of the network. So in the very deep network, the activations end up decreasing exponentially. </p>
+<center><img src='https://lh3.googleusercontent.com/Q3W0fEM_mFd1V-qLMWT2svKLYl3lbOuSNk9ph1X8G6cwIVq9J-kIwVoq08hBnjJOgiDpzfzZcwIahtiu2Mzd50rUmy5ZNE7cB8NxwjDijZdGjHBryf2OibhL-SjmamUpemehoaqhQQ=w2400' /></center>
+So the intuition I hope you can take away from this is that at the weights W, if they're all just a little bit bigger than one or just a little bit bigger than the identity matrix, then with a very deep network the activations can explode. And if W is just a little bit less than identity. So this maybe here's 0.9, 0.9, then you have a very deep network, the activations will decrease exponentially. And even though I went through this argument in terms of activations increasing or decreasing exponentially as a function of L, a similar argument can be used to show that the derivatives or the gradients the computer is going to send will also increase exponentially or decrease exponentially as a function of the number of layers. With some of the modern neural networks, L equals 150. 
+Microsoft recently got great results with 152 layer neural network. But with such a deep neural network, if your activations or gradients increase or decrease exponentially as a function of L, then these values could get really big or really small. And this makes training difficult, especially if your gradients are exponentially smaller than L, then gradient descent will take tiny little steps. It will take a long time for gradient descent to learn anything. To summarize, you've seen how deep networks suffer from the problems of vanishing or exploding gradients. In fact, for a long time this problem was a huge barrier to training deep neural networks. 
+It turns out there's a partial solution that doesn't completely solve this problem but it helps a lot which is careful choice of how you initialize the weights. To see that, let's go to the next Topic.
+One of the problems of training neural network, especially very deep neural networks, is data vanishing
+
+<h3><b>Weight Initialization for Deep Networks</b></h3>
+In the last paragraph you saw how very deep neural networks can have the problems of vanishing and exploding gradients. It turns out that a partial solution to this, doesn't solve it entirely but helps a lot, is better or more careful choice of the random initialization for your neural network. 
+<h4><b>Single Neuron</b></h4>
+To understand this, let's start with the example of initializing the ways for a single neuron, and then we're go on to generalize this to a deep network. Let's go through this with an example with just a single neuron, and then we'll talk about the deep net later. So with a single neuron, you might input four features, x1 through x4, and then you have some a=g(z) and then it outputs some y. And later on for a deeper net, you know these inputs will be right, some layer a(l), but for now let's just call this x for now. 
+<center><img src='https://lh3.googleusercontent.com/USFAtdNm0RCsytlythdEzQqlTQeNrFTMj5XPbfpS4tWNlw35ylqQknNdWPVaappekVIwfv7t9FAoPPWpWv-8QXOtGxPmKvEulSc2nqxI_gVlpiMxEgclAVFliY-P5nVQ5da-VKkqnw=w2400' /></center>
+So z is going to be equal to w1x1 + w2x2 +... + I guess WnXn. And let's set b=0 so, you know, let's just ignore b for now. So in order to make z not blow up and not become too small, you notice that the larger n is, the smaller you want Wi to be, right? Because z is the sum of the WiXi. And so if you're adding up a lot of these terms, you want each of these terms to be smaller. One reasonable thing to do would be to set the variance of Wi to be equal to 1 over n, where n is the number of input features that's going into a neuron. So in practice, what you can do is set the weight matrix W for a certain layer to be np.random.randn you know, and then whatever the shape of the matrix is for this out here, and then times square root of 1 over the number of features that I fed into each neuron in layer l. So there's going to be n(l-1) because that's the number of units that I'm feeding into each of the units in layer l. 
+<h4><b>Using RElu Activation Function:</b></h4>
+It turns out that if you're using a ReLu activation function that, rather than 1 over n it turns out that, set in the variance of 2 over n works a little bit better. So you often see that in initialization, especially if you're using a ReLu activation function. So if gl(z) is ReLu(z), oh and it depends on how familiar you are with random variables. It turns out that something, a Gaussian random variable and then multiplying it by a square root of this, that sets the variance to be quoted this way, to be 2 over n. And the reason I went from n to this n superscript l-1 was, in this example with logistic regression which is at n input features, but the more general case layer l would have n(l-1) inputs each of the units in that layer. 
+So if the input features of activations are roughly mean 0 and standard variance and variance 1 then this would cause z to also take on a similar scale. And this doesn't solve, but it definitely helps reduce the vanishing, exploding gradients problem, because it's trying to set each of the weight matrices w, you know, so that it's not too much bigger than 1 and not too much less than 1 so it doesn't explode or vanish too quickly. I've just mention some other variants. The version we just described is assuming a ReLu activation function and this by a paper by [inaudible]. 
+<h4><b>Using TanH Activation Function: </b></h4>
+A few other variants, if you are using a TanH activation function then there's a paper that shows that instead of using the constant 2, it's better use the constant 1 and so 1 over this instead of 2. And so you multiply it by the square root of this. So this square root term will replace this term and you use this if you're using a TanH activation function. This is called Xavier initialization. And another version we're taught by Yoshua Bengio and his colleagues, you might see in some papers, but is to use this formula, which you know has some other theoretical justification, but I would say if you're using a ReLu activation function, which is really the most common activation function, I would use this formula. 
+If you're using TanH you could try this version instead, and some authors will also use this. But in practice I think all of these formulas just give you a starting point. It gives you a default value to use for the variance of the initialization of your weight matrices. If you wish the variance here, this variance parameter could be another thing that you could tune with your hyperparameters. So you could have another parameter that multiplies into this formula and tune that multiplier as part of your hyperparameter surge. Sometimes tuning the hyperparameter has a modest size effect. 
+<center><img src='https://lh3.googleusercontent.com/USFAtdNm0RCsytlythdEzQqlTQeNrFTMj5XPbfpS4tWNlw35ylqQknNdWPVaappekVIwfv7t9FAoPPWpWv-8QXOtGxPmKvEulSc2nqxI_gVlpiMxEgclAVFliY-P5nVQ5da-VKkqnw=w2400' /></center>
+It's not one of the first hyperparameters I would usually try to tune, but I've also seen some problems where tuning this helps a reasonable amount. But this is usually lower down for me in terms of how important it is relative to the other hyperparameters you can tune. So I hope that gives you some intuition about the problem of vanishing or exploding gradients as well as choosing a reasonable scaling for how you initialize the weights. Hopefully that makes your weights not explode too quickly and not decay to zero too quickly, so you can train a reasonably deep network without the weights or the gradients exploding or vanishing too much. When you train deep networks, this is another trick that will help you make your neural networks trained much more quickly.
+
+<h4><b>Numerical approximation of gradients</b></h4>
+When you implement back propagation you'll find that there's a test called creating checking that can really help you make sure that your implementation of back prop is correct. Because sometimes you write all these equations and you're just not 100% sure if you've got all the details right and internal back propagation. So in order to build up to gradient and checking, let's first talk about how to numerically approximate computations of gradients and in the next Topic, we'll talk about how you can implement gradient checking to make sure the implementation of backdrop is correct. So lets take the function f and replot it here and remember this is f of theta equals theta cubed, and let's again start off to some value of theta. Let's say theta equals 1. Now instead of just nudging theta to the right to get theta plus epsilon, we're going to nudge it to the right and nudge it to the left to get theta minus epsilon, as was theta plus epsilon. So this is 1, this is 1.01, this is 0.99 where, again, epsilon is same as before, it is 0.01. 
+It turns out that rather than taking this little triangle and computing the height over the width, you can get a much better estimate of the gradient if you take this point, f of theta minus epsilon and this point, and you instead compute the height over width of this bigger triangle. So for technical reasons which I won't go into, the height over width of this bigger green triangle gives you a much better approximation to the derivative at theta. And you saw it yourself, taking just this lower triangle in the upper right is as if you have two triangles, right? This one on the upper right and this one on the lower left. And you're kind of taking both of them into account by using this bigger green triangle. So rather than a one sided difference, you're taking a two sided difference. 
+<center><img src='https://lh3.googleusercontent.com/ZXRr2_3cQYJLeXZ_Phe9zhE7DKQvVXUdIu_YFbSymXPziknQV_UvkQn3L0z5etZUc-c9uRmnMXZVCWpwnJ2KEcAokMrEx7vgPS0LWUvUvUIP-Ln3cXbdt4acFNttc2QBumTfC-CocA=w2400' /></center>
+So let's work out the math. This point here is F of theta plus epsilon. This point here is F of theta minus epsilon. So the height of this big green triangle is f of theta plus epsilon minus f of theta minus epsilon. And then the width, this is 1 epsilon, this is 2 epsilon. So the width of this green triangle is 2 epsilon. So the height of the width is going to be first the height, so that's F of theta plus epsilon minus F of theta minus epsilon divided by the width. So that was 2 epsilon which we write that down here.
+And this should hopefully be close to g of theta. So plug in the values, remember f of theta is theta cubed. So theta plus epsilon is 1.01. So I take a cube of that minus 0.99 theta cube of that divided by 2 times 0.01. Feel free to practice in the calculator. You should get that this is 3.0001. 
+<center><img src='https://lh3.googleusercontent.com/KHzqEvI8T5YKBV4GgCXppFjMXhZthr2mCvQAODoROrh2M5xtnpdvdC3_RGEG7qFRUTRy2pxxzYLz-FfcTGQC23i-QhFvGTT_3S24bZmV5ihyZFdCKuMmWBPjEMMZswP5cOll-ioWYg=w2400' /></center> So this two sided difference way of approximating the derivative you find that this is extremely close to 3. And so this gives you a much greater confidence that g of theta is probably a correct implementation of the derivative of F.
+<h4><b>Single Sided Difference:</b></h4>
+When you use this method for grading, checking and back propagation, this turns out to run twice as slow as you were to use a one-sided defferense. It turns out that in practice I think it's worth it to use this other method because it's just much more accurate. The little bit of optional theory for those of you that are a little bit more familiar of Calculus, it turns out that, and it's okay if you don't get what I'm about to say here. But it turns out that the formal definition of a derivative is for very small values of epsilon is f of theta plus epsilon minus f of theta minus epsilon over 2 epsilon. And the formal definition of derivative is in the limits of exactly that formula on the right as epsilon those as 0. And the definition of unlimited is something that you learned if you took a Calculus class but I won't go into that here. And it turns out that for a non zero value of epsilon, you can show that the error of this approximation is on the order of epsilon squared, and remember epsilon is a very small number. So if epsilon is 0.01 which it is here then epsilon squared is 0.0001. The big O notation means the error is actually some constant times this, but this is actually exactly our approximation error. So the big O constant happens to be 1. Whereas in contrast if we were to use this formula, the other one, then the error is on the order of epsilon. And again, when epsilon is a number less than 1, then epsilon is actually much bigger than epsilon squared which is why this formula here is actually much less accurate approximation than this formula on the left. Which is why when doing gradient checking, we rather use this two-sided difference when you compute f of theta plus epsilon minus f of theta minus epsilon and then divide by 2 epsilon rather than just one sided difference which is less accurate.
+<center><<img src='https://lh3.googleusercontent.com/KHzqEvI8T5YKBV4GgCXppFjMXhZthr2mCvQAODoROrh2M5xtnpdvdC3_RGEG7qFRUTRy2pxxzYLz-FfcTGQC23i-QhFvGTT_3S24bZmV5ihyZFdCKuMmWBPjEMMZswP5cOll-ioWYg=w2400' /></center>
+If you didn't understand my last two comments, all of these things are on here. Don't worry about it. That's really more for those of you that are a bit more familiar with Calculus, and with numerical approximations. 
+<h4><b>TakeAway:</b></h4>
+But the takeaway is that this two-sided difference formula is much more accurate. And so that's what we're going to use when we do gradient checking in the next Topic.
+So you've seen how by taking a two sided difference, you can numerically verify whether or not a function g, g of theta that someone else gives you is a correct implementation of the derivative of a function f. Let's now see how we can use this to verify whether or not your back propagation implementation is correct or if there might be a bug in there that you need to go and tease out
+
+<h5>Credits - <a href='https://www.coursera.org/' target=”_blank >Coursera</a>,  <a href = 'https://en.wikipedia.org/wiki/Andrew_Ng' title="Andrew_Ng" target=”_blank>Credits to the teacher</a> , 
+<a href ='https://www.coursera.org/specializations/deep-learning?' target=”_blank>Deeplearning.ai Course</a><h5>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          
+          <div class="post-tags">
+              <a href="/tags/2020/" rel="tag"><i class="fa fa-tag"></i> 2020</a>
+              <a href="/tags/Setting-Up-Optimisation-Problem/" rel="tag"><i class="fa fa-tag"></i> Setting Up Optimisation Problem</a>
+              <a href="/tags/Normalization/" rel="tag"><i class="fa fa-tag"></i> Normalization</a>
+              <a href="/tags/Vanishing-Exploding-gradients/" rel="tag"><i class="fa fa-tag"></i> Vanishing / Exploding gradients</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/Python_Basics_With_Numpy/" rel="prev" title="Python Basics With Numpy">
+      <i class="fa fa-chevron-left"></i> Python Basics With Numpy
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/Vectorization/" rel="next" title="Vectorization || Neural Networks and Deep Learning">
+      Vectorization || Neural Networks and Deep Learning <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link"><span class="nav-number">1.</span> <span class="nav-text">Introduction: </span></a></li><li class="nav-item nav-level-3"><a class="nav-link"><span class="nav-number">2.</span> <span class="nav-text">So, why do we do Normalization?</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link"><span class="nav-number"></span> <span class="nav-text">Vanishing &#x2F; Exploding gradients</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link"><span class="nav-number">1.</span> <span class="nav-text">Weight Initialization for Deep Networks</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link"><span class="nav-number">1.1.</span> <span class="nav-text">Single Neuron</span></a></li><li class="nav-item nav-level-4"><a class="nav-link"><span class="nav-number">1.2.</span> <span class="nav-text">Using RElu Activation Function:</span></a></li><li class="nav-item nav-level-4"><a class="nav-link"><span class="nav-number">1.3.</span> <span class="nav-text">Using TanH Activation Function: </span></a></li><li class="nav-item nav-level-4"><a class="nav-link"><span class="nav-number">1.4.</span> <span class="nav-text">Numerical approximation of gradients</span></a></li><li class="nav-item nav-level-4"><a class="nav-link"><span class="nav-number">1.5.</span> <span class="nav-text">Single Sided Difference:</span></a></li><li class="nav-item nav-level-4"><a class="nav-link"><span class="nav-number">1.6.</span> <span class="nav-text">TakeAway:</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link"><span class="nav-number">1.6.1.</span> <span class="nav-text">Credits - Coursera,  Credits to the teacher , 
+Deeplearning.ai Course
+</span></a></li><li class="nav-item nav-level-5"><a class="nav-link"><span class="nav-number">1.6.2.</span> <span class="nav-text">
+</span></a></li></ol></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Karan Arora"
+      src="/images/avatar.gif">
+  <p class="site-author-name" itemprop="name">Karan Arora</p>
+  <div class="site-description" itemprop="description">Trasforming data into Information</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">43</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">15</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">43</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <span class="exturl" data-url="bWFpbHRvOm1haWxtYXNzaXZlZmlsZUBnbWFpbC5jb20=" title="Get In Touch → mailto:mailmassivefile@gmail.com"><i class="fa fa-envelope fa-fw"></i>Get In Touch</span>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Karan Arora</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+      <span class="post-meta-item-text">Symbols count total: </span>
+    <span title="Symbols count total">446k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span class="post-meta-item-text">Reading time total &asymp;</span>
+    <span title="Reading time total">6:46</span>
+</div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/pjax/pjax.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js"></script>
+  <script src="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+<script src="/js/bookmark.js"></script>
+
+  <script>
+var pjax = new Pjax({
+  selectors: [
+    'head title',
+    '#page-configurations',
+    '.content-wrap',
+    '.post-toc-wrap',
+    '.languages',
+    '#pjax'
+  ],
+  switches: {
+    '.post-toc-wrap': Pjax.switches.innerHTML
+  },
+  analytics: false,
+  cacheBust: false,
+  scrollTo : !CONFIG.bookmark.enable
+});
+
+window.addEventListener('pjax:success', () => {
+  document.querySelectorAll('script[data-pjax], script#page-configurations, #pjax script').forEach(element => {
+    var code = element.text || element.textContent || element.innerHTML || '';
+    var parent = element.parentNode;
+    parent.removeChild(element);
+    var script = document.createElement('script');
+    if (element.id) {
+      script.id = element.id;
+    }
+    if (element.className) {
+      script.className = element.className;
+    }
+    if (element.type) {
+      script.type = element.type;
+    }
+    if (element.src) {
+      script.src = element.src;
+      // Force synchronous loading of peripheral JS.
+      script.async = false;
+    }
+    if (element.dataset.pjax !== undefined) {
+      script.dataset.pjax = '';
+    }
+    if (code !== '') {
+      script.appendChild(document.createTextNode(code));
+    }
+    parent.appendChild(script);
+  });
+  NexT.boot.refresh();
+  // Define Motion Sequence & Bootstrap Motion.
+  if (CONFIG.motion.enable) {
+    NexT.motion.integrator
+      .init()
+      .add(NexT.motion.middleWares.subMenu)
+      .add(NexT.motion.middleWares.postList)
+      .bootstrap();
+  }
+  NexT.utils.updateSidebarPosition();
+});
+</script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+<script data-pjax>
+document.querySelectorAll('.pdfobject-container').forEach(element => {
+  let url = element.dataset.target;
+  let pdfOpenParams = {
+    navpanes : 0,
+    toolbar  : 0,
+    statusbar: 0,
+    pagemode : 'thumbs',
+    view     : 'FitH'
+  };
+  let pdfOpenFragment = '#' + Object.entries(pdfOpenParams).map(([key, value]) => `${key}=${encodeURIComponent(value)}`).join('&');
+  let fullURL = `/lib/pdf/web/viewer.html?file=${encodeURIComponent(url)}${pdfOpenFragment}`;
+
+  if (NexT.utils.supportsPDFs()) {
+    element.innerHTML = `<embed class="pdfobject" src="${url + pdfOpenFragment}" type="application/pdf" style="height: ${element.dataset.height};">`;
+  } else {
+    element.innerHTML = `<iframe src="${fullURL}" style="height: ${element.dataset.height};" frameborder="0"></iframe>`;
+  }
+});
+</script>
+
+
+
+
+    <div id="pjax">
+  
+
+  
+      
+
+<script>
+  if (typeof MathJax === 'undefined') {
+    window.MathJax = {
+      loader: {
+          load: ['[tex]/mhchem'],
+        source: {
+          '[tex]/amsCd': '[tex]/amscd',
+          '[tex]/AMScd': '[tex]/amscd'
+        }
+      },
+      tex: {
+        inlineMath: {'[+]': [['$', '$']]},
+          packages: {'[+]': ['mhchem']},
+        tags: 'ams'
+      },
+      options: {
+        renderActions: {
+          findScript: [10, doc => {
+            document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+              const display = !!node.type.match(/; *mode=display/);
+              const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+              const text = document.createTextNode('');
+              node.parentNode.replaceChild(text, node);
+              math.start = {node: text, delim: '', n: 0};
+              math.end = {node: text, delim: '', n: 0};
+              doc.math.push(math);
+            });
+          }, '', false],
+          insertedScript: [200, () => {
+            document.querySelectorAll('mjx-container').forEach(node => {
+              let target = node.parentNode;
+              if (target.nodeName.toLowerCase() === 'li') {
+                target.parentNode.classList.add('has-jax');
+              }
+            });
+          }, '', false]
+        }
+      }
+    };
+    (function () {
+      var script = document.createElement('script');
+      script.src = '//cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js';
+      script.defer = true;
+      document.head.appendChild(script);
+    })();
+  } else {
+    MathJax.startup.document.state(0);
+    MathJax.texReset();
+    MathJax.typeset();
+  }
+</script>
+
+    
+
+  
+
+    </div>
+</body>
+</html>

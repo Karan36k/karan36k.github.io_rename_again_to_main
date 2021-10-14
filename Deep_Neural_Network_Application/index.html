@@ -1,0 +1,898 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"massivefile.com","root":"/","scheme":"Gemini","version":"7.8.0","exturl":true,"sidebar":{"position":"left","display":"post","padding":20,"offset":15,"onmobile":false},"copycode":{"enable":true,"show_result":"flat","style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":true,"color":"#222","save":false},"fancybox":true,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta property="og:type" content="article">
+<meta property="og:title" content="Deep Neural Network Application">
+<meta property="og:url" content="https://massivefile.com/Deep_Neural_Network_Application/index.html">
+<meta property="og:site_name" content="Massivefile.com - Blog">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2020-05-02T00:56:53.000Z">
+<meta property="article:modified_time" content="2021-10-13T15:44:05.267Z">
+<meta property="article:author" content="Karan Arora">
+<meta property="article:tag" content="2020">
+<meta property="article:tag" content="Assignment">
+<meta property="article:tag" content="Deep Neural Network Application">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://massivefile.com/Deep_Neural_Network_Application/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'en'
+  };
+</script>
+
+  <title>Deep Neural Network Application | Massivefile.com - Blog</title>
+  
+    <script>
+      function sendPageView() {
+        if (CONFIG.hostname !== location.hostname) return;
+        var uid = localStorage.getItem('uid') || (Math.random() + '.' + Math.random());
+        localStorage.setItem('uid', uid);
+        navigator.sendBeacon('https://www.google-analytics.com/collect', new URLSearchParams({
+          v  : 1,
+          tid: 'UA-163312538-2',
+          cid: uid,
+          t  : 'pageview',
+          dp : encodeURIComponent(location.pathname)
+        }));
+      }
+      document.addEventListener('pjax:complete', sendPageView);
+      sendPageView();
+    </script>
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta custom-logo">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Massivefile.com - Blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">Programming & Data Science</p>
+      <a>
+        <img class="custom-logo-image" src="/images/custom-logo.jpg" alt="Massivefile.com - Blog">
+      </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags<span class="badge">43</span></a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories<span class="badge">15</span></a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives<span class="badge">43</span></a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
+
+  <a href="https://massivefile.com/karan/" class="github-corner" title="See Portfolio Website" aria-label="See Portfolio Website"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://massivefile.com/Deep_Neural_Network_Application/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Karan Arora">
+      <meta itemprop="description" content="Trasforming data into Information">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Massivefile.com - Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Deep Neural Network Application
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2020-05-02 06:26:53" itemprop="dateCreated datePublished" datetime="2020-05-02T06:26:53+05:30">2020-05-02</time>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="Symbols count in article">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">Symbols count in article: </span>
+              <span>19k</span>
+            </span>
+            <span class="post-meta-item" title="Reading time">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">Reading time &asymp;</span>
+              <span>17 mins.</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <body><span id="more"></span> 
+
+<p><i><b>Note - These are my notes on DeepLearning Specialization Part:<br>Deep Neural Network Application  || (Course- 1 Week - 4) || Neural Networks and Deep Learning (Week 4)</i></b></p>
+<h1 id="Deep-Neural-Network-for-Image-Classification-Application"><a href="#Deep-Neural-Network-for-Image-Classification-Application" class="headerlink" title="Deep Neural Network for Image Classification: Application"></a>Deep Neural Network for Image Classification: Application</h1><p>When you finish this, you will have finished the last programming assignment of Week 4, and also the last programming assignment of this course!<br>You will use use the functions you’d implemented in the previous assignment to build a deep network, and apply it to cat vs non-cat classification. Hopefully, you will see an improvement in accuracy relative to your previous logistic regression implementation.<br><strong>After this assignment you will be able to:</strong></p>
+<ul>
+<li>Build and apply a deep neural network to supervised learning. </li>
+</ul>
+<p>Let’s get started!</p>
+<h2 id="1-Packages"><a href="#1-Packages" class="headerlink" title="1 - Packages"></a>1 - Packages</h2><p>Let’s first import all the packages that you will need during this assignment. </p>
+<ul>
+<li><span class="exturl" data-url="aHR0cHM6Ly93d3cubnVtcHkub3JnLw==">numpy<i class="fa fa-external-link-alt"></i></span> is the fundamental package for scientific computing with Python.</li>
+<li><span class="exturl" data-url="aHR0cHM6Ly9tYXRwbG90bGliLm9yZy8=">matplotlib<i class="fa fa-external-link-alt"></i></span> is a library to plot graphs in Python.</li>
+<li><span class="exturl" data-url="aHR0cHM6Ly93d3cuaDVweS5vcmcv">h5py<i class="fa fa-external-link-alt"></i></span> is a common package to interact with a dataset that is stored on an H5 file.</li>
+<li><span class="exturl" data-url="aHR0cHM6Ly93d3cucHl0aG9ud2FyZS5jb20vcHJvZHVjdHMvcGlsLw==">PIL<i class="fa fa-external-link-alt"></i></span> and <span class="exturl" data-url="aHR0cHM6Ly93d3cuc2NpcHkub3JnLw==">scipy<i class="fa fa-external-link-alt"></i></span> are used here to test your model with your own picture at the end.</li>
+<li>dnn_app_utils provides the functions implemented in the “Building your Deep Neural Network: Step by Step” assignment to this notebook.</li>
+<li>np.random.seed(1) is used to keep all the random function calls consistent. It will help us grade your work.</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> time<br><span class="hljs-keyword">import</span> numpy <span class="hljs-keyword">as</span> np<br><span class="hljs-keyword">import</span> h5py<br><span class="hljs-keyword">import</span> matplotlib.pyplot <span class="hljs-keyword">as</span> plt<br><span class="hljs-keyword">import</span> scipy<br><span class="hljs-keyword">from</span> PIL <span class="hljs-keyword">import</span> Image<br><span class="hljs-keyword">from</span> scipy <span class="hljs-keyword">import</span> ndimage<br><span class="hljs-keyword">import</span> skimage<br><span class="hljs-keyword">from</span> dnn_app_utils_v2 <span class="hljs-keyword">import</span> *<br><br>%matplotlib inline<br>plt.rcParams[<span class="hljs-string">&#x27;figure.figsize&#x27;</span>] = (<span class="hljs-number">5.0</span>, <span class="hljs-number">4.0</span>) <span class="hljs-comment"># set default size of plots</span><br>plt.rcParams[<span class="hljs-string">&#x27;image.interpolation&#x27;</span>] = <span class="hljs-string">&#x27;nearest&#x27;</span><br>plt.rcParams[<span class="hljs-string">&#x27;image.cmap&#x27;</span>] = <span class="hljs-string">&#x27;gray&#x27;</span><br><br>%load_ext autoreload<br>%autoreload <span class="hljs-number">2</span><br><br>np.random.seed(<span class="hljs-number">1</span>)<br></code></pre></td></tr></table></figure>
+
+<h2 id="2-Dataset"><a href="#2-Dataset" class="headerlink" title="2 - Dataset"></a>2 - Dataset</h2><p>You will use the same “Cat vs non-Cat” dataset as in “Logistic Regression as a Neural Network” (Assignment 2). The model you had built had 70% test accuracy on classifying cats vs non-cats images. Hopefully, your new model will perform a better!</p>
+<p><strong>Problem Statement</strong>: You are given a dataset (“data.h5”) containing:<br>    - a training set of m_train images labelled as cat (1) or non-cat (0)<br>    - a test set of m_test images labelled as cat and non-cat<br>    - each image is of shape (num_px, num_px, 3) where 3 is for the 3 channels (RGB).</p>
+<p>Let’s get more familiar with the dataset. Load the data by running the cell below.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs python">train_x_orig, train_y, test_x_orig, test_y, classes = load_data()<br></code></pre></td></tr></table></figure>
+
+<p>The following code will show you an image in the dataset. Feel free to change the index and re-run the cell multiple times to see other images. </p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment"># Example of a picture</span><br>index = <span class="hljs-number">10</span><br>plt.imshow(train_x_orig[index])<br><span class="hljs-built_in">print</span> (<span class="hljs-string">&quot;y = &quot;</span> + <span class="hljs-built_in">str</span>(train_y[<span class="hljs-number">0</span>,index]) + <span class="hljs-string">&quot;. It&#x27;s a &quot;</span> + classes[train_y[<span class="hljs-number">0</span>,index]].decode(<span class="hljs-string">&quot;utf-8&quot;</span>) +  <span class="hljs-string">&quot; picture.&quot;</span>)<br></code></pre></td></tr></table></figure>
+
+<pre><code>y = 0. It&#39;s a non-cat picture.
+</code></pre>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment"># Explore your dataset </span><br>m_train = train_x_orig.shape[<span class="hljs-number">0</span>]<br>num_px = train_x_orig.shape[<span class="hljs-number">1</span>]<br>m_test = test_x_orig.shape[<span class="hljs-number">0</span>]<br><br><span class="hljs-built_in">print</span> (<span class="hljs-string">&quot;Number of training examples: &quot;</span> + <span class="hljs-built_in">str</span>(m_train))<br><span class="hljs-built_in">print</span> (<span class="hljs-string">&quot;Number of testing examples: &quot;</span> + <span class="hljs-built_in">str</span>(m_test))<br><span class="hljs-built_in">print</span> (<span class="hljs-string">&quot;Each image is of size: (&quot;</span> + <span class="hljs-built_in">str</span>(num_px) + <span class="hljs-string">&quot;, &quot;</span> + <span class="hljs-built_in">str</span>(num_px) + <span class="hljs-string">&quot;, 3)&quot;</span>)<br><span class="hljs-built_in">print</span> (<span class="hljs-string">&quot;train_x_orig shape: &quot;</span> + <span class="hljs-built_in">str</span>(train_x_orig.shape))<br><span class="hljs-built_in">print</span> (<span class="hljs-string">&quot;train_y shape: &quot;</span> + <span class="hljs-built_in">str</span>(train_y.shape))<br><span class="hljs-built_in">print</span> (<span class="hljs-string">&quot;test_x_orig shape: &quot;</span> + <span class="hljs-built_in">str</span>(test_x_orig.shape))<br><span class="hljs-built_in">print</span> (<span class="hljs-string">&quot;test_y shape: &quot;</span> + <span class="hljs-built_in">str</span>(test_y.shape))<br></code></pre></td></tr></table></figure>
+
+<pre><code>Number of training examples: 209
+Number of testing examples: 50
+Each image is of size: (64, 64, 3)
+train_x_orig shape: (209, 64, 64, 3)
+train_y shape: (1, 209)
+test_x_orig shape: (50, 64, 64, 3)
+test_y shape: (1, 50)
+</code></pre>
+<p>As usual, you reshape and standardize the images before feeding them to the network. The code is given in the cell below.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment"># Reshape the training and test examples </span><br>train_x_flatten = train_x_orig.reshape(train_x_orig.shape[<span class="hljs-number">0</span>], -<span class="hljs-number">1</span>).T   <span class="hljs-comment"># The &quot;-1&quot; makes reshape flatten the remaining dimensions</span><br>test_x_flatten = test_x_orig.reshape(test_x_orig.shape[<span class="hljs-number">0</span>], -<span class="hljs-number">1</span>).T<br><br><span class="hljs-comment"># Standardize data to have feature values between 0 and 1.</span><br>train_x = train_x_flatten/<span class="hljs-number">255.</span><br>test_x = test_x_flatten/<span class="hljs-number">255.</span><br><br><span class="hljs-built_in">print</span> (<span class="hljs-string">&quot;train_x&#x27;s shape: &quot;</span> + <span class="hljs-built_in">str</span>(train_x.shape))<br><span class="hljs-built_in">print</span> (<span class="hljs-string">&quot;test_x&#x27;s shape: &quot;</span> + <span class="hljs-built_in">str</span>(test_x.shape))<br><br></code></pre></td></tr></table></figure>
+
+<pre><code>train_x&#39;s shape: (12288, 209)
+test_x&#39;s shape: (12288, 50)
+</code></pre>
+<p>$12,288$ equals $64 \times 64 \times 3$ which is the size of one reshaped image vector.</p>
+<h2 id="3-Architecture-of-your-model"><a href="#3-Architecture-of-your-model" class="headerlink" title="3 - Architecture of your model"></a>3 - Architecture of your model</h2><p>Now that you are familiar with the dataset, it is time to build a deep neural network to distinguish cat images from non-cat images.</p>
+<p>You will build two different models:</p>
+<ul>
+<li>A 2-layer neural network</li>
+<li>An L-layer deep neural network</li>
+</ul>
+<p>You will then compare the performance of these models, and also try out different values for $L$. </p>
+<p>Let’s look at the two architectures.</p>
+<h3 id="3-1-2-layer-neural-network"><a href="#3-1-2-layer-neural-network" class="headerlink" title="3.1 - 2-layer neural network"></a>3.1 - 2-layer neural network</h3><ul>
+<li>The input is a (64,64,3) image which is flattened to a vector of size $(12288,1)$. </li>
+<li>The corresponding vector: $[x_0,x_1,…,x_{12287}]^T$ is then multiplied by the weight matrix $W^{[1]}$ of size $(n^{[1]}, 12288)$.</li>
+<li>You then add a bias term and take its relu to get the following vector: $[a_0^{[1]}, a_1^{[1]},…, a_{n^{[1]}-1}^{[1]}]^T$.</li>
+<li>You then repeat the same process.</li>
+<li>You multiply the resulting vector by $W^{[2]}$ and add your intercept (bias). </li>
+<li>Finally, you take the sigmoid of the result. If it is greater than 0.5, you classify it to be a cat.</li>
+</ul>
+<h3 id="3-2-L-layer-deep-neural-network"><a href="#3-2-L-layer-deep-neural-network" class="headerlink" title="3.2 - L-layer deep neural network"></a>3.2 - L-layer deep neural network</h3><p>It is hard to represent an L-layer deep neural network with the above representation. However, here is a simplified network representation:</p>
+<p><u>Detailed Architecture of figure 3</u>:</p>
+<ul>
+<li>The input is a (64,64,3) image which is flattened to a vector of size (12288,1).</li>
+<li>The corresponding vector: $[x_0,x_1,…,x_{12287}]^T$ is then multiplied by the weight matrix $W^{[1]}$ and then you add the intercept $b^{[1]}$. The result is called the linear unit.</li>
+<li>Next, you take the relu of the linear unit. This process could be repeated several times for each $(W^{[l]}, b^{[l]})$ depending on the model architecture.</li>
+<li>Finally, you take the sigmoid of the final linear unit. If it is greater than 0.5, you classify it to be a cat.</li>
+</ul>
+<h3 id="3-3-General-methodology"><a href="#3-3-General-methodology" class="headerlink" title="3.3 - General methodology"></a>3.3 - General methodology</h3><p>As usual you will follow the Deep Learning methodology to build the model:<br>    1. Initialize parameters / Define hyperparameters<br>    2. Loop for num_iterations:<br>        a. Forward propagation<br>        b. Compute cost function<br>        c. Backward propagation<br>        d. Update parameters (using parameters, and grads from backprop)<br>    4. Use trained parameters to predict labels</p>
+<p>Let’s now implement those two models!</p>
+<h2 id="4-Two-layer-neural-network"><a href="#4-Two-layer-neural-network" class="headerlink" title="4 - Two-layer neural network"></a>4 - Two-layer neural network</h2><p><strong>Question</strong>:  Use the helper functions you have implemented in the previous assignment to build a 2-layer neural network with the following structure: <em>LINEAR -&gt; RELU -&gt; LINEAR -&gt; SIGMOID</em>. The functions you may need and their inputs are:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">initialize_parameters</span>(<span class="hljs-params">n_x, n_h, n_y</span>):</span><br>    ...<br>    <span class="hljs-keyword">return</span> parameters <br><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">linear_activation_forward</span>(<span class="hljs-params">A_prev, W, b, activation</span>):</span><br>    ...<br>    <span class="hljs-keyword">return</span> A, cache<br><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">compute_cost</span>(<span class="hljs-params">AL, Y</span>):</span><br>    ...<br>    <span class="hljs-keyword">return</span> cost<br><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">linear_activation_backward</span>(<span class="hljs-params">dA, cache, activation</span>):</span><br>    ...<br>    <span class="hljs-keyword">return</span> dA_prev, dW, db<br><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">update_parameters</span>(<span class="hljs-params">parameters, grads, learning_rate</span>):</span><br>    ...<br>    <span class="hljs-keyword">return</span> parameters<br></code></pre></td></tr></table></figure>
+
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment">### CONSTANTS DEFINING THE MODEL ####</span><br>n_x = <span class="hljs-number">12288</span>     <span class="hljs-comment"># num_px * num_px * 3</span><br>n_h = <span class="hljs-number">7</span><br>n_y = <span class="hljs-number">1</span><br>layers_dims = (n_x, n_h, n_y)<br></code></pre></td></tr></table></figure>
+
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment"># GRADED FUNCTION: two_layer_model</span><br><br><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">two_layer_model</span>(<span class="hljs-params">X, Y, layers_dims, learning_rate = <span class="hljs-number">0.0075</span>, num_iterations = <span class="hljs-number">3000</span>, print_cost=<span class="hljs-literal">False</span></span>):</span><br>    <span class="hljs-string">&quot;&quot;&quot;</span><br><span class="hljs-string">    Implements a two-layer neural network: LINEAR-&gt;RELU-&gt;LINEAR-&gt;SIGMOID.</span><br><span class="hljs-string">    </span><br><span class="hljs-string">    Arguments:</span><br><span class="hljs-string">    X -- input data, of shape (n_x, number of examples)</span><br><span class="hljs-string">    Y -- true &quot;label&quot; vector (containing 0 if cat, 1 if non-cat), of shape (1, number of examples)</span><br><span class="hljs-string">    layers_dims -- dimensions of the layers (n_x, n_h, n_y)</span><br><span class="hljs-string">    num_iterations -- number of iterations of the optimization loop</span><br><span class="hljs-string">    learning_rate -- learning rate of the gradient descent update rule</span><br><span class="hljs-string">    print_cost -- If set to True, this will print the cost every 100 iterations </span><br><span class="hljs-string">    </span><br><span class="hljs-string">    Returns:</span><br><span class="hljs-string">    parameters -- a dictionary containing W1, W2, b1, and b2</span><br><span class="hljs-string">    &quot;&quot;&quot;</span><br>    <br>    np.random.seed(<span class="hljs-number">1</span>)<br>    grads = &#123;&#125;<br>    costs = []                              <span class="hljs-comment"># to keep track of the cost</span><br>    m = X.shape[<span class="hljs-number">1</span>]                           <span class="hljs-comment"># number of examples</span><br>    (n_x, n_h, n_y) = layers_dims<br>    <br>    <span class="hljs-comment"># Initialize parameters dictionary, by calling one of the functions you&#x27;d previously implemented</span><br>    <span class="hljs-comment">### START CODE HERE ### (≈ 1 line of code)</span><br>    parameters = initialize_parameters(n_x, n_h, n_y)<br>    <span class="hljs-comment">### END CODE HERE ###</span><br>    <br>    <span class="hljs-comment"># Get W1, b1, W2 and b2 from the dictionary parameters.</span><br>    W1 = parameters[<span class="hljs-string">&quot;W1&quot;</span>]<br>    b1 = parameters[<span class="hljs-string">&quot;b1&quot;</span>]<br>    W2 = parameters[<span class="hljs-string">&quot;W2&quot;</span>]<br>    b2 = parameters[<span class="hljs-string">&quot;b2&quot;</span>]<br>    <br>    <span class="hljs-comment"># Loop (gradient descent)</span><br><br>    <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-number">0</span>, num_iterations):<br><br>        <span class="hljs-comment"># Forward propagation: LINEAR -&gt; RELU -&gt; LINEAR -&gt; SIGMOID. Inputs: &quot;X, W1, b1&quot;. Output: &quot;A1, cache1, A2, cache2&quot;.</span><br>        <span class="hljs-comment">### START CODE HERE ### (≈ 2 lines of code)</span><br>        A1, cache1 = linear_activation_forward(X, W1, b1, activation=<span class="hljs-string">&#x27;relu&#x27;</span>)<br>        A2, cache2 = linear_activation_forward(A1, W2, b2, activation=<span class="hljs-string">&#x27;sigmoid&#x27;</span>)<br>        <span class="hljs-comment">### END CODE HERE ###</span><br>        <br>        <span class="hljs-comment"># Compute cost</span><br>        <span class="hljs-comment">### START CODE HERE ### (≈ 1 line of code)</span><br>        cost = compute_cost(A2, Y)<br>        <span class="hljs-comment">### END CODE HERE ###</span><br>        <br>        <span class="hljs-comment"># Initializing backward propagation</span><br>        dA2 = - (np.divide(Y, A2) - np.divide(<span class="hljs-number">1</span> - Y, <span class="hljs-number">1</span> - A2))<br>        <br>        <span class="hljs-comment"># Backward propagation. Inputs: &quot;dA2, cache2, cache1&quot;. Outputs: &quot;dA1, dW2, db2; also dA0 (not used), dW1, db1&quot;.</span><br>        <span class="hljs-comment">### START CODE HERE ### (≈ 2 lines of code)</span><br>        dA1, dW2, db2 = linear_activation_backward(dA2, cache2, activation=<span class="hljs-string">&#x27;sigmoid&#x27;</span>)<br>        dA0, dW1, db1 = linear_activation_backward(dA1, cache1, activation=<span class="hljs-string">&#x27;relu&#x27;</span>)<br>        <span class="hljs-comment">### END CODE HERE ###</span><br>        <br>        <span class="hljs-comment"># Set grads[&#x27;dWl&#x27;] to dW1, grads[&#x27;db1&#x27;] to db1, grads[&#x27;dW2&#x27;] to dW2, grads[&#x27;db2&#x27;] to db2</span><br>        grads[<span class="hljs-string">&#x27;dW1&#x27;</span>] = dW1<br>        grads[<span class="hljs-string">&#x27;db1&#x27;</span>] = db1<br>        grads[<span class="hljs-string">&#x27;dW2&#x27;</span>] = dW2<br>        grads[<span class="hljs-string">&#x27;db2&#x27;</span>] = db2<br>        <br>        <span class="hljs-comment"># Update parameters.</span><br>        <span class="hljs-comment">### START CODE HERE ### (approx. 1 line of code)</span><br>        parameters = update_parameters(parameters, grads, learning_rate=learning_rate)<br>        <span class="hljs-comment">### END CODE HERE ###</span><br><br>        <span class="hljs-comment"># Retrieve W1, b1, W2, b2 from parameters</span><br>        W1 = parameters[<span class="hljs-string">&quot;W1&quot;</span>]<br>        b1 = parameters[<span class="hljs-string">&quot;b1&quot;</span>]<br>        W2 = parameters[<span class="hljs-string">&quot;W2&quot;</span>]<br>        b2 = parameters[<span class="hljs-string">&quot;b2&quot;</span>]<br>        <br>        <span class="hljs-comment"># Print the cost every 100 training example</span><br>        <span class="hljs-keyword">if</span> print_cost <span class="hljs-keyword">and</span> i % <span class="hljs-number">100</span> == <span class="hljs-number">0</span>:<br>            <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;Cost after iteration &#123;&#125;: &#123;&#125;&quot;</span>.<span class="hljs-built_in">format</span>(i, np.squeeze(cost)))<br>        <span class="hljs-keyword">if</span> print_cost <span class="hljs-keyword">and</span> i % <span class="hljs-number">100</span> == <span class="hljs-number">0</span>:<br>            costs.append(cost)<br>       <br>    <span class="hljs-comment"># plot the cost</span><br><br>    plt.plot(np.squeeze(costs))<br>    plt.ylabel(<span class="hljs-string">&#x27;cost&#x27;</span>)<br>    plt.xlabel(<span class="hljs-string">&#x27;iterations (per tens)&#x27;</span>)<br>    plt.title(<span class="hljs-string">&quot;Learning rate =&quot;</span> + <span class="hljs-built_in">str</span>(learning_rate))<br>    plt.show()<br>    <br>    <span class="hljs-keyword">return</span> parameters<br></code></pre></td></tr></table></figure>
+
+<p>Run the cell below to train your parameters. See if your model runs. The cost should be decreasing. It may take up to 5 minutes to run 2500 iterations. Check if the “Cost after iteration 0” matches the expected output below, if not click on the square (⬛) on the upper bar of the notebook to stop the cell and try to find your error.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs python">parameters = two_layer_model(train_x, train_y, layers_dims = (n_x, n_h, n_y), num_iterations = <span class="hljs-number">2500</span>, print_cost=<span class="hljs-literal">True</span>)<br></code></pre></td></tr></table></figure>
+
+<pre><code>Cost after iteration 0: 0.693049735659989
+Cost after iteration 100: 0.6464320953428849
+Cost after iteration 200: 0.6325140647912678
+Cost after iteration 300: 0.6015024920354665
+Cost after iteration 400: 0.5601966311605747
+Cost after iteration 500: 0.515830477276473
+Cost after iteration 600: 0.47549013139433266
+Cost after iteration 700: 0.43391631512257495
+Cost after iteration 800: 0.4007977536203886
+Cost after iteration 900: 0.3580705011323798
+Cost after iteration 1000: 0.3394281538366413
+Cost after iteration 1100: 0.3052753636196265
+Cost after iteration 1200: 0.2749137728213018
+Cost after iteration 1300: 0.24681768210614863
+Cost after iteration 1400: 0.1985073503746611
+Cost after iteration 1500: 0.17448318112556635
+Cost after iteration 1600: 0.17080762978096914
+Cost after iteration 1700: 0.11306524562164712
+Cost after iteration 1800: 0.0962942684593716
+Cost after iteration 1900: 0.08342617959726877
+Cost after iteration 2000: 0.07439078704319092
+Cost after iteration 2100: 0.06630748132267941
+Cost after iteration 2200: 0.05919329501038178
+Cost after iteration 2300: 0.05336140348560562
+Cost after iteration 2400: 0.04855478562877025
+</code></pre>
+<p><strong>Expected Output</strong>:</p>
+<table> 
+    <tr>
+        <td> **Cost after iteration 0**</td>
+        <td> 0.6930497356599888 </td>
+    </tr>
+    <tr>
+        <td> **Cost after iteration 100**</td>
+        <td> 0.6464320953428849 </td>
+    </tr>
+    <tr>
+        <td> **...**</td>
+        <td> ... </td>
+    </tr>
+    <tr>
+        <td> **Cost after iteration 2400**</td>
+        <td> 0.048554785628770206 </td>
+    </tr>
+</table>
+
+<p>Good thing you built a vectorized implementation! Otherwise it might have taken 10 times longer to train this.</p>
+<p>Now, you can use the trained parameters to classify images from the dataset. To see your predictions on the training and test sets, run the cell below.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs python">predictions_train = predict(train_x, train_y, parameters)<br></code></pre></td></tr></table></figure>
+
+<pre><code>Accuracy: 0.9999999999999998
+</code></pre>
+<p><strong>Expected Output</strong>:</p>
+<table> 
+    <tr>
+        <td> **Accuracy**</td>
+        <td> 1.0 </td>
+    </tr>
+</table>
+
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs python">predictions_test = predict(test_x, test_y, parameters)<br></code></pre></td></tr></table></figure>
+
+<pre><code>Accuracy: 0.72
+</code></pre>
+<p><strong>Expected Output</strong>:</p>
+<table> 
+    <tr>
+        <td> **Accuracy**</td>
+        <td> 0.72 </td>
+    </tr>
+</table>
+
+<p><strong>Note</strong>: You may notice that running the model on fewer iterations (say 1500) gives better accuracy on the test set. This is called “early stopping” and we will talk about it in the next course. Early stopping is a way to prevent overfitting. </p>
+<p>Congratulations! It seems that your 2-layer neural network has better performance (72%) than the logistic regression implementation (70%, assignment week 2). Let’s see if you can do even better with an $L$-layer model.</p>
+<h2 id="5-L-layer-Neural-Network"><a href="#5-L-layer-Neural-Network" class="headerlink" title="5 - L-layer Neural Network"></a>5 - L-layer Neural Network</h2><p><strong>Question</strong>: Use the helper functions you have implemented previously to build an $L$-layer neural network with the following structure: <em>[LINEAR -&gt; RELU]$\times$(L-1) -&gt; LINEAR -&gt; SIGMOID</em>. The functions you may need and their inputs are:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">initialize_parameters_deep</span>(<span class="hljs-params">layer_dims</span>):</span><br>    ...<br>    <span class="hljs-keyword">return</span> parameters <br><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">L_model_forward</span>(<span class="hljs-params">X, parameters</span>):</span><br>    ...<br>    <span class="hljs-keyword">return</span> AL, caches<br><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">compute_cost</span>(<span class="hljs-params">AL, Y</span>):</span><br>    ...<br>    <span class="hljs-keyword">return</span> cost<br><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">L_model_backward</span>(<span class="hljs-params">AL, Y, caches</span>):</span><br>    ...<br>    <span class="hljs-keyword">return</span> grads<br><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">update_parameters</span>(<span class="hljs-params">parameters, grads, learning_rate</span>):</span><br>    ...<br>    <span class="hljs-keyword">return</span> parameters<br></code></pre></td></tr></table></figure>
+
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment">### CONSTANTS ###</span><br>layers_dims = [<span class="hljs-number">12288</span>, <span class="hljs-number">20</span>, <span class="hljs-number">7</span>, <span class="hljs-number">5</span>, <span class="hljs-number">1</span>] <span class="hljs-comment">#  5-layer model</span><br></code></pre></td></tr></table></figure>
+
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment"># GRADED FUNCTION: L_layer_model</span><br><br><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">L_layer_model</span>(<span class="hljs-params">X, Y, layers_dims, learning_rate = <span class="hljs-number">0.0075</span>, num_iterations = <span class="hljs-number">3000</span>, print_cost=<span class="hljs-literal">False</span></span>):</span><span class="hljs-comment">#lr was 0.009</span><br>    <span class="hljs-string">&quot;&quot;&quot;</span><br><span class="hljs-string">    Implements a L-layer neural network: [LINEAR-&gt;RELU]*(L-1)-&gt;LINEAR-&gt;SIGMOID.</span><br><span class="hljs-string">    </span><br><span class="hljs-string">    Arguments:</span><br><span class="hljs-string">    X -- data, numpy array of shape (number of examples, num_px * num_px * 3)</span><br><span class="hljs-string">    Y -- true &quot;label&quot; vector (containing 0 if cat, 1 if non-cat), of shape (1, number of examples)</span><br><span class="hljs-string">    layers_dims -- list containing the input size and each layer size, of length (number of layers + 1).</span><br><span class="hljs-string">    learning_rate -- learning rate of the gradient descent update rule</span><br><span class="hljs-string">    num_iterations -- number of iterations of the optimization loop</span><br><span class="hljs-string">    print_cost -- if True, it prints the cost every 100 steps</span><br><span class="hljs-string">    </span><br><span class="hljs-string">    Returns:</span><br><span class="hljs-string">    parameters -- parameters learnt by the model. They can then be used to predict.</span><br><span class="hljs-string">    &quot;&quot;&quot;</span><br><br>    np.random.seed(<span class="hljs-number">1</span>)<br>    costs = []                         <span class="hljs-comment"># keep track of cost</span><br>    <br>    <span class="hljs-comment"># Parameters initialization.</span><br>    <span class="hljs-comment">### START CODE HERE ###</span><br>    parameters = initialize_parameters_deep(layers_dims)<br>    <span class="hljs-comment">### END CODE HERE ###</span><br>    <br>    <span class="hljs-comment"># Loop (gradient descent)</span><br>    <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-number">0</span>, num_iterations):<br><br>        <span class="hljs-comment"># Forward propagation: [LINEAR -&gt; RELU]*(L-1) -&gt; LINEAR -&gt; SIGMOID.</span><br>        <span class="hljs-comment">### START CODE HERE ### (≈ 1 line of code)</span><br>        AL, caches = L_model_forward(X, parameters)<br>        <span class="hljs-comment">### END CODE HERE ###</span><br>        <br>        <span class="hljs-comment"># Compute cost.</span><br>        <span class="hljs-comment">### START CODE HERE ### (≈ 1 line of code)</span><br>        cost = compute_cost(AL, Y)<br>        <span class="hljs-comment">### END CODE HERE ###</span><br>    <br>        <span class="hljs-comment"># Backward propagation.</span><br>        <span class="hljs-comment">### START CODE HERE ### (≈ 1 line of code)</span><br>        grads = L_model_backward(AL, Y, caches)<br>        <span class="hljs-comment">### END CODE HERE ###</span><br> <br>        <span class="hljs-comment"># Update parameters.</span><br>        <span class="hljs-comment">### START CODE HERE ### (≈ 1 line of code)</span><br>        parameters = update_parameters(parameters, grads, learning_rate=learning_rate)<br>        <span class="hljs-comment">### END CODE HERE ###</span><br>                <br>        <span class="hljs-comment"># Print the cost every 100 training example</span><br>        <span class="hljs-keyword">if</span> print_cost <span class="hljs-keyword">and</span> i % <span class="hljs-number">100</span> == <span class="hljs-number">0</span>:<br>            <span class="hljs-built_in">print</span> (<span class="hljs-string">&quot;Cost after iteration %i: %f&quot;</span> %(i, cost))<br>        <span class="hljs-keyword">if</span> print_cost <span class="hljs-keyword">and</span> i % <span class="hljs-number">100</span> == <span class="hljs-number">0</span>:<br>            costs.append(cost)<br>            <br>    <span class="hljs-comment"># plot the cost</span><br>    plt.plot(np.squeeze(costs))<br>    plt.ylabel(<span class="hljs-string">&#x27;cost&#x27;</span>)<br>    plt.xlabel(<span class="hljs-string">&#x27;iterations (per tens)&#x27;</span>)<br>    plt.title(<span class="hljs-string">&quot;Learning rate =&quot;</span> + <span class="hljs-built_in">str</span>(learning_rate))<br>    plt.show()<br>    <br>    <span class="hljs-keyword">return</span> parameters<br></code></pre></td></tr></table></figure>
+
+<p>You will now train the model as a 5-layer neural network. </p>
+<p>Run the cell below to train your model. The cost should decrease on every iteration. It may take up to 5 minutes to run 2500 iterations. Check if the “Cost after iteration 0” matches the expected output below, if not click on the square (⬛) on the upper bar of the notebook to stop the cell and try to find your error.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs python">parameters = L_layer_model(train_x, train_y, layers_dims, num_iterations = <span class="hljs-number">2500</span>, print_cost = <span class="hljs-literal">True</span>)<br></code></pre></td></tr></table></figure>
+
+<pre><code>Cost after iteration 0: 0.771749
+Cost after iteration 100: 0.672053
+Cost after iteration 200: 0.648263
+Cost after iteration 300: 0.611507
+Cost after iteration 400: 0.567047
+Cost after iteration 500: 0.540138
+Cost after iteration 600: 0.527930
+Cost after iteration 700: 0.465477
+Cost after iteration 800: 0.369126
+Cost after iteration 900: 0.391747
+Cost after iteration 1000: 0.315187
+Cost after iteration 1100: 0.272700
+Cost after iteration 1200: 0.237419
+Cost after iteration 1300: 0.199601
+Cost after iteration 1400: 0.189263
+Cost after iteration 1500: 0.161189
+Cost after iteration 1600: 0.148214
+Cost after iteration 1700: 0.137775
+Cost after iteration 1800: 0.129740
+Cost after iteration 1900: 0.121225
+Cost after iteration 2000: 0.113821
+Cost after iteration 2100: 0.107839
+Cost after iteration 2200: 0.102855
+Cost after iteration 2300: 0.100897
+Cost after iteration 2400: 0.092878
+</code></pre>
+<p><strong>Expected Output</strong>:</p>
+<table> 
+    <tr>
+        <td> **Cost after iteration 0**</td>
+        <td> 0.771749 </td>
+    </tr>
+    <tr>
+        <td> **Cost after iteration 100**</td>
+        <td> 0.672053 </td>
+    </tr>
+    <tr>
+        <td> **...**</td>
+        <td> ... </td>
+    </tr>
+    <tr>
+        <td> **Cost after iteration 2400**</td>
+        <td> 0.092878 </td>
+    </tr>
+</table>
+
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs python">pred_train = predict(train_x, train_y, parameters)<br></code></pre></td></tr></table></figure>
+
+<pre><code>Accuracy: 0.9856459330143539
+</code></pre>
+<table>
+    <tr>
+    <td>
+    **Train Accuracy**
+    </td>
+    <td>
+    0.985645933014
+    </td>
+    </tr>
+</table>
+
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs python">pred_test = predict(test_x, test_y, parameters)<br></code></pre></td></tr></table></figure>
+
+<pre><code>Accuracy: 0.8
+</code></pre>
+<p><strong>Expected Output</strong>:</p>
+<table> 
+    <tr>
+        <td> **Test Accuracy**</td>
+        <td> 0.8 </td>
+    </tr>
+</table>
+
+<p>Congrats! It seems that your 5-layer neural network has better performance (80%) than your 2-layer neural network (72%) on the same test set. </p>
+<p>This is good performance for this task. Nice job! </p>
+<p>Though in the next course on “Improving deep neural networks” you will learn how to obtain even higher accuracy by systematically searching for better hyperparameters (learning_rate, layers_dims, num_iterations, and others you’ll also learn in the next course). </p>
+<h2 id="6-Results-Analysis"><a href="#6-Results-Analysis" class="headerlink" title="6) Results Analysis"></a>6) Results Analysis</h2><p>First, let’s take a look at some images the L-layer model labeled incorrectly. This will show a few mislabeled images. </p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs python">print_mislabeled_images(classes, test_x, test_y, pred_test)<br></code></pre></td></tr></table></figure>
+
+
+
+<p><strong>A few type of images the model tends to do poorly on include:</strong> </p>
+<ul>
+<li>Cat body in an unusual position</li>
+<li>Cat appears against a background of a similar color</li>
+<li>Unusual cat color and species</li>
+<li>Camera Angle</li>
+<li>Brightness of the picture</li>
+<li>Scale variation (cat is very large or small in image) </li>
+</ul>
+<h2 id="7-Test-with-your-own-image-optional-ungraded-exercise"><a href="#7-Test-with-your-own-image-optional-ungraded-exercise" class="headerlink" title="7) Test with your own image (optional/ungraded exercise)"></a>7) Test with your own image (optional/ungraded exercise)</h2><p>Congratulations on finishing this assignment. You can use your own image and see the output of your model. To do that:<br>    1. Click on “File” in the upper bar of this notebook, then click “Open” to go on your Coursera Hub.<br>    2. Add your image to this Jupyter Notebook’s directory, in the “images” folder<br>    3. Change your image’s name in the following code<br>    4. Run the code and check if the algorithm is right (1 = cat, 0 = non-cat)!</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment">## START CODE HERE ##</span><br>my_image = <span class="hljs-string">&quot;my_image.jpg&quot;</span> <span class="hljs-comment"># change this to the name of your image file </span><br>my_label_y = [<span class="hljs-number">1</span>] <span class="hljs-comment"># the true class of your image (1 -&gt; cat, 0 -&gt; non-cat)</span><br><span class="hljs-comment">## END CODE HERE ##</span><br><br>fname = <span class="hljs-string">&quot;images/&quot;</span> + my_image<br>image = np.array(plt.imread(fname))<br>my_image = skimage.transform.resize(image, output_shape=(num_px,num_px)).reshape((num_px*num_px*<span class="hljs-number">3</span>,<span class="hljs-number">1</span>))<br>my_predicted_image = predict(my_image, my_label_y, parameters)<br><br>plt.imshow(image)<br><span class="hljs-built_in">print</span> (<span class="hljs-string">&quot;y = &quot;</span> + <span class="hljs-built_in">str</span>(np.squeeze(my_predicted_image)) + <span class="hljs-string">&quot;, your L-layer model predicts a \&quot;&quot;</span> + classes[<span class="hljs-built_in">int</span>(np.squeeze(my_predicted_image)),].decode(<span class="hljs-string">&quot;utf-8&quot;</span>) +  <span class="hljs-string">&quot;\&quot; picture.&quot;</span>)<br></code></pre></td></tr></table></figure>
+
+<pre><code>/Users/abanihi/opt/miniconda3/envs/pangeo/lib/python3.6/site-packages/skimage/transform/_warps.py:105: UserWarning: The default mode, &#39;constant&#39;, will be changed to &#39;reflect&#39; in skimage 0.15.
+  warn(&quot;The default mode, &#39;constant&#39;, will be changed to &#39;reflect&#39; in &quot;
+/Users/abanihi/opt/miniconda3/envs/pangeo/lib/python3.6/site-packages/skimage/transform/_warps.py:110: UserWarning: Anti-aliasing will be enabled by default in skimage 0.15 to avoid aliasing artifacts when down-sampling images.
+  warn(&quot;Anti-aliasing will be enabled by default in skimage 0.15 to &quot;
+
+
+Accuracy: 1.0
+y = 1.0, your L-layer model predicts a &quot;cat&quot; picture.
+</code></pre>
+<p><strong>References</strong>:</p>
+<ul>
+<li>for auto-reloading external module: <span class="exturl" data-url="aHR0cHM6Ly9zdGFja292ZXJmbG93LmNvbS9xdWVzdGlvbnMvMTkwNzk5My9hdXRvcmVsb2FkLW9mLW1vZHVsZXMtaW4taXB5dGhvbg==">https://stackoverflow.com/questions/1907993/autoreload-of-modules-in-ipython<i class="fa fa-external-link-alt"></i></span></li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs python">%load_ext version_information<br>%version_information numpy, PIL, matplotlib, scipy, skimage<br></code></pre></td></tr></table></figure>
+
+
+
+
+<table><tr><th>Software</th><th>Version</th></tr><tr><td>Python</td><td>3.6.6 64bit [GCC 4.2.1 Compatible Apple LLVM 6.1.0 (clang-602.0.53)]</td></tr><tr><td>IPython</td><td>7.0.1</td></tr><tr><td>OS</td><td>Darwin 17.7.0 x86_64 i386 64bit</td></tr><tr><td>numpy</td><td>1.15.1</td></tr><tr><td>PIL</td><td>5.3.0</td></tr><tr><td>matplotlib</td><td>3.0.0</td></tr><tr><td>scipy</td><td>1.1.0</td></tr><tr><td>skimage</td><td>0.14.1</td></tr><tr><td colspan='2'>Sun Oct 14 21:16:14 2018 MDT</td></tr></table>
+
+
+
+
+
+<h5>Credits - <a href='https://www.coursera.org/' target=”_blank >Coursera</a>,  <a href = 'https://en.wikipedia.org/wiki/Andrew_Ng' title="Andrew_Ng" target=”_blank>Credits to the teacher</a> , 
+<a href ='https://www.coursera.org/specializations/deep-learning?' target=”_blank>Deeplearning.ai Course</a><h5>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          
+          <div class="post-tags">
+              <a href="/tags/2020/" rel="tag"><i class="fa fa-tag"></i> 2020</a>
+              <a href="/tags/Assignment/" rel="tag"><i class="fa fa-tag"></i> Assignment</a>
+              <a href="/tags/Deep-Neural-Network-Application/" rel="tag"><i class="fa fa-tag"></i> Deep Neural Network Application</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/Theory_RSquared/" rel="prev" title="R Squared Intution || Evaluating Model Features">
+      <i class="fa fa-chevron-left"></i> R Squared Intution || Evaluating Model Features
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/multiple_linear_regression/" rel="next" title="Multiple Linear Regression Implementation">
+      Multiple Linear Regression Implementation <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Deep-Neural-Network-for-Image-Classification-Application"><span class="nav-number">1.</span> <span class="nav-text">Deep Neural Network for Image Classification: Application</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-Packages"><span class="nav-number">1.1.</span> <span class="nav-text">1 - Packages</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-Dataset"><span class="nav-number">1.2.</span> <span class="nav-text">2 - Dataset</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-Architecture-of-your-model"><span class="nav-number">1.3.</span> <span class="nav-text">3 - Architecture of your model</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#3-1-2-layer-neural-network"><span class="nav-number">1.3.1.</span> <span class="nav-text">3.1 - 2-layer neural network</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-2-L-layer-deep-neural-network"><span class="nav-number">1.3.2.</span> <span class="nav-text">3.2 - L-layer deep neural network</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-3-General-methodology"><span class="nav-number">1.3.3.</span> <span class="nav-text">3.3 - General methodology</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-Two-layer-neural-network"><span class="nav-number">1.4.</span> <span class="nav-text">4 - Two-layer neural network</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-L-layer-Neural-Network"><span class="nav-number">1.5.</span> <span class="nav-text">5 - L-layer Neural Network</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#6-Results-Analysis"><span class="nav-number">1.6.</span> <span class="nav-text">6) Results Analysis</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#7-Test-with-your-own-image-optional-ungraded-exercise"><span class="nav-number">1.7.</span> <span class="nav-text">7) Test with your own image (optional&#x2F;ungraded exercise)</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link"><span class="nav-number">1.7.0.0.1.</span> <span class="nav-text">Credits - Coursera,  Credits to the teacher , 
+Deeplearning.ai Course
+</span></a></li><li class="nav-item nav-level-5"><a class="nav-link"><span class="nav-number">1.7.0.0.2.</span> <span class="nav-text">
+</span></a></li></ol></li></ol></li></ol></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Karan Arora"
+      src="/images/avatar.gif">
+  <p class="site-author-name" itemprop="name">Karan Arora</p>
+  <div class="site-description" itemprop="description">Trasforming data into Information</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">43</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">15</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">43</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <span class="exturl" data-url="bWFpbHRvOm1haWxtYXNzaXZlZmlsZUBnbWFpbC5jb20=" title="Get In Touch → mailto:mailmassivefile@gmail.com"><i class="fa fa-envelope fa-fw"></i>Get In Touch</span>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Karan Arora</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+      <span class="post-meta-item-text">Symbols count total: </span>
+    <span title="Symbols count total">446k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span class="post-meta-item-text">Reading time total &asymp;</span>
+    <span title="Reading time total">6:46</span>
+</div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/pjax/pjax.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js"></script>
+  <script src="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+<script src="/js/bookmark.js"></script>
+
+  <script>
+var pjax = new Pjax({
+  selectors: [
+    'head title',
+    '#page-configurations',
+    '.content-wrap',
+    '.post-toc-wrap',
+    '.languages',
+    '#pjax'
+  ],
+  switches: {
+    '.post-toc-wrap': Pjax.switches.innerHTML
+  },
+  analytics: false,
+  cacheBust: false,
+  scrollTo : !CONFIG.bookmark.enable
+});
+
+window.addEventListener('pjax:success', () => {
+  document.querySelectorAll('script[data-pjax], script#page-configurations, #pjax script').forEach(element => {
+    var code = element.text || element.textContent || element.innerHTML || '';
+    var parent = element.parentNode;
+    parent.removeChild(element);
+    var script = document.createElement('script');
+    if (element.id) {
+      script.id = element.id;
+    }
+    if (element.className) {
+      script.className = element.className;
+    }
+    if (element.type) {
+      script.type = element.type;
+    }
+    if (element.src) {
+      script.src = element.src;
+      // Force synchronous loading of peripheral JS.
+      script.async = false;
+    }
+    if (element.dataset.pjax !== undefined) {
+      script.dataset.pjax = '';
+    }
+    if (code !== '') {
+      script.appendChild(document.createTextNode(code));
+    }
+    parent.appendChild(script);
+  });
+  NexT.boot.refresh();
+  // Define Motion Sequence & Bootstrap Motion.
+  if (CONFIG.motion.enable) {
+    NexT.motion.integrator
+      .init()
+      .add(NexT.motion.middleWares.subMenu)
+      .add(NexT.motion.middleWares.postList)
+      .bootstrap();
+  }
+  NexT.utils.updateSidebarPosition();
+});
+</script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+<script data-pjax>
+document.querySelectorAll('.pdfobject-container').forEach(element => {
+  let url = element.dataset.target;
+  let pdfOpenParams = {
+    navpanes : 0,
+    toolbar  : 0,
+    statusbar: 0,
+    pagemode : 'thumbs',
+    view     : 'FitH'
+  };
+  let pdfOpenFragment = '#' + Object.entries(pdfOpenParams).map(([key, value]) => `${key}=${encodeURIComponent(value)}`).join('&');
+  let fullURL = `/lib/pdf/web/viewer.html?file=${encodeURIComponent(url)}${pdfOpenFragment}`;
+
+  if (NexT.utils.supportsPDFs()) {
+    element.innerHTML = `<embed class="pdfobject" src="${url + pdfOpenFragment}" type="application/pdf" style="height: ${element.dataset.height};">`;
+  } else {
+    element.innerHTML = `<iframe src="${fullURL}" style="height: ${element.dataset.height};" frameborder="0"></iframe>`;
+  }
+});
+</script>
+
+
+
+
+    <div id="pjax">
+  
+
+  
+      
+
+<script>
+  if (typeof MathJax === 'undefined') {
+    window.MathJax = {
+      loader: {
+          load: ['[tex]/mhchem'],
+        source: {
+          '[tex]/amsCd': '[tex]/amscd',
+          '[tex]/AMScd': '[tex]/amscd'
+        }
+      },
+      tex: {
+        inlineMath: {'[+]': [['$', '$']]},
+          packages: {'[+]': ['mhchem']},
+        tags: 'ams'
+      },
+      options: {
+        renderActions: {
+          findScript: [10, doc => {
+            document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+              const display = !!node.type.match(/; *mode=display/);
+              const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+              const text = document.createTextNode('');
+              node.parentNode.replaceChild(text, node);
+              math.start = {node: text, delim: '', n: 0};
+              math.end = {node: text, delim: '', n: 0};
+              doc.math.push(math);
+            });
+          }, '', false],
+          insertedScript: [200, () => {
+            document.querySelectorAll('mjx-container').forEach(node => {
+              let target = node.parentNode;
+              if (target.nodeName.toLowerCase() === 'li') {
+                target.parentNode.classList.add('has-jax');
+              }
+            });
+          }, '', false]
+        }
+      }
+    };
+    (function () {
+      var script = document.createElement('script');
+      script.src = '//cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js';
+      script.defer = true;
+      document.head.appendChild(script);
+    })();
+  } else {
+    MathJax.startup.document.state(0);
+    MathJax.texReset();
+    MathJax.typeset();
+  }
+</script>
+
+    
+
+  
+
+    </div>
+</body>
+</html>

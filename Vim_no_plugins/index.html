@@ -1,0 +1,1027 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"massivefile.com","root":"/","scheme":"Gemini","version":"7.8.0","exturl":true,"sidebar":{"position":"left","display":"post","padding":20,"offset":15,"onmobile":false},"copycode":{"enable":true,"show_result":"flat","style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":true,"color":"#222","save":false},"fancybox":true,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta property="og:type" content="article">
+<meta property="og:title" content="Classic Vim Without Plugins">
+<meta property="og:url" content="https://massivefile.com/Vim_no_plugins/index.html">
+<meta property="og:site_name" content="Massivefile.com - Blog">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2020-03-05T14:46:00.000Z">
+<meta property="article:modified_time" content="2021-10-13T15:49:54.794Z">
+<meta property="article:author" content="Karan Arora">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://massivefile.com/Vim_no_plugins/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'en'
+  };
+</script>
+
+  <title>Classic Vim Without Plugins | Massivefile.com - Blog</title>
+  
+    <script>
+      function sendPageView() {
+        if (CONFIG.hostname !== location.hostname) return;
+        var uid = localStorage.getItem('uid') || (Math.random() + '.' + Math.random());
+        localStorage.setItem('uid', uid);
+        navigator.sendBeacon('https://www.google-analytics.com/collect', new URLSearchParams({
+          v  : 1,
+          tid: 'UA-163312538-2',
+          cid: uid,
+          t  : 'pageview',
+          dp : encodeURIComponent(location.pathname)
+        }));
+      }
+      document.addEventListener('pjax:complete', sendPageView);
+      sendPageView();
+    </script>
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta custom-logo">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Massivefile.com - Blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">Programming & Data Science</p>
+      <a>
+        <img class="custom-logo-image" src="/images/custom-logo.jpg" alt="Massivefile.com - Blog">
+      </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags<span class="badge">43</span></a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories<span class="badge">15</span></a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives<span class="badge">43</span></a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
+
+  <a href="https://massivefile.com/karan/" class="github-corner" title="See Portfolio Website" aria-label="See Portfolio Website"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://massivefile.com/Vim_no_plugins/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Karan Arora">
+      <meta itemprop="description" content="Trasforming data into Information">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Massivefile.com - Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Classic Vim Without Plugins
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2020-03-05 20:16:00" itemprop="dateCreated datePublished" datetime="2020-03-05T20:16:00+05:30">2020-03-05</time>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="Symbols count in article">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">Symbols count in article: </span>
+              <span>17k</span>
+            </span>
+            <span class="post-meta-item" title="Reading time">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">Reading time &asymp;</span>
+              <span>15 mins.</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <body> <span id="more"></span>
+
+<p><b><i>Vim without plugins/Widgets<br>Four modes of vim namely General mode,normal mode, Command line mode,Visual mode.</i></b></p>
+<h2 id="Four-modes-of-vim"><a href="#Four-modes-of-vim" class="headerlink" title="Four modes of vim"></a>Four modes of vim</h2><ol>
+<li><p>General mode: normal mode. You can move the cursor, delete characters or entire lines, and copy and paste file data. Opening vim is to enter this mode, and the switching between the three modes is also transferred here.</p>
+</li>
+<li><p>Edit mode: In general mode, press any one of <code>i``I``o`` O</code> <code>a`` A</code> <code>r`` R</code> <code>s`` S</code> to enter this mode. You can edit the content of the file and press Esc to return to the normal mode.</p>
+<p> -<code>i`` I</code> is insert (in front of the character under the cursor and at the beginning of the line)<br> -<code>o`` O</code> is open new line (start a new line below the line where the cursor is and start a new line above the line where the cursor is<br> -<code>a`` A</code> is append (after the character under the cursor and at the end of the line where the cursor is)<br> -<code>s`` S</code> is to delete (the character where the cursor is and start inserting and the line where the cursor is and start inserting), that is, substitute replacement.<br> -<code>r`` R</code> is to replace the character under the cursor and become the replacement mode</p>
+</li>
+<li><p>Command line mode: Press <code>:</code> <code>/</code> <code>in normal mode? </code>Any one enters this mode (the meaning of these symbols will be described below). You can find data operations, read, save, replace a lot of characters, leave vim, display line number and other operations, press Esc to return to the general mode.</p>
+</li>
+<li><p>Visual mode: In general mode, press <code>v`` V</code> <code>ctr + v</code> to enter the visual mode, which is equivalent to the normal mode after highlighting the selected text, that is, in this mode, you can arbitrarily select a specific area and be The selected area is highlighted, <code>v</code> selects the unit: one character;<code> V</code> is also called the visible line mode, select the unit: line; <code>ctr + v</code> is also called the visible block mode, select the unit: square ; All three are useful, see below for details.</p>
+</li>
+</ol>
+<h2 id="Mobile"><a href="#Mobile" class="headerlink" title="Mobile"></a>Mobile</h2><p>In normal mode:</p>
+<p><code>w</code> → to the beginning of the next word<code>e</code> → to the end of the next word (words are separated by spaces by default)<br><code>W</code> → to the beginning of the next string<code>E</code> → to the end of the next string (a string refers to a string consisting of numbers, letters, and underscores)<br><code>B</code> → Go to the first character of the previous string. The<code> b</code> → “command moves the cursor to the first character of the previous word.</p>
+<blockquote>
+<p>By default, a word is composed of letters, numbers and underscores<br>If you think words are separated by blank characters, then you need to use uppercase E and W (Chen Hao: Note)</p>
+</blockquote>
+<p><code>0</code> → number zero, to the beginning of the line<br><code>^</code> → Go to the first position of the line that is not a blank character (the so-called blank character is a space, tab, line feed, carriage return, etc.)<br><code>$</code> → Go to the end of the line<br><code>g_</code> → to the last position of the line that is not a blank character<br><code>%</code> → Go to the other of the pair of brackets where the cursor is<br><code>gg</code> → first line<br><code>G</code> → last line<br><code>h`` j</code> <code>k`` l</code> (strongly recommended to use it to move the cursor, but it is not necessary) → you can also use the cursor keys (← ↓ ↑ →). Note: j extends downwards, k extends upward</p>
+<ol>
+<li>** High frequency usage scenario 1 **: Change a variable name in the line first and move the cursor: <code>w</code> and<code> b</code>, <code>W</code> and<code> B</code> (or if the line is too long, use the following Search function) to the target word</li>
+<li>** High frequency usage scenario 2 **: Modify the indent and jump to the beginning of the line<code>^</code></li>
+<li>** High frequency usage scenario 3 **: View the completeness of the function or class or the variable scope <code>%</code></li>
+<li>** High frequency usage scenario 4 **: After splitting the screen, jump to different windows: <code>ctrl + w + (h or j or k or l)</code></li>
+<li>** High-frequency use scene 5 **: Move left (left, top, right) <code>(h, j, k, l)</code></li>
+<li>** High frequency usage scenario 6 **: Delete to the end: <code>d $</code> Delete to the beginning: <code>d ^</code></li>
+</ol>
+<h3 id="Tag"><a href="#Tag" class="headerlink" title="Tag"></a>Tag</h3><p>Note: ** mark is to find better **, in normal mode:</p>
+<p><code>mx</code> meaning: mark x, x is the name of mark;<br><code>&#39;x</code> meaning: go to the position of x mark</p>
+<ol>
+<li>** High-frequency usage scenario 1: ** You can see how to define other functions in the function. You want to see how to define them. After you read it, you need to come back. Then mark it first and then jump back.</li>
+</ol>
+<h3 id="Syntax-related-jumps"><a href="#Syntax-related-jumps" class="headerlink" title="Syntax related jumps"></a>Syntax related jumps</h3><p>In normal mode:</p>
+<ol>
+<li><code>gd</code> meaning: go to definition</li>
+<li>Press <code>[</code> and then <code>ctrl + d</code> to jump to #define </li>
+<li>Press <code>[</code> and then <code>ctrl + i</code> to jump to functions, variables and #define </li>
+</ol>
+<p>** Note **: The language support is not very good, you can try the language used</p>
+<h3 id="Quick-page-turning"><a href="#Quick-page-turning" class="headerlink" title="Quick page turning"></a>Quick page turning</h3><p>In normal mode:</p>
+<table>
+<thead>
+<tr>
+<th>Partner 1</th>
+<th>Partner 2</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>ctr + d</code> page down</td>
+<td><code> ctr + d</code> page up</td>
+</tr>
+<tr>
+<td><code>ctr + f</code> page forward</td>
+<td><code> ctr + b</code> page back</td>
+</tr>
+</tbody></table>
+<h2 id="Action-operation-instruction"><a href="#Action-operation-instruction" class="headerlink" title="Action operation instruction"></a>Action operation instruction</h2><p>In normal mode:</p>
+<table>
+<thead>
+<tr>
+<th>Partner 1</th>
+<th>Partner 2</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>d</code> ** d ** elete a character and copy to clipboard</td>
+<td><code> D</code> has been ** deleted ** from the cursor position to the end of the line</td>
+</tr>
+<tr>
+<td><code>y</code> ** c ** opy to clipboard</td>
+<td><code> Y</code> ** Copy ** one line (= <code>yy</code>)</td>
+</tr>
+<tr>
+<td><code>s</code> ** s ** ubstitue a character</td>
+<td><code> S</code> ** Replace ** the line where the cursor is located</td>
+</tr>
+<tr>
+<td><code>r</code> ** r ** eplace a character</td>
+<td><code>R</code>* Not commonly used *, which means to enter replacement mode</td>
+</tr>
+<tr>
+<td><code>c</code> ** c ** hange a character</td>
+<td><code> C</code> * Not commonly used *, which means ** modify ** the cursor position until the end of the line, the same effect as <code>S</code> rendering</td>
+</tr>
+<tr>
+<td><code>p</code> ** p ** aste after the cursor</td>
+<td><code> P</code> ** Paste ** before the cursor position (if you paste a whole line, paste to the previous line)</td>
+</tr>
+<tr>
+<td><code>u</code> ** u ** ndo a operation</td>
+<td><code> U</code> one-time ** undo ** all operations on a whole line</td>
+</tr>
+<tr>
+<td><code>x</code> cut a character</td>
+<td><code> X</code> * not commonly used *, ** cut ** to the left, ie backspace: delete the character to the left of the cursor</td>
+</tr>
+<tr>
+<td>** `** Search the word under the current cursor ** downward, and jump to the next word when found</td>
+<td><code>#</code>** Search the word under the current cursor ** upward, jump to the previous word when found</td>
+</tr>
+<tr>
+<td><code>/ word</code> ** Search the word word ** down to the full text, jump to the first word that matches, if there are multiple, continue to search down and press the n key (in the direction of the original command), up to press the N key.</td>
+<td><code>? word</code> ** Search the word word ** up the full text, jump to the first word that matches, and if there are multiple, continue to search upwards and press the n key (in the direction of the original command), down to press the N key.</td>
+</tr>
+<tr>
+<td><code>a</code> ** a ** ppend after the cursor</td>
+<td><code> A</code> is ** append ** at the end of the line where the cursor is located)</td>
+</tr>
+<tr>
+<td><code>i</code> ** i ** nsert before the cursor</td>
+<td><code> I</code> ** insert ** at the beginning of the line where the cursor is located</td>
+</tr>
+<tr>
+<td><code>o</code> Start a new line below the line under the cursor, open the new world?</td>
+<td><code>O</code> starts a new line above the line where the cursor is located</td>
+</tr>
+<tr>
+<td><code>v</code> enters ** v ** isual mode, used to select areas (can cross lines), used to cooperate with other subsequent operations (addition, deletion, and modification)</td>
+<td><code> v</code> enters visual line mode, used to select some lines To cooperate with other follow-up operations (addition, deletion and modification)</td>
+</tr>
+<tr>
+<td><code>f</code> ** f ** ind a character after the cursor</td>
+<td><code> F</code> ** find a character before the cursor position **</td>
+</tr>
+<tr>
+<td><code>t</code> ** t ** ill a character tx is the same as fx, the difference is to jump to the front of character x</td>
+<td><code> T</code> Tx is the same as Fx, the difference is to jump to the character x</td>
+</tr>
+</tbody></table>
+<h3 id="Formed-separately"><a href="#Formed-separately" class="headerlink" title="Formed separately"></a>Formed separately</h3><p><code>.</code> Repeat the operation just now<br><code>~</code> Convert case</p>
+<ol>
+<li>You can change the case of the first letter of the variable</li>
+<li>You can select a string (variable) in combination with the commands provided below, and then change the case of the entire string (variable). For example: macro definition</li>
+</ol>
+<p><code>=</code> Auto format</p>
+<ol>
+<li>Use <code>==</code> for the current line (double press = twice), or use <code>n ==</code> for multiple lines (n is a natural number) to automatically indent the next n lines from the current line</li>
+<li>Or enter the visual line mode, select some lines and then <code>=</code> for formatting, which is equivalent to the code format in the general IDE.</li>
+<li>Use <code>gg = G</code> to typeset the entire code.</li>
+</ol>
+<h3 id="Undo-and-Redo"><a href="#Undo-and-Redo" class="headerlink" title="Undo and Redo"></a>Undo and Redo</h3><ol>
+<li><code>u</code> undo undoes the operation in the previous step. Commands can be combined. For example,<code> Nu</code> N is any integer, which means undoing the N-step operation. The following is the same.</li>
+<li><code>U</code> restore the current line (that is, undo all operations on the current line at once)</li>
+<li><code>ctr + r</code> control + redo restore the previous operation that was cancelled</li>
+<li><code>CTRL-R</code> back to the previous command</li>
+</ol>
+<h3 id="Text-replacement"><a href="#Text-replacement" class="headerlink" title="Text replacement"></a>Text replacement</h3><p>Enter the replacement command in normal mode: <code>: [range] s / pattern / string / [flags]</code></p>
+<p>-pattern is the string to be replaced, which can be expressed by regexp.<br>-string replaces pattern with string.<br>-[range] has the following values:</p>
+<table>
+<thead>
+<tr>
+<th>[range]</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>None</td>
+<td>The default is the line where the cursor is located</td>
+</tr>
+<tr>
+<td><code>.</code></td>
+<td>Current line of cursor</td>
+</tr>
+<tr>
+<td><code>N</code></td>
+<td>Line N</td>
+</tr>
+<tr>
+<td><code>$</code></td>
+<td>Last line</td>
+</tr>
+<tr>
+<td><code>&#39;a</code></td>
+<td>Mark the line where a (marked with ma before)</td>
+</tr>
+<tr>
+<td><code>. + 1</code></td>
+<td>The line below the current cursor line</td>
+</tr>
+<tr>
+<td><code>$ -1</code></td>
+<td>The penultimate line, you can add or subtract a value to determine the relative line</td>
+</tr>
+<tr>
+<td><code>22,33</code></td>
+<td>Lines 22 to 33</td>
+</tr>
+<tr>
+<td><code>1, $</code></td>
+<td>Line 1 to last line</td>
+</tr>
+<tr>
+<td><code>1, .</code></td>
+<td>line 1 to current line</td>
+</tr>
+<tr>
+<td><code>., $</code></td>
+<td>Current line to last line</td>
+</tr>
+<tr>
+<td><code>&#39;a,&#39; b</code></td>
+<td>The line from the mark a to the line from the mark b (Ma and mb have been used to mark before)</td>
+</tr>
+<tr>
+<td><code>%</code></td>
+<td>All rows (equivalent to 1, $)</td>
+</tr>
+<tr>
+<td><code>? str?</code></td>
+<td>Search up from the current position to find the line of the first str (where str can be any string or regular expression)</td>
+</tr>
+<tr>
+<td><code>/ str /</code></td>
+<td>Search down from the current position to find the line of the first str (where str can be any string or regular expression)</td>
+</tr>
+<tr>
+<td>** Note that all the above methods for range can be used to set the relative offset by + and-operations. **</td>
+<td></td>
+</tr>
+</tbody></table>
+<p>-[flags] has the following values:</p>
+<table>
+<thead>
+<tr>
+<th>flags</th>
+<th>meaning</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>g</code></td>
+<td>Replace all matches (global) within the specified range</td>
+</tr>
+<tr>
+<td><code>c</code></td>
+<td>Request user confirmation before replacement</td>
+</tr>
+<tr>
+<td><code>e</code></td>
+<td>Ignore errors during execution</td>
+</tr>
+<tr>
+<td><code>i</code></td>
+<td>ignore case-insensitive</td>
+</tr>
+<tr>
+<td>None</td>
+<td>Only the first match in the specified range is replaced</td>
+</tr>
+</tbody></table>
+<p>** Note: All the above flags can be used in combination. For example, gc means to replace all matching items in the specified range, and the user will be asked to confirm before each replacement. **</p>
+<h4 id="Examples"><a href="#Examples" class="headerlink" title="Examples"></a>Examples</h4><p>Replace some lines</p>
+<ol>
+<li><code>: 10,20s / from / to / g</code> replaces lines 10 to 20.</li>
+<li><code>: 1, $ s / from / to / g</code> replaces the contents of the first line to the last line (that is, all text)</li>
+<li><code>: 1, .s / from / to / g</code> replaces the content from the first line to the current line.</li>
+<li><code>:., $ S / from / to / g</code> replaces the content from the current line to the last line.</li>
+<li><code>: &#39;a,&#39; bs / from / to / g</code> replaces the line between the marks a and b (including the line where a and b are located), where a and b are the marks previously made with the m command .</li>
+</ol>
+<p>Replace all lines: <code>:% s / from / to / g</code></p>
+<h2 id="Repeat-the-action"><a href="#Repeat-the-action" class="headerlink" title="Repeat the action"></a>Repeat the action</h2><p>In normal mode, any action can be repeated</p>
+<p>Note: N is a number</p>
+<p>-Numbers: <code>Nyy</code> copies N lines down from the current line,<code> Ndd</code> deletes N lines down from the current line, <code>Ngg</code> jumps to the Nth line, and<code> dNw</code> deletes from the current cursor to the first Before N words (does not contain blanks, ie delete N-1 words), <code>yNe</code> copies from the current cursor to the end of the Nth word (note:<code> yy</code> = <code>1yy`` dd</code> = <code>1dd</code>) <code>d $</code> delete to the end of the line<br>-Repeat the previous command: <code>N.</code> (N indicates the number of repetitions)</p>
+<h2 id="Block-selection"><a href="#Block-selection" class="headerlink" title="Block selection"></a>Block selection</h2><p>Note: The brackets are optional</p>
+<p>In normal mode: <code>[ctr +] v + (h or j or k or l)</code></p>
+<ol>
+<li>** High-frequency use scenario 1 **: <code>[ctr +] v</code> Select some line headers and then press<code>=</code>Effect: ** Code format is automatically adjusted **</li>
+<li>** High frequency usage scenario 2 **: <code>[ctr +] v</code> After selecting the head of some lines, press<code> I</code>, then press the comment symbol (eg: <code>//</code>) and finally press <code>ESC</code> : All the selected lines are commented ** Multi-line quick comment **</li>
+<li>** High frequency usage scenario 3 **: <code>[ctr +] v</code> After selecting some line headers, then press<code> A</code>, then press the contents of the comment and finally press <code>ESC</code> (for example:<code> // This is a test Code</code>) Effect: All the lines at the end of the selected lines are commented on.//This is the test code` ** Multi-line quick comment **</li>
+<li>** High-frequency use scenario 4 **: <code>[ctr +] v</code> select some line header comments (for example:<code>//</code>), then press<code> d</code> and finally press <code>ESC</code> effect: selected All these lines are commented out. ** Multi-line quick delete comments ** </li>
+<li>** High-frequency use scenario 5 **: After selecting certain blocks, press [ctr +] v` and then press the above-mentioned action buttons to achieve regional operation</li>
+</ol>
+<h2 id="Powerful-combination"><a href="#Powerful-combination" class="headerlink" title="Powerful combination"></a>Powerful combination</h2><h3 id="Operate-a-word-under-the-cursor"><a href="#Operate-a-word-under-the-cursor" class="headerlink" title="Operate a word under the cursor"></a>Operate a word under the cursor</h3><p>In normal mode:</p>
+<p>Action + Move [+ Number of Repeats]<br>The combination has already been used a lot in the past, continue here:</p>
+<table>
+<thead>
+<tr>
+<th>Action Operation Command + Range</th>
+<th>Effect</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>cw or c1 or c1w</td>
+<td>change from current cursor to word end</td>
+</tr>
+<tr>
+<td>caw</td>
+<td>change whole word including current cursor</td>
+</tr>
+<tr>
+<td>dw or d1 or d1w</td>
+<td>delete from current cursor to word end</td>
+</tr>
+<tr>
+<td>daw</td>
+<td>delete whole word including current cursor</td>
+</tr>
+<tr>
+<td>yw or y1 or y1w</td>
+<td>copy from current cursor to word end</td>
+</tr>
+<tr>
+<td>yaw</td>
+<td>copy whole word including current cursor</td>
+</tr>
+<tr>
+<td>d / word</td>
+<td>delete forward until the former character of the next ‘word’</td>
+</tr>
+<tr>
+<td>d? word</td>
+<td>delete backward until the former character of the last ‘word’</td>
+</tr>
+</tbody></table>
+<table>
+<thead>
+<tr>
+<th>Action Operation Command + Range</th>
+<th>Effect</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>dtc</td>
+<td>delete until before the next ‘c’</td>
+</tr>
+<tr>
+<td>dfc</td>
+<td>delete until after the next ‘c’</td>
+</tr>
+<tr>
+<td>Scope + Action Operation Instructions</td>
+<td>Effects</td>
+</tr>
+<tr>
+<td>———————</td>
+<td>———-</td>
+</tr>
+<tr>
+<td><code>bve</code> or<code> BvE</code> + c / d / y</td>
+<td>manipulate a variable or string</td>
+</tr>
+</tbody></table>
+<p>The above table are high-frequency use scenarios</p>
+<h2 id="Autocomplete"><a href="#Autocomplete" class="headerlink" title="Autocomplete"></a>Autocomplete</h2><p>Press directly in insert mode: the most commonly used completion</p>
+<p><code>` ctrl + n   ctrl + p</code> `</p>
+<p>Smart completion</p>
+<p><code>` ctrl + x // Enter completion mode</code> `</p>
+<p>-Complete line completion <code>CTRL-X`` CTRL-L</code><br>-** Complete based on keywords in the current file ** <code>CTRL-X`` CTRL-N</code><br>-** Complete according to dictionary ** <code>CTRL-X`` CTRL-K</code><br>-Completion of <code>CTRL-X`` CTRL-T</code> according to thesaurus<br>-** Complete according to keywords in header file ** <code>CTRL-X`` CTRL-I</code><br>-Completion of <code>CTRL-X`` CTRL-] </code>according to tags<br>-** Complete file name ** <code>CTRL-X`` CTRL-F</code><br>-Completion of macro definition <code>CTRL-X`` CTRL-D</code><br>-Completion of vim command <code>CTRL-X`` CTRL-V</code><br>-User-defined completion method <code>CTRL-X`` CTRL-U</code><br>-** Spelling suggestions ** <code>CTRL-X`` CTRL-S</code> // For example: an English word</p>
+<h2 id="Collapse"><a href="#Collapse" class="headerlink" title="Collapse"></a>Collapse</h2><p>In normal mode:</p>
+<p><code>` zo (fold + open) zi (fold + indent) zc (fold + close)</code> `</p>
+<h2 id="Split-screen"><a href="#Split-screen" class="headerlink" title="Split screen"></a>Split screen</h2><p>** Split command **, in normal mode, enter</p>
+<ol>
+<li><code>vs</code> (Description: Vertically split the screen vertically)</li>
+<li><code>sp</code> (Note: split horizontally splits the screen, which is the default splitting method)</li>
+</ol>
+<p>** Screens jump to each other **</p>
+<ol>
+<li><code>ctr + w</code> and then press<code> h</code> or <code>j</code> or<code> k</code> or <code>l</code></li>
+<li>Explanation: <code>h</code>: left,<code> j</code>: down, <code>k</code>: up,<code> l</code>: right</li>
+</ol>
+<p>** Resize the split window **</p>
+<ol>
+<li><code>ctrl + w</code> before pressing<code>+</code>or<code> -</code> or <code>=</code>, of course press a number before pressing <code>+</code> or <code>-</code> or<code>=</code>to change the window height,<code>=</code>is equal The meaning of points. .</li>
+<li>In normal mode, enter <code>: resize -N</code> or<code>: resize + N</code> to explicitly specify that the window is reduced or increased by N lines</li>
+<li><code>ctrl + w</code> before pressing<code> &lt;</code>or<code>&gt; </code>or<code>=</code>, of course press a number before pressing<code> &lt;</code>or<code>&gt; </code>or<code>=</code>to change the window width,<code>=</code>is equal The meaning of points.</li>
+<li>Sometimes preview large files and feel that the split screen is too small, <code>ctrl + w</code> +<code> T</code> moves the current window to a new tab.</li>
+</ol>
+<h2 id="tab-window"><a href="#tab-window" class="headerlink" title="tab window"></a>tab window</h2><p>Vim has added the function of multi-tab switching since vim7, which is equivalent to multiple windows. Although the previous version also has a multi-file editing function, it is not as convenient as this. Usage in normal mode:</p>
+<p>-<code>: tabnew</code> [++ opt option] [＋ cmd] The file creates a new tab for the specified file<br>-<code>: tabc</code> closes the current tab or<code>: q</code><br>-<code>: tabo</code> close ** other ** tab<br>-<code>: tabs</code> view ** all open ** tabs<br>-<code>: tabp</code> previous tab window<br>-<code>: tabn</code> next tab window</p>
+<p> <code>gt</code>,<code> gT</code> can switch directly between tabs. There are many other commands,: help table.</p>
+<h2 id="table-of-Contents"><a href="#table-of-Contents" class="headerlink" title="table of Contents"></a>table of Contents</h2><p>In normal mode:</p>
+<ol>
+<li><code>: Te</code> displays the current directory in the form of a tab window, then you can switch directories and open a file</li>
+<li><code>:! Ls</code> This is how vim invokes shell commands<code>:! Ls + shell_command</code>, but it does not display the current directory in the form of a tab window.</li>
+</ol>
+<h2 id="Content-operation-of-paired-symbols"><a href="#Content-operation-of-paired-symbols" class="headerlink" title="Content operation of paired symbols"></a>Content operation of paired symbols</h2><p>The following commands can operate on the content within punctuation:</p>
+<ol>
+<li><code>ci&#39;`` ci &quot;</code> <code>ci (</code> <code>ci [</code> <code>ci &#123;</code> <code>ci &lt;</code> respectively change the text content of these paired punctuation marks </li>
+<li><code>di&#39;``di&quot; </code>di (<code>or</code>dib<code> di [</code> di {<code>or</code> diB<code> </code>di &lt;` delete the text content of these paired punctuation marks respectively </li>
+<li><code>yi&#39;`` yi &quot;</code> <code>yi (</code> <code>yi [</code> <code>yi &#123;</code> <code>yi &lt;</code> separately copy the text content of these paired punctuation marks </li>
+<li><code>vi&#39;`` vi &quot;</code> <code>vi (</code> <code>vi [</code> <code>vi &#123;</code> <code>vi &lt;</code> respectively select the text content of these paired punctuation marks</li>
+<li><code>cit`` dit</code> <code>yit`` vit</code> separately operate the content between a pair of tags, editing html is very useful</li>
+</ol>
+<p>** In addition, if you change the above <code>i</code> to<code> a</code>, you can operate the paired punctuation and the content of the paired punctuation at the same time **, for example:</p>
+<p>For example, the text to be operated: 111 “222” 333, move the cursor to any character of “222” and enter the command </p>
+<p>-di “, the text will become: 111” “333<br>-If you enter the command da “, the text will become: 111333</p>
+<h2 id="Clipboard"><a href="#Clipboard" class="headerlink" title="Clipboard"></a>Clipboard</h2><h3 id="1-Simple-copy-and-paste"><a href="#1-Simple-copy-and-paste" class="headerlink" title="1. Simple copy and paste"></a>1. Simple copy and paste</h3><p>vim provides 12 clipboards, their names are vim and there are 11 pasteboards, which are 0, 1, 2, …, 9, a, “. If you open the system clipboard, there will be two more + And *. Use the: reg command to view the contents of each pasteboard.</p>
+<p>In vim, simply use <code>y</code> and just copy it to the clipboard of<code> &quot;</code>, and the same thing as paste with <code>p</code> is also the content of this clipboard.</p>
+<h3 id="2-Copy-and-paste-to-the-specified-clipboard"><a href="#2-Copy-and-paste-to-the-specified-clipboard" class="headerlink" title="2. Copy and paste to the specified clipboard"></a>2. Copy and paste to the specified clipboard</h3><p>To copy the content of vim to a pasteboard, enter the normal mode, select the content to be copied, then press <code>&quot; Ny</code> to complete the copy, where N is the pasteboard number (note that you click the double quotes and then press the pasteboard number Finally, press y), for example, to copy the content to the pasteboard a, select the content and press “ay”.</p>
+<p>To paste the contents of a vim pasteboard, you need to exit the editing mode, press <code>&quot; Np</code> in the normal mode, where N is the pasteboard number. For example, you can press <code>&quot; 5p</code> to paste the contents of pasteboard No. If you paste it in, you can also press <code>&quot; + p</code> to paste the content in the system global pasteboard.</p>
+<h3 id="3-System-Clipboard"><a href="#3-System-Clipboard" class="headerlink" title="3. System Clipboard"></a>3. System Clipboard</h3><p>To view the clipboard supported by vim, enter <code>: reg</code> in normal mode</p>
+<p>How should it be used to interact with the system clipboard? When you encounter problems, the first thing you are looking for is the help document. The Clipboard is the Clipboard. View help via <code>: h clipboard</code></p>
+<p>The asterisk * and plus sign + pasteboard are system pasteboards. Under Windows, the * and + clipboards are the same. For X11 systems, * the clipboard stores the selected or highlighted content, + the clipboard stores the copied or cut content. Open the clipboard option, you can access + clipboard; open xterm_clipboard, you can access * clipboard. * One function of the clipboard is that the content selected in one window of vim can be taken out in another window of vim.</p>
+<p>** Copy to system clipboard **</p>
+<p>example:</p>
+<p><code>&quot; * y</code> <code>&quot; + y</code> <code>&quot; + Nyy</code> copy N lines to the system clipboard</p>
+<p>Explanation:</p>
+<table>
+<thead>
+<tr>
+<th>Command</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>{Visual} “+ y</td>
+<td>copy the selected text into the system clipboard</td>
+</tr>
+<tr>
+<td>“+ y {motion}</td>
+<td>copy the text specified by {motion} into the system clipboard</td>
+</tr>
+<tr>
+<td>: [range] yank +</td>
+<td>copy the text specified by [range] into the system clipboard</td>
+</tr>
+</tbody></table>
+<p>** Cut to system clipboard **</p>
+<p>example:</p>
+<p>“+ dd</p>
+<p>** Paste from system clipboard to vim **</p>
+<p>In normal mode:</p>
+<ol>
+<li><code>&quot; * p</code></li>
+<li><code>&quot; + p</code></li>
+<li><code>: put +</code> Meaning: Ex command puts contents of system clipboard on a new line</li>
+</ol>
+<p>In insert mode:</p>
+<p><code>&lt;Cr&gt; +</code> Meaning: From insert mode (or commandline mode)</p>
+<p>“+ p is better than the Ctrl-v command, it can handle the pasting of large blocks of text faster and more reliably, and can also avoid the accumulation of automatic indentation at the beginning of each line when pasting a large amount of text, because Ctrl-v The system caches stream processing, processing the pasted text line by line.</p>
+<h2 id="vim-encoding"><a href="#vim-encoding" class="headerlink" title="vim encoding"></a>vim encoding</h2><p>Vim can edit all kinds of character encoding files very well, which of course includes popular Unicode encoding methods such as UCS-2 and UTF-8.</p>
+<p>Four character encoding options, encoding, fileencoding, fileencodings, termencoding (for possible values ​​of these options, please refer to Vim online help: help encoding-names, their meanings are as follows:</p>
+<p>-** encoding **: The character encoding used internally by Vim</p>
+<p>Including Vim’s buffer (buffer), menu text, message text, etc. The default is to choose according to your locale. The user manual recommends changing its value only in .vimrc. In fact, it seems that it only makes sense to change its value in .vimrc. You can use another encoding to edit and save the file. For example, the encoding of your vim is utf-8, and the edited file uses cp936 encoding. Vim will automatically convert the read file into utf-8 (vim can read) Understand the way), and when you write a file, it will automatically switch back to cp936 (the file save encoding).</p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/Apriori_Association/" rel="prev" title="Practical Implementation of Apriori Association">
+      <i class="fa fa-chevron-left"></i> Practical Implementation of Apriori Association
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/NormalRandomVariables/" rel="next" title="Classic Excerpt-Normal Random Variables">
+      Classic Excerpt-Normal Random Variables <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Four-modes-of-vim"><span class="nav-number">1.</span> <span class="nav-text">Four modes of vim</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Mobile"><span class="nav-number">2.</span> <span class="nav-text">Mobile</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Tag"><span class="nav-number">2.1.</span> <span class="nav-text">Tag</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Syntax-related-jumps"><span class="nav-number">2.2.</span> <span class="nav-text">Syntax related jumps</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Quick-page-turning"><span class="nav-number">2.3.</span> <span class="nav-text">Quick page turning</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Action-operation-instruction"><span class="nav-number">3.</span> <span class="nav-text">Action operation instruction</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Formed-separately"><span class="nav-number">3.1.</span> <span class="nav-text">Formed separately</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Undo-and-Redo"><span class="nav-number">3.2.</span> <span class="nav-text">Undo and Redo</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Text-replacement"><span class="nav-number">3.3.</span> <span class="nav-text">Text replacement</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Examples"><span class="nav-number">3.3.1.</span> <span class="nav-text">Examples</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Repeat-the-action"><span class="nav-number">4.</span> <span class="nav-text">Repeat the action</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Block-selection"><span class="nav-number">5.</span> <span class="nav-text">Block selection</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Powerful-combination"><span class="nav-number">6.</span> <span class="nav-text">Powerful combination</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Operate-a-word-under-the-cursor"><span class="nav-number">6.1.</span> <span class="nav-text">Operate a word under the cursor</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Autocomplete"><span class="nav-number">7.</span> <span class="nav-text">Autocomplete</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Collapse"><span class="nav-number">8.</span> <span class="nav-text">Collapse</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Split-screen"><span class="nav-number">9.</span> <span class="nav-text">Split screen</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#tab-window"><span class="nav-number">10.</span> <span class="nav-text">tab window</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#table-of-Contents"><span class="nav-number">11.</span> <span class="nav-text">table of Contents</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Content-operation-of-paired-symbols"><span class="nav-number">12.</span> <span class="nav-text">Content operation of paired symbols</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Clipboard"><span class="nav-number">13.</span> <span class="nav-text">Clipboard</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-Simple-copy-and-paste"><span class="nav-number">13.1.</span> <span class="nav-text">1. Simple copy and paste</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-Copy-and-paste-to-the-specified-clipboard"><span class="nav-number">13.2.</span> <span class="nav-text">2. Copy and paste to the specified clipboard</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-System-Clipboard"><span class="nav-number">13.3.</span> <span class="nav-text">3. System Clipboard</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#vim-encoding"><span class="nav-number">14.</span> <span class="nav-text">vim encoding</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Karan Arora"
+      src="/images/avatar.gif">
+  <p class="site-author-name" itemprop="name">Karan Arora</p>
+  <div class="site-description" itemprop="description">Trasforming data into Information</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">43</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">15</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">43</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <span class="exturl" data-url="bWFpbHRvOm1haWxtYXNzaXZlZmlsZUBnbWFpbC5jb20=" title="Get In Touch → mailto:mailmassivefile@gmail.com"><i class="fa fa-envelope fa-fw"></i>Get In Touch</span>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Karan Arora</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+      <span class="post-meta-item-text">Symbols count total: </span>
+    <span title="Symbols count total">446k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span class="post-meta-item-text">Reading time total &asymp;</span>
+    <span title="Reading time total">6:46</span>
+</div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/pjax/pjax.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js"></script>
+  <script src="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+<script src="/js/bookmark.js"></script>
+
+  <script>
+var pjax = new Pjax({
+  selectors: [
+    'head title',
+    '#page-configurations',
+    '.content-wrap',
+    '.post-toc-wrap',
+    '.languages',
+    '#pjax'
+  ],
+  switches: {
+    '.post-toc-wrap': Pjax.switches.innerHTML
+  },
+  analytics: false,
+  cacheBust: false,
+  scrollTo : !CONFIG.bookmark.enable
+});
+
+window.addEventListener('pjax:success', () => {
+  document.querySelectorAll('script[data-pjax], script#page-configurations, #pjax script').forEach(element => {
+    var code = element.text || element.textContent || element.innerHTML || '';
+    var parent = element.parentNode;
+    parent.removeChild(element);
+    var script = document.createElement('script');
+    if (element.id) {
+      script.id = element.id;
+    }
+    if (element.className) {
+      script.className = element.className;
+    }
+    if (element.type) {
+      script.type = element.type;
+    }
+    if (element.src) {
+      script.src = element.src;
+      // Force synchronous loading of peripheral JS.
+      script.async = false;
+    }
+    if (element.dataset.pjax !== undefined) {
+      script.dataset.pjax = '';
+    }
+    if (code !== '') {
+      script.appendChild(document.createTextNode(code));
+    }
+    parent.appendChild(script);
+  });
+  NexT.boot.refresh();
+  // Define Motion Sequence & Bootstrap Motion.
+  if (CONFIG.motion.enable) {
+    NexT.motion.integrator
+      .init()
+      .add(NexT.motion.middleWares.subMenu)
+      .add(NexT.motion.middleWares.postList)
+      .bootstrap();
+  }
+  NexT.utils.updateSidebarPosition();
+});
+</script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+<script data-pjax>
+document.querySelectorAll('.pdfobject-container').forEach(element => {
+  let url = element.dataset.target;
+  let pdfOpenParams = {
+    navpanes : 0,
+    toolbar  : 0,
+    statusbar: 0,
+    pagemode : 'thumbs',
+    view     : 'FitH'
+  };
+  let pdfOpenFragment = '#' + Object.entries(pdfOpenParams).map(([key, value]) => `${key}=${encodeURIComponent(value)}`).join('&');
+  let fullURL = `/lib/pdf/web/viewer.html?file=${encodeURIComponent(url)}${pdfOpenFragment}`;
+
+  if (NexT.utils.supportsPDFs()) {
+    element.innerHTML = `<embed class="pdfobject" src="${url + pdfOpenFragment}" type="application/pdf" style="height: ${element.dataset.height};">`;
+  } else {
+    element.innerHTML = `<iframe src="${fullURL}" style="height: ${element.dataset.height};" frameborder="0"></iframe>`;
+  }
+});
+</script>
+
+
+
+
+    <div id="pjax">
+  
+
+  
+      
+
+<script>
+  if (typeof MathJax === 'undefined') {
+    window.MathJax = {
+      loader: {
+          load: ['[tex]/mhchem'],
+        source: {
+          '[tex]/amsCd': '[tex]/amscd',
+          '[tex]/AMScd': '[tex]/amscd'
+        }
+      },
+      tex: {
+        inlineMath: {'[+]': [['$', '$']]},
+          packages: {'[+]': ['mhchem']},
+        tags: 'ams'
+      },
+      options: {
+        renderActions: {
+          findScript: [10, doc => {
+            document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+              const display = !!node.type.match(/; *mode=display/);
+              const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+              const text = document.createTextNode('');
+              node.parentNode.replaceChild(text, node);
+              math.start = {node: text, delim: '', n: 0};
+              math.end = {node: text, delim: '', n: 0};
+              doc.math.push(math);
+            });
+          }, '', false],
+          insertedScript: [200, () => {
+            document.querySelectorAll('mjx-container').forEach(node => {
+              let target = node.parentNode;
+              if (target.nodeName.toLowerCase() === 'li') {
+                target.parentNode.classList.add('has-jax');
+              }
+            });
+          }, '', false]
+        }
+      }
+    };
+    (function () {
+      var script = document.createElement('script');
+      script.src = '//cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js';
+      script.defer = true;
+      document.head.appendChild(script);
+    })();
+  } else {
+    MathJax.startup.document.state(0);
+    MathJax.texReset();
+    MathJax.typeset();
+  }
+</script>
+
+    
+
+  
+
+    </div>
+</body>
+</html>

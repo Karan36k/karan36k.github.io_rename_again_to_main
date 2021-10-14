@@ -1,0 +1,1886 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"massivefile.com","root":"/","scheme":"Gemini","version":"7.8.0","exturl":true,"sidebar":{"position":"left","display":"post","padding":20,"offset":15,"onmobile":false},"copycode":{"enable":true,"show_result":"flat","style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":true,"color":"#222","save":false},"fancybox":true,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta property="og:type" content="article">
+<meta property="og:title" content="Logistic Regression">
+<meta property="og:url" content="https://massivefile.com/logisticRegressionimp/index.html">
+<meta property="og:site_name" content="Massivefile.com - Blog">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="data:image/png;base64,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
+">
+<meta property="article:published_time" content="2020-05-28T00:56:53.000Z">
+<meta property="article:modified_time" content="2021-10-13T15:44:53.378Z">
+<meta property="article:author" content="Karan Arora">
+<meta property="article:tag" content="2020">
+<meta property="article:tag" content="logistic regression">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="data:image/png;base64,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
+">
+
+<link rel="canonical" href="https://massivefile.com/logisticRegressionimp/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'en'
+  };
+</script>
+
+  <title>Logistic Regression | Massivefile.com - Blog</title>
+  
+    <script>
+      function sendPageView() {
+        if (CONFIG.hostname !== location.hostname) return;
+        var uid = localStorage.getItem('uid') || (Math.random() + '.' + Math.random());
+        localStorage.setItem('uid', uid);
+        navigator.sendBeacon('https://www.google-analytics.com/collect', new URLSearchParams({
+          v  : 1,
+          tid: 'UA-163312538-2',
+          cid: uid,
+          t  : 'pageview',
+          dp : encodeURIComponent(location.pathname)
+        }));
+      }
+      document.addEventListener('pjax:complete', sendPageView);
+      sendPageView();
+    </script>
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta custom-logo">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Massivefile.com - Blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">Programming & Data Science</p>
+      <a>
+        <img class="custom-logo-image" src="/images/custom-logo.jpg" alt="Massivefile.com - Blog">
+      </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags<span class="badge">43</span></a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories<span class="badge">15</span></a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives<span class="badge">43</span></a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
+
+  <a href="https://massivefile.com/karan/" class="github-corner" title="See Portfolio Website" aria-label="See Portfolio Website"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://massivefile.com/logisticRegressionimp/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Karan Arora">
+      <meta itemprop="description" content="Trasforming data into Information">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Massivefile.com - Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Logistic Regression
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2020-05-28 06:26:53" itemprop="dateCreated datePublished" datetime="2020-05-28T06:26:53+05:30">2020-05-28</time>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="Symbols count in article">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">Symbols count in article: </span>
+              <span>15k</span>
+            </span>
+            <span class="post-meta-item" title="Reading time">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">Reading time &asymp;</span>
+              <span>14 mins.</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <body><span id="more"></span> 
+
+  <div tabindex="-1" id="notebook" class="border-box-sizing">
+    <div class="container" id="notebook-container">
+
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>In this notebook, you will learn Logistic Regression, and then, you'll create a model for a telecommunication company, to predict when its customers will leave for a competitor, so that they can take some action to retain the customers.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h1>Table of contents</h1><p><div class="alert alert-block alert-info" style="margin-top: 20px">
+    <ol>
+        <li><a href="#about_dataset">About the dataset</a></li>
+        <li><a href="#preprocessing">Data pre-processing and selection</a></li>
+        <li><a href="#modeling">Modeling (Logistic Regression with Scikit-learn)</a></li>
+        <li><a href="#evaluation">Evaluation</a></li>
+        <li><a href="#practice">Practice</a></li> 
+    </ol>
+</div>
+<br></p>
+<hr>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><a id="ref1"></a></p>
+<h2 id="What-is-the-difference-between-Linear-and-Logistic-Regression?">What is the difference between Linear and Logistic Regression?<a class="anchor-link" href="#What-is-the-difference-between-Linear-and-Logistic-Regression?">&#182;</a></h2><p>While Linear Regression is suited for estimating continuous values (e.g. estimating house price), it is not the best tool for predicting the class of an observed data point. In order to estimate the class of a data point, we need some sort of guidance on what would be the <b>most probable class</b> for that data point. For this, we use <b>Logistic Regression</b>.</p>
+<div class="alert alert-success alertsuccess" style="margin-top: 20px">
+<font size = 3><strong>Recall linear regression:</strong></font>
+<br>
+<br>
+    As you know, <b>Linear regression</b> finds a function that relates a continuous dependent variable, <b>y</b>, to some predictors (independent variables $x_1$, $x_2$, etc.). For example, Simple linear regression assumes a function of the form:
+<br><br>
+$$
+y = \theta_0 + \theta_1  x_1 + \theta_2  x_2 + \cdots
+$$
+<br>
+and finds the values of parameters $\theta_0, \theta_1, \theta_2$, etc, where the term $\theta_0$ is the "intercept". It can be generally shown as:
+<br><br>
+$$
+ℎ_\theta(𝑥) = \theta^TX
+$$
+<p></p>
+
+</div><p>Logistic Regression is a variation of Linear Regression, useful when the observed dependent variable, <b>y</b>, is categorical. It produces a formula that predicts the probability of the class label as a function of the independent variables.</p>
+<p>Logistic regression fits a special s-shaped curve by taking the linear regression and transforming the numeric estimate into a probability with the following function, which is called sigmoid function 𝜎:</p>
+$$
+ℎ_\theta(𝑥) = \sigma({\theta^TX}) =  \frac {e^{(\theta_0 + \theta_1  x_1 + \theta_2  x_2 +...)}}{1 + e^{(\theta_0 + \theta_1  x_1 + \theta_2  x_2 +\cdots)}}
+$$<p>Or:
+$$
+ProbabilityOfaClass_1 =  P(Y=1|X) = \sigma({\theta^TX}) = \frac{e^{\theta^TX}}{1+e^{\theta^TX}} 
+$$</p>
+<p>In this equation, ${\theta^TX}$ is the regression result (the sum of the variables weighted by the coefficients), <code>exp</code> is the exponential function and $\sigma(\theta^TX)$ is the sigmoid or <span class="exturl" data-url="aHR0cDovL2VuLndpa2lwZWRpYS5vcmcvd2lraS9Mb2dpc3RpY19mdW5jdGlvbg==">logistic function<i class="fa fa-external-link-alt"></i></span>, also called logistic curve. It is a common "S" shape (sigmoid curve).</p>
+<p>So, briefly, Logistic Regression passes the input through the logistic/sigmoid but then treats the result as a probability:</p>
+<p><img
+src="https://ibm.box.com/shared/static/kgv9alcghmjcv97op4d6onkyxevk23b1.png" width="400" align="center"></p>
+<p>The objective of <strong>Logistic Regression</strong> algorithm, is to find the best parameters θ, for $ℎ_\theta(𝑥)$ = $\sigma({\theta^TX})$, in such a way that the model best predicts the class of each case.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Customer-churn-with-Logistic-Regression">Customer churn with Logistic Regression<a class="anchor-link" href="#Customer-churn-with-Logistic-Regression">&#182;</a></h3><p>A telecommunications company is concerned about the number of customers leaving their land-line business for cable competitors. They need to understand who is leaving. Imagine that you are an analyst at this company and you have to find out who is leaving and why.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Lets first import required libraries:</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[1]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">pylab</span> <span class="k">as</span> <span class="nn">pl</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">scipy.optimize</span> <span class="k">as</span> <span class="nn">opt</span>
+<span class="kn">from</span> <span class="nn">sklearn</span> <span class="kn">import</span> <span class="n">preprocessing</span>
+<span class="o">%</span><span class="k">matplotlib</span> inline 
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><h2 id="about_dataset">About the dataset</h2>
+We will use a telecommunications dataset for predicting customer churn. This is a historical customer dataset where each row represents one customer. The data is relatively easy to understand, and you may uncover insights you can use immediately. Typically it is less expensive to keep customers than acquire new ones, so the focus of this analysis is to predict the customers who will stay with the company.</p>
+<p>This data set provides information to help you predict what behavior will help you to retain customers. You can analyze all relevant customer data and develop focused customer retention programs.</p>
+<p>The dataset includes information about:</p>
+<ul>
+<li>Customers who left within the last month – the column is called Churn</li>
+<li>Services that each customer has signed up for – phone, multiple lines, internet, online security, online backup, device protection, tech support, and streaming TV and movies</li>
+<li>Customer account information – how long they had been a customer, contract, payment method, paperless billing, monthly charges, and total charges</li>
+<li>Demographic info about customers – gender, age range, and if they have partners and dependents</li>
+</ul>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Load-the-Telco-Churn-data">Load the Telco Churn data<a class="anchor-link" href="#Load-the-Telco-Churn-data">&#182;</a></h3><p>Telco Churn is a hypothetical data file that concerns a telecommunications company's efforts to reduce turnover in its customer base. Each case corresponds to a separate customer and it records various demographic and service usage information. Before you can work with the data, you must use the URL to get the ChurnData.csv.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>download data from here 
+<span class="exturl" data-url="aHR0cHM6Ly93d3cua2FnZ2xlLmNvbS9nYW5nbGl1L2N1c3RvbWVyY2h1cm5yYXRl">https://www.kaggle.com/gangliu/customerchurnrate<i class="fa fa-external-link-alt"></i></span></p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[2]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#Click here and press Shift+Enter</span>
+<span class="o">!</span>wget -O ChurnData.csv https://s3-api.us-geo.objectstorage.softlayer.net/cf-courses-data/CognitiveClass/ML0101ENv3/labs/ChurnData.csv
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>--2020-05-06 22:52:01--  https://s3-api.us-geo.objectstorage.softlayer.net/cf-courses-data/CognitiveClass/ML0101ENv3/labs/ChurnData.csv
+Resolving s3-api.us-geo.objectstorage.softlayer.net (s3-api.us-geo.objectstorage.softlayer.net)... 67.228.254.196
+Connecting to s3-api.us-geo.objectstorage.softlayer.net (s3-api.us-geo.objectstorage.softlayer.net)|67.228.254.196|:443... connected.
+HTTP request sent, awaiting response... 200 OK
+Length: 36144 (35K) [text/csv]
+Saving to: ‘ChurnData.csv’
+
+ChurnData.csv       100%[===================&gt;]  35.30K  --.-KB/s    in 0.02s   
+
+2020-05-06 22:52:01 (1.57 MB/s) - ‘ChurnData.csv’ saved [36144/36144]
+
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Load-Data-From-CSV-File">Load Data From CSV File<a class="anchor-link" href="#Load-Data-From-CSV-File">&#182;</a></h3>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[3]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">churn_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;ChurnData.csv&quot;</span><span class="p">)</span>
+<span class="n">churn_df</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt output_prompt">Out[3]:</div>
+
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>tenure</th>
+      <th>age</th>
+      <th>address</th>
+      <th>income</th>
+      <th>ed</th>
+      <th>employ</th>
+      <th>equip</th>
+      <th>callcard</th>
+      <th>wireless</th>
+      <th>longmon</th>
+      <th>...</th>
+      <th>pager</th>
+      <th>internet</th>
+      <th>callwait</th>
+      <th>confer</th>
+      <th>ebill</th>
+      <th>loglong</th>
+      <th>logtoll</th>
+      <th>lninc</th>
+      <th>custcat</th>
+      <th>churn</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>11.0</td>
+      <td>33.0</td>
+      <td>7.0</td>
+      <td>136.0</td>
+      <td>5.0</td>
+      <td>5.0</td>
+      <td>0.0</td>
+      <td>1.0</td>
+      <td>1.0</td>
+      <td>4.40</td>
+      <td>...</td>
+      <td>1.0</td>
+      <td>0.0</td>
+      <td>1.0</td>
+      <td>1.0</td>
+      <td>0.0</td>
+      <td>1.482</td>
+      <td>3.033</td>
+      <td>4.913</td>
+      <td>4.0</td>
+      <td>1.0</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>33.0</td>
+      <td>33.0</td>
+      <td>12.0</td>
+      <td>33.0</td>
+      <td>2.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>9.45</td>
+      <td>...</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>2.246</td>
+      <td>3.240</td>
+      <td>3.497</td>
+      <td>1.0</td>
+      <td>1.0</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>23.0</td>
+      <td>30.0</td>
+      <td>9.0</td>
+      <td>30.0</td>
+      <td>1.0</td>
+      <td>2.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>6.30</td>
+      <td>...</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>1.0</td>
+      <td>0.0</td>
+      <td>1.841</td>
+      <td>3.240</td>
+      <td>3.401</td>
+      <td>3.0</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>38.0</td>
+      <td>35.0</td>
+      <td>5.0</td>
+      <td>76.0</td>
+      <td>2.0</td>
+      <td>10.0</td>
+      <td>1.0</td>
+      <td>1.0</td>
+      <td>1.0</td>
+      <td>6.05</td>
+      <td>...</td>
+      <td>1.0</td>
+      <td>1.0</td>
+      <td>1.0</td>
+      <td>1.0</td>
+      <td>1.0</td>
+      <td>1.800</td>
+      <td>3.807</td>
+      <td>4.331</td>
+      <td>4.0</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>7.0</td>
+      <td>35.0</td>
+      <td>14.0</td>
+      <td>80.0</td>
+      <td>2.0</td>
+      <td>15.0</td>
+      <td>0.0</td>
+      <td>1.0</td>
+      <td>0.0</td>
+      <td>7.10</td>
+      <td>...</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>1.0</td>
+      <td>1.0</td>
+      <td>0.0</td>
+      <td>1.960</td>
+      <td>3.091</td>
+      <td>4.382</td>
+      <td>3.0</td>
+      <td>0.0</td>
+    </tr>
+  </tbody>
+</table>
+<p>5 rows × 28 columns</p>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="preprocessing">Data pre-processing and selection</h2>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Lets select some features for the modeling. Also we change the target data type to be integer, as it is a requirement  by the skitlearn algorithm:</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[4]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">churn_df</span> <span class="o">=</span> <span class="n">churn_df</span><span class="p">[[</span><span class="s1">&#39;tenure&#39;</span><span class="p">,</span> <span class="s1">&#39;age&#39;</span><span class="p">,</span> <span class="s1">&#39;address&#39;</span><span class="p">,</span> <span class="s1">&#39;income&#39;</span><span class="p">,</span> <span class="s1">&#39;ed&#39;</span><span class="p">,</span> <span class="s1">&#39;employ&#39;</span><span class="p">,</span> <span class="s1">&#39;equip&#39;</span><span class="p">,</span>   <span class="s1">&#39;callcard&#39;</span><span class="p">,</span> <span class="s1">&#39;wireless&#39;</span><span class="p">,</span><span class="s1">&#39;churn&#39;</span><span class="p">]]</span>
+<span class="n">churn_df</span><span class="p">[</span><span class="s1">&#39;churn&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">churn_df</span><span class="p">[</span><span class="s1">&#39;churn&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s1">&#39;int&#39;</span><span class="p">)</span>
+<span class="n">churn_df</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt output_prompt">Out[4]:</div>
+
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>tenure</th>
+      <th>age</th>
+      <th>address</th>
+      <th>income</th>
+      <th>ed</th>
+      <th>employ</th>
+      <th>equip</th>
+      <th>callcard</th>
+      <th>wireless</th>
+      <th>churn</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>11.0</td>
+      <td>33.0</td>
+      <td>7.0</td>
+      <td>136.0</td>
+      <td>5.0</td>
+      <td>5.0</td>
+      <td>0.0</td>
+      <td>1.0</td>
+      <td>1.0</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>33.0</td>
+      <td>33.0</td>
+      <td>12.0</td>
+      <td>33.0</td>
+      <td>2.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>23.0</td>
+      <td>30.0</td>
+      <td>9.0</td>
+      <td>30.0</td>
+      <td>1.0</td>
+      <td>2.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>38.0</td>
+      <td>35.0</td>
+      <td>5.0</td>
+      <td>76.0</td>
+      <td>2.0</td>
+      <td>10.0</td>
+      <td>1.0</td>
+      <td>1.0</td>
+      <td>1.0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>7.0</td>
+      <td>35.0</td>
+      <td>14.0</td>
+      <td>80.0</td>
+      <td>2.0</td>
+      <td>15.0</td>
+      <td>0.0</td>
+      <td>1.0</td>
+      <td>0.0</td>
+      <td>0</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Practice">Practice<a class="anchor-link" href="#Practice">&#182;</a></h2><p>How many rows and columns are in this dataset in total? What are the name of columns?</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[5]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># write your code here</span>
+<span class="n">churn_df</span><span class="o">.</span><span class="n">shape</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt output_prompt">Out[5]:</div>
+
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>(200, 10)</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Lets define X, and y for our dataset:</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[6]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">X</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">churn_df</span><span class="p">[[</span><span class="s1">&#39;tenure&#39;</span><span class="p">,</span> <span class="s1">&#39;age&#39;</span><span class="p">,</span> <span class="s1">&#39;address&#39;</span><span class="p">,</span> <span class="s1">&#39;income&#39;</span><span class="p">,</span> <span class="s1">&#39;ed&#39;</span><span class="p">,</span> <span class="s1">&#39;employ&#39;</span><span class="p">,</span> <span class="s1">&#39;equip&#39;</span><span class="p">]])</span>
+<span class="n">X</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">5</span><span class="p">]</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt output_prompt">Out[6]:</div>
+
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>array([[ 11.,  33.,   7., 136.,   5.,   5.,   0.],
+       [ 33.,  33.,  12.,  33.,   2.,   0.,   0.],
+       [ 23.,  30.,   9.,  30.,   1.,   2.,   0.],
+       [ 38.,  35.,   5.,  76.,   2.,  10.,   1.],
+       [  7.,  35.,  14.,  80.,   2.,  15.,   0.]])</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[7]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">churn_df</span><span class="p">[</span><span class="s1">&#39;churn&#39;</span><span class="p">])</span>
+<span class="n">y</span> <span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">5</span><span class="p">]</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt output_prompt">Out[7]:</div>
+
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>array([1, 1, 0, 0, 0])</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Also, we normalize the dataset:</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[8]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.preprocessing</span> <span class="kn">import</span> <span class="n">StandardScaler</span>
+<span class="n">X</span> <span class="o">=</span> <span class="n">StandardScaler</span><span class="p">()</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+<span class="n">X</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">5</span><span class="p">]</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt output_prompt">Out[8]:</div>
+
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>array([[-1.13518441, -0.62595491, -0.4588971 ,  0.4751423 ,  1.6961288 ,
+        -0.58477841, -0.85972695],
+       [-0.11604313, -0.62595491,  0.03454064, -0.32886061, -0.6433592 ,
+        -1.14437497, -0.85972695],
+       [-0.57928917, -0.85594447, -0.261522  , -0.35227817, -1.42318853,
+        -0.92053635, -0.85972695],
+       [ 0.11557989, -0.47262854, -0.65627219,  0.00679109, -0.6433592 ,
+        -0.02518185,  1.16316   ],
+       [-1.32048283, -0.47262854,  0.23191574,  0.03801451, -0.6433592 ,
+         0.53441472, -0.85972695]])</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Train/Test-dataset">Train/Test dataset<a class="anchor-link" href="#Train/Test-dataset">&#182;</a></h2>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Okay, we split our dataset into train and test set:</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[9]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <span class="n">train_test_split</span>
+<span class="n">X_train</span><span class="p">,</span> <span class="n">X_test</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">y_test</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">test_size</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
+<span class="nb">print</span> <span class="p">(</span><span class="s1">&#39;Train set:&#39;</span><span class="p">,</span> <span class="n">X_train</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span>  <span class="n">y_train</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+<span class="nb">print</span> <span class="p">(</span><span class="s1">&#39;Test set:&#39;</span><span class="p">,</span> <span class="n">X_test</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span>  <span class="n">y_test</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>Train set: (160, 7) (160,)
+Test set: (40, 7) (40,)
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Model-Logistic-Regression">Model Logistic Regression<a class="anchor-link" href="#Model-Logistic-Regression">&#182;</a></h2>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Lets build our model using <strong>LogisticRegression</strong> from Scikit-learn package. This function implements logistic regression and can use different numerical optimizers to find parameters, including ‘newton-cg’, ‘lbfgs’, ‘liblinear’, ‘sag’, ‘saga’ solvers. You can find extensive information about the pros and cons of these optimizers if you search it in internet.</p>
+<p>The version of Logistic Regression in Scikit-learn, support regularization. Regularization is a technique used to solve the overfitting problem in machine learning models.
+<strong>C</strong> parameter indicates <strong>inverse of regularization strength</strong> which must be a positive float. Smaller values specify stronger regularization. 
+Now lets fit our model with train set:</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[15]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.linear_model</span> <span class="kn">import</span> <span class="n">LogisticRegression</span>
+<span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="n">confusion_matrix</span> <span class="c1"># so that we can plot the flase -ve and +ve vala plot</span>
+<span class="n">LR</span> <span class="o">=</span> <span class="n">LogisticRegression</span><span class="p">(</span><span class="n">C</span> <span class="o">=</span> <span class="mf">0.01</span> <span class="p">,</span> <span class="n">solver</span> <span class="o">=</span> <span class="s1">&#39;liblinear&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span> <span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
+
+<span class="n">LR</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt output_prompt">Out[15]:</div>
+
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>LogisticRegression(C=0.01, class_weight=None, dual=False, fit_intercept=True,
+          intercept_scaling=1, max_iter=100, multi_class=&#39;warn&#39;,
+          n_jobs=None, penalty=&#39;l2&#39;, random_state=None, solver=&#39;liblinear&#39;,
+          tol=0.0001, verbose=0, warm_start=False)</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="What-is-the-C-parameter-in-logistic-regression">What is the C parameter in logistic regression<a class="anchor-link" href="#What-is-the-C-parameter-in-logistic-regression">&#182;</a></h3><p>Here our c is Cfloat, default=1.0, Inverse of regularization strength; must be a positive float. 
+Like in support vector machines, smaller values specify stronger regularization.</p>
+<h3 id="What-is-the-solver-parameter-here">What is the solver parameter here<a class="anchor-link" href="#What-is-the-solver-parameter-here">&#182;</a></h3><p>solver{‘newton-cg’, ‘lbfgs’, ‘liblinear’, ‘sag’, ‘saga’}, default=’lbfgs’
+Algorithm to use in the optimization problem.
+For small datasets, ‘liblinear’ is a good choice, whereas ‘sag’ and ‘saga’ are faster for large ones.
+For multiclass problems, only ‘newton-cg’, ‘sag’, ‘saga’ and ‘lbfgs’ handle multinomial loss; ‘liblinear’ is limited to one-versus-rest schemes.
+‘newton-cg’, ‘lbfgs’, ‘sag’ and ‘saga’ handle L2 or no penalty
+‘liblinear’ and ‘saga’ also handle L1 penalty
+‘saga’ also supports ‘elasticnet’ penalty
+‘liblinear’ does not support setting penalty='none'
+Note that ‘sag’ and ‘saga’ fast convergence is only guaranteed on features with approximately the same scale. You can preprocess the data with a scaler from sklearn.preprocessing.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Now we can predict using our test set:</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[16]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">yhat</span> <span class="o">=</span> <span class="n">LR</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_test</span><span class="p">)</span>
+<span class="n">yhat</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt output_prompt">Out[16]:</div>
+
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>array([0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, 0, 0, 1, 1, 0, 0, 0,
+       0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0])</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><strong>predict_proba</strong>  returns estimates for all classes, ordered by the label of classes. So, the first column is the probability of class 1, P(Y=1|X), and second column is probability of class 0, P(Y=0|X):</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[17]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">yhat_prob</span> <span class="o">=</span> <span class="n">LR</span><span class="o">.</span><span class="n">predict_proba</span><span class="p">(</span><span class="n">X_test</span><span class="p">)</span>
+<span class="n">yhat_prob</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt output_prompt">Out[17]:</div>
+
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>array([[0.54132919, 0.45867081],
+       [0.60593357, 0.39406643],
+       [0.56277713, 0.43722287],
+       [0.63432489, 0.36567511],
+       [0.56431839, 0.43568161],
+       [0.55386646, 0.44613354],
+       [0.52237207, 0.47762793],
+       [0.60514349, 0.39485651],
+       [0.41069572, 0.58930428],
+       [0.6333873 , 0.3666127 ],
+       [0.58068791, 0.41931209],
+       [0.62768628, 0.37231372],
+       [0.47559883, 0.52440117],
+       [0.4267593 , 0.5732407 ],
+       [0.66172417, 0.33827583],
+       [0.55092315, 0.44907685],
+       [0.51749946, 0.48250054],
+       [0.485743  , 0.514257  ],
+       [0.49011451, 0.50988549],
+       [0.52423349, 0.47576651],
+       [0.61619519, 0.38380481],
+       [0.52696302, 0.47303698],
+       [0.63957168, 0.36042832],
+       [0.52205164, 0.47794836],
+       [0.50572852, 0.49427148],
+       [0.70706202, 0.29293798],
+       [0.55266286, 0.44733714],
+       [0.52271594, 0.47728406],
+       [0.51638863, 0.48361137],
+       [0.71331391, 0.28668609],
+       [0.67862111, 0.32137889],
+       [0.50896403, 0.49103597],
+       [0.42348082, 0.57651918],
+       [0.71495838, 0.28504162],
+       [0.59711064, 0.40288936],
+       [0.63808839, 0.36191161],
+       [0.39957895, 0.60042105],
+       [0.52127638, 0.47872362],
+       [0.65975464, 0.34024536],
+       [0.5114172 , 0.4885828 ]])</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="evaluation">Evaluation</h2>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="jaccard-index">jaccard index<a class="anchor-link" href="#jaccard-index">&#182;</a></h3><p>Lets try jaccard index for accuracy evaluation. we can define jaccard as the size of the intersection divided by the size of the union of two label sets. If the entire set of predicted labels for a sample strictly match with the true set of labels, then the subset accuracy is 1.0; otherwise it is 0.0.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[21]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="n">jaccard_similarity_score</span>
+<span class="n">jaccard_similarity_score</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">yhat</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt output_prompt">Out[21]:</div>
+
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>0.75</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="confusion-matrix">confusion matrix<a class="anchor-link" href="#confusion-matrix">&#182;</a></h3><p>Another way of looking at accuracy of classifier is to look at <strong>confusion matrix</strong>.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[22]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="n">classification_report</span><span class="p">,</span> <span class="n">confusion_matrix</span>
+<span class="kn">import</span> <span class="nn">itertools</span>
+<span class="k">def</span> <span class="nf">plot_confusion_matrix</span><span class="p">(</span><span class="n">cm</span><span class="p">,</span> <span class="n">classes</span><span class="p">,</span>
+                          <span class="n">normalize</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+                          <span class="n">title</span><span class="o">=</span><span class="s1">&#39;Confusion matrix&#39;</span><span class="p">,</span>
+                          <span class="n">cmap</span><span class="o">=</span><span class="n">plt</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">Blues</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    This function prints and plots the confusion matrix.</span>
+<span class="sd">    Normalization can be applied by setting `normalize=True`.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">normalize</span><span class="p">:</span>
+        <span class="n">cm</span> <span class="o">=</span> <span class="n">cm</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s1">&#39;float&#39;</span><span class="p">)</span> <span class="o">/</span> <span class="n">cm</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)[:,</span> <span class="n">np</span><span class="o">.</span><span class="n">newaxis</span><span class="p">]</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Normalized confusion matrix&quot;</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Confusion matrix, without normalization&#39;</span><span class="p">)</span>
+
+    <span class="nb">print</span><span class="p">(</span><span class="n">cm</span><span class="p">)</span>
+
+    <span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">cm</span><span class="p">,</span> <span class="n">interpolation</span><span class="o">=</span><span class="s1">&#39;nearest&#39;</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="n">cmap</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="n">title</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">colorbar</span><span class="p">()</span>
+    <span class="n">tick_marks</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">classes</span><span class="p">))</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">xticks</span><span class="p">(</span><span class="n">tick_marks</span><span class="p">,</span> <span class="n">classes</span><span class="p">,</span> <span class="n">rotation</span><span class="o">=</span><span class="mi">45</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">yticks</span><span class="p">(</span><span class="n">tick_marks</span><span class="p">,</span> <span class="n">classes</span><span class="p">)</span>
+
+    <span class="n">fmt</span> <span class="o">=</span> <span class="s1">&#39;.2f&#39;</span> <span class="k">if</span> <span class="n">normalize</span> <span class="k">else</span> <span class="s1">&#39;d&#39;</span>
+    <span class="n">thresh</span> <span class="o">=</span> <span class="n">cm</span><span class="o">.</span><span class="n">max</span><span class="p">()</span> <span class="o">/</span> <span class="mf">2.</span>
+    <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">j</span> <span class="ow">in</span> <span class="n">itertools</span><span class="o">.</span><span class="n">product</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="n">cm</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]),</span> <span class="nb">range</span><span class="p">(</span><span class="n">cm</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">])):</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="n">j</span><span class="p">,</span> <span class="n">i</span><span class="p">,</span> <span class="nb">format</span><span class="p">(</span><span class="n">cm</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">],</span> <span class="n">fmt</span><span class="p">),</span>
+                 <span class="n">horizontalalignment</span><span class="o">=</span><span class="s2">&quot;center&quot;</span><span class="p">,</span>
+                 <span class="n">color</span><span class="o">=</span><span class="s2">&quot;white&quot;</span> <span class="k">if</span> <span class="n">cm</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">thresh</span> <span class="k">else</span> <span class="s2">&quot;black&quot;</span><span class="p">)</span>
+
+    <span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;True label&#39;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Predicted label&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">confusion_matrix</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">yhat</span><span class="p">,</span> <span class="n">labels</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">]))</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>[[ 6  9]
+ [ 1 24]]
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[23]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Compute confusion matrix</span>
+<span class="n">cnf_matrix</span> <span class="o">=</span> <span class="n">confusion_matrix</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">yhat</span><span class="p">,</span> <span class="n">labels</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">])</span>
+<span class="n">np</span><span class="o">.</span><span class="n">set_printoptions</span><span class="p">(</span><span class="n">precision</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+
+
+<span class="c1"># Plot non-normalized confusion matrix</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">()</span>
+<span class="n">plot_confusion_matrix</span><span class="p">(</span><span class="n">cnf_matrix</span><span class="p">,</span> <span class="n">classes</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;churn=1&#39;</span><span class="p">,</span><span class="s1">&#39;churn=0&#39;</span><span class="p">],</span><span class="n">normalize</span><span class="o">=</span> <span class="kc">False</span><span class="p">,</span>  <span class="n">title</span><span class="o">=</span><span class="s1">&#39;Confusion matrix&#39;</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>Confusion matrix, without normalization
+[[ 6  9]
+ [ 1 24]]
+</pre>
+</div>
+</div>
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+
+
+<div class="output_png output_subarea ">
+<img src="data:image/png;base64,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
+"
+>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Look at first row. The first row is for customers whose actual churn value in test set is 1.
+As you can calculate, out of 40 customers, the churn value of 15 of them is 1. 
+And out of these 15, the classifier correctly predicted 6 of them as 1, and 9 of them as 0.</p>
+<p>It means, for 6 customers, the actual churn value were 1 in test set, and classifier also correctly predicted those as 1. However, while the actual label of 9 customers were 1, the classifier predicted those as 0, which is not very good. We can consider it as error of the model for first row.</p>
+<p>What about the customers with churn value 0? Lets look at the second row.
+It looks like  there were 25 customers whom their churn value were 0.</p>
+<p>The classifier correctly predicted 24 of them as 0, and one of them wrongly as 1. So, it has done a good job in predicting the customers with churn value 0. A good thing about confusion matrix is that shows the model’s ability to correctly predict or separate the classes.  In specific case of binary classifier, such as this example,  we can interpret these numbers as the count of true positives, false positives, true negatives, and false negatives.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[24]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="nb">print</span> <span class="p">(</span><span class="n">classification_report</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">yhat</span><span class="p">))</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>              precision    recall  f1-score   support
+
+           0       0.73      0.96      0.83        25
+           1       0.86      0.40      0.55        15
+
+   micro avg       0.75      0.75      0.75        40
+   macro avg       0.79      0.68      0.69        40
+weighted avg       0.78      0.75      0.72        40
+
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Based on the count of each section, we can calculate precision and recall of each label:</p>
+<ul>
+<li><p><strong>Precision</strong> is a measure of the accuracy provided that a class label has been predicted. It is defined by: precision = TP / (TP + FP)</p>
+</li>
+<li><p><strong>Recall</strong> is true positive rate. It is defined as: Recall =  TP / (TP + FN)</p>
+</li>
+</ul>
+<p>So, we can calculate precision and recall of each class.</p>
+<p><strong>F1 score:</strong>
+Now we are in the position to calculate the F1 scores for each label based on the precision and recall of that label.</p>
+<p>The F1 score is the harmonic average of the precision and recall, where an F1 score reaches its best value at 1 (perfect precision and recall) and worst at 0. It is a good way to show that a classifer has a good value for both recall and precision.</p>
+<p>And finally, we can tell the average accuracy for this classifier is the average of the F1-score for both labels, which is 0.72 in our case.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="log-loss">log loss<a class="anchor-link" href="#log-loss">&#182;</a></h3><p>Now, lets try <strong>log loss</strong> for evaluation. In logistic regression, the output can be the probability of customer churn is yes (or equals to 1). This probability is a value between 0 and 1.
+Log loss( Logarithmic loss) measures the performance of a classifier where the predicted output is a probability value between 0 and 1.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[25]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="n">log_loss</span>
+<span class="n">log_loss</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">yhat_prob</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt output_prompt">Out[25]:</div>
+
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>0.6017092478101185</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><h2 id="practice">Practice</h2>
+Try to build Logistic Regression model again for the same dataset, but this time, use different <strong>solver</strong> and <strong>regularization</strong> values? What is new <strong>logLoss</strong> value?</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[26]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># write your code here</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    </div>
+  </div>
+<p>
+Find all about Confusion Matrix by 
+  <a href = 'https://towardsdatascience.com/demystifying-confusion-matrix-confusion-9e82201592fd' target="_blank"> Clicking here </a></p>
+</body>
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          
+          <div class="post-tags">
+              <a href="/tags/2020/" rel="tag"><i class="fa fa-tag"></i> 2020</a>
+              <a href="/tags/logistic-regression/" rel="tag"><i class="fa fa-tag"></i> logistic regression</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/ChoosingBestRegressionModel/" rel="prev" title="Choosing the Best Regression Model">
+      <i class="fa fa-chevron-left"></i> Choosing the Best Regression Model
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/supportvectorregression/" rel="next" title="Support Vector Regression Implementation">
+      Support Vector Regression Implementation <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#notebook-container"><span class="nav-number">1.</span> <span class="nav-text">Table of contents</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#What-is-the-difference-between-Linear-and-Logistic-Regression?"><span class="nav-number">1.1.</span> <span class="nav-text">What is the difference between Linear and Logistic Regression?</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Customer-churn-with-Logistic-Regression"><span class="nav-number">1.1.1.</span> <span class="nav-text">Customer churn with Logistic Regression</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#about_dataset"><span class="nav-number">1.2.</span> <span class="nav-text">About the dataset</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Load-the-Telco-Churn-data"><span class="nav-number">1.2.1.</span> <span class="nav-text">Load the Telco Churn data</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Load-Data-From-CSV-File"><span class="nav-number">1.2.2.</span> <span class="nav-text">Load Data From CSV File</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#preprocessing"><span class="nav-number">1.3.</span> <span class="nav-text">Data pre-processing and selection</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Practice"><span class="nav-number">1.4.</span> <span class="nav-text">Practice</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Train/Test-dataset"><span class="nav-number">1.5.</span> <span class="nav-text">Train&#x2F;Test dataset</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Model-Logistic-Regression"><span class="nav-number">1.6.</span> <span class="nav-text">Model Logistic Regression</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#What-is-the-C-parameter-in-logistic-regression"><span class="nav-number">1.6.1.</span> <span class="nav-text">What is the C parameter in logistic regression</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#What-is-the-solver-parameter-here"><span class="nav-number">1.6.2.</span> <span class="nav-text">What is the solver parameter here</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#evaluation"><span class="nav-number">1.7.</span> <span class="nav-text">Evaluation</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#jaccard-index"><span class="nav-number">1.7.1.</span> <span class="nav-text">jaccard index</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#confusion-matrix"><span class="nav-number">1.7.2.</span> <span class="nav-text">confusion matrix</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#log-loss"><span class="nav-number">1.7.3.</span> <span class="nav-text">log loss</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#practice"><span class="nav-number">1.8.</span> <span class="nav-text">Practice</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Karan Arora"
+      src="/images/avatar.gif">
+  <p class="site-author-name" itemprop="name">Karan Arora</p>
+  <div class="site-description" itemprop="description">Trasforming data into Information</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">43</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">15</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">43</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <span class="exturl" data-url="bWFpbHRvOm1haWxtYXNzaXZlZmlsZUBnbWFpbC5jb20=" title="Get In Touch → mailto:mailmassivefile@gmail.com"><i class="fa fa-envelope fa-fw"></i>Get In Touch</span>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Karan Arora</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+      <span class="post-meta-item-text">Symbols count total: </span>
+    <span title="Symbols count total">446k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span class="post-meta-item-text">Reading time total &asymp;</span>
+    <span title="Reading time total">6:46</span>
+</div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/pjax/pjax.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js"></script>
+  <script src="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+<script src="/js/bookmark.js"></script>
+
+  <script>
+var pjax = new Pjax({
+  selectors: [
+    'head title',
+    '#page-configurations',
+    '.content-wrap',
+    '.post-toc-wrap',
+    '.languages',
+    '#pjax'
+  ],
+  switches: {
+    '.post-toc-wrap': Pjax.switches.innerHTML
+  },
+  analytics: false,
+  cacheBust: false,
+  scrollTo : !CONFIG.bookmark.enable
+});
+
+window.addEventListener('pjax:success', () => {
+  document.querySelectorAll('script[data-pjax], script#page-configurations, #pjax script').forEach(element => {
+    var code = element.text || element.textContent || element.innerHTML || '';
+    var parent = element.parentNode;
+    parent.removeChild(element);
+    var script = document.createElement('script');
+    if (element.id) {
+      script.id = element.id;
+    }
+    if (element.className) {
+      script.className = element.className;
+    }
+    if (element.type) {
+      script.type = element.type;
+    }
+    if (element.src) {
+      script.src = element.src;
+      // Force synchronous loading of peripheral JS.
+      script.async = false;
+    }
+    if (element.dataset.pjax !== undefined) {
+      script.dataset.pjax = '';
+    }
+    if (code !== '') {
+      script.appendChild(document.createTextNode(code));
+    }
+    parent.appendChild(script);
+  });
+  NexT.boot.refresh();
+  // Define Motion Sequence & Bootstrap Motion.
+  if (CONFIG.motion.enable) {
+    NexT.motion.integrator
+      .init()
+      .add(NexT.motion.middleWares.subMenu)
+      .add(NexT.motion.middleWares.postList)
+      .bootstrap();
+  }
+  NexT.utils.updateSidebarPosition();
+});
+</script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+<script data-pjax>
+document.querySelectorAll('.pdfobject-container').forEach(element => {
+  let url = element.dataset.target;
+  let pdfOpenParams = {
+    navpanes : 0,
+    toolbar  : 0,
+    statusbar: 0,
+    pagemode : 'thumbs',
+    view     : 'FitH'
+  };
+  let pdfOpenFragment = '#' + Object.entries(pdfOpenParams).map(([key, value]) => `${key}=${encodeURIComponent(value)}`).join('&');
+  let fullURL = `/lib/pdf/web/viewer.html?file=${encodeURIComponent(url)}${pdfOpenFragment}`;
+
+  if (NexT.utils.supportsPDFs()) {
+    element.innerHTML = `<embed class="pdfobject" src="${url + pdfOpenFragment}" type="application/pdf" style="height: ${element.dataset.height};">`;
+  } else {
+    element.innerHTML = `<iframe src="${fullURL}" style="height: ${element.dataset.height};" frameborder="0"></iframe>`;
+  }
+});
+</script>
+
+
+
+
+    <div id="pjax">
+  
+
+  
+      
+
+<script>
+  if (typeof MathJax === 'undefined') {
+    window.MathJax = {
+      loader: {
+          load: ['[tex]/mhchem'],
+        source: {
+          '[tex]/amsCd': '[tex]/amscd',
+          '[tex]/AMScd': '[tex]/amscd'
+        }
+      },
+      tex: {
+        inlineMath: {'[+]': [['$', '$']]},
+          packages: {'[+]': ['mhchem']},
+        tags: 'ams'
+      },
+      options: {
+        renderActions: {
+          findScript: [10, doc => {
+            document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+              const display = !!node.type.match(/; *mode=display/);
+              const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+              const text = document.createTextNode('');
+              node.parentNode.replaceChild(text, node);
+              math.start = {node: text, delim: '', n: 0};
+              math.end = {node: text, delim: '', n: 0};
+              doc.math.push(math);
+            });
+          }, '', false],
+          insertedScript: [200, () => {
+            document.querySelectorAll('mjx-container').forEach(node => {
+              let target = node.parentNode;
+              if (target.nodeName.toLowerCase() === 'li') {
+                target.parentNode.classList.add('has-jax');
+              }
+            });
+          }, '', false]
+        }
+      }
+    };
+    (function () {
+      var script = document.createElement('script');
+      script.src = '//cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js';
+      script.defer = true;
+      document.head.appendChild(script);
+    })();
+  } else {
+    MathJax.startup.document.state(0);
+    MathJax.texReset();
+    MathJax.typeset();
+  }
+</script>
+
+    
+
+  
+
+    </div>
+</body>
+</html>
