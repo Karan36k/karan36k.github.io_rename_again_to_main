@@ -22,17 +22,18 @@
   </script>
 
   <meta property="og:type" content="article">
-<meta property="og:title" content="Recommendation Engine With Content Based Filtering">
+<meta property="og:title" content="Movie Recommendation Engine With Content Based Filtering (Implementation)">
 <meta property="og:url" content="https://massivefile.com/contentBasedFiletring_RE/index.html">
 <meta property="og:site_name" content="Massivefile.com - Blog">
 <meta property="og:locale" content="en_US">
-<meta property="article:published_time" content="2021-02-15T00:58:53.000Z">
-<meta property="article:modified_time" content="2021-10-13T15:43:34.740Z">
+<meta property="og:image" content="https://miro.medium.com/max/1313/1*GKeESn8RruAbAUEm4k3_EQ.png">
+<meta property="article:published_time" content="2021-07-15T02:58:53.000Z">
+<meta property="article:modified_time" content="2021-10-17T23:22:30.709Z">
 <meta property="article:author" content="Karan Arora">
-<meta property="article:tag" content="2020">
 <meta property="article:tag" content="Content Based Filtering">
 <meta property="article:tag" content="Recommendation Engine">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://miro.medium.com/max/1313/1*GKeESn8RruAbAUEm4k3_EQ.png">
 
 <link rel="canonical" href="https://massivefile.com/contentBasedFiletring_RE/">
 
@@ -47,7 +48,7 @@
   };
 </script>
 
-  <title>Recommendation Engine With Content Based Filtering | Massivefile.com - Blog</title>
+  <title>Movie Recommendation Engine With Content Based Filtering (Implementation) | Massivefile.com - Blog</title>
   
     <script>
       function sendPageView() {
@@ -141,12 +142,12 @@
   </li>
         <li class="menu-item menu-item-tags">
 
-    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags<span class="badge">42</span></a>
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags<span class="badge">46</span></a>
 
   </li>
         <li class="menu-item menu-item-categories">
 
-    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories<span class="badge">13</span></a>
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories<span class="badge">20</span></a>
 
   </li>
         <li class="menu-item menu-item-archives">
@@ -204,7 +205,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          Recommendation Engine With Content Based Filtering
+          Movie Recommendation Engine With Content Based Filtering (Implementation)
         </h1>
 
         <div class="post-meta">
@@ -214,7 +215,7 @@
               </span>
               <span class="post-meta-item-text">Posted on</span>
 
-              <time title="Created: 2021-02-15 06:28:53" itemprop="dateCreated datePublished" datetime="2021-02-15T06:28:53+05:30">2021-02-15</time>
+              <time title="Created: 2021-07-15 08:28:53" itemprop="dateCreated datePublished" datetime="2021-07-15T08:28:53+05:30">2021-07-15</time>
             </span>
 
           <br>
@@ -257,7 +258,11 @@
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>Recommendation systems are a collection of algorithms used to recommend items to users based on information taken from the user. These systems have become ubiquitous, and can be commonly seen in online stores, movies databases and job finders. In this notebook, we will explore Content-based recommendation systems and implement a simple version of one using Python and the Pandas library.</p>
+<p>We can define a Recommendation system as a collection of a bunch of algorithms that are used to recommend items to the users based on the information taken from the user. These systems have become very common and are widely used and can be commonly seen in online stores, movies databases and job finders. 
+<p>A very simple representation of a content based recommendation system for movies looks like this</p>
+<img src="https://miro.medium.com/max/1313/1*GKeESn8RruAbAUEm4k3_EQ.png" style="width: 40%; height: 40%">
+
+In this blog, we will explore Content-based recommendation systems and implement a simple version of one using Python and the Pandas library.</p>
 
 </div>
 </div>
@@ -265,11 +270,11 @@
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Table-of-contents">Table of contents<a class="anchor-link" href="#Table-of-contents"> </a></h3><p><div class="alert alert-block alert-info" style="margin-top: 20px">
+<h3 id="Table-of-contents">Steps we will follow in this blog<a class="anchor-link" href="#Table-of-contents"> </a></h3><p><div class="alert alert-block alert-info" style="margin-top: 20px">
     <ol>
         <li><a href="#ref1">Acquiring the Data</a></li>
-        <li><a href="#ref2">Preprocessing</a></li>
-        <li><a href="#ref3">Content-Based Filtering</a></li>
+        <li><a href="#ref2">Preprocessing and cleaning the data</a></li>
+        <li><a href="#ref3">Implementing Content-Based Filtering</a></li>
     </ol>
 </div>
 <br></p>
@@ -281,7 +286,7 @@
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p><a id="ref1"></a></p>
-<h1 id="Acquiring-the-Data">Acquiring the Data<a class="anchor-link" href="#Acquiring-the-Data"> </a></h1>
+<h1 id="Acquiring-the-Data">Step 1: Acquiring the Data<a class="anchor-link" href="#Acquiring-the-Data"> </a></h1>
 </div>
 </div>
 </div>
@@ -290,8 +295,9 @@
 <div class="prompt input_prompt">In&nbsp;[2]:</div>
 <div class="inner_cell">
     <div class="input_area">
+      <p>Please run these 2 commands to download and unzip the data</p>
 <div class=" highlight hl-ipython3"><pre><span></span><span class="o">!</span>wget -O moviedataset.zip https://s3-api.us-geo.objectstorage.softlayer.net/cf-courses-data/CognitiveClass/ML0101ENv3/labs/moviedataset.zip
-<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;unziping ...&#39;</span><span class="p">)</span>
+<span class="nb"></span><span class="p">(</span><span class="s1">&#39;and the command 2 is ...&#39;</span><span class="p">)</span>
 <span class="o">!</span>unzip -o -j moviedataset.zip 
 </pre></div>
 
@@ -324,7 +330,7 @@ unziping ...
 Archive:  moviedataset.zip
   inflating: links.csv               
   inflating: movies.csv              
-  inflating: ratings.csv             
+  inflating: rating_scores.csv             
   inflating: README.txt              
   inflating: tags.csv                
 </pre>
@@ -347,7 +353,7 @@ Archive:  moviedataset.zip
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p><a id="ref2"></a></p>
-<h1 id="Preprocessing">Preprocessing<a class="anchor-link" href="#Preprocessing"> </a></h1>
+<h1 id="Preprocessing">Data Preprocessing<a class="anchor-link" href="#Preprocessing"> </a></h1>
 </div>
 </div>
 </div>
@@ -364,11 +370,14 @@ Archive:  moviedataset.zip
 <div class="prompt input_prompt">In&nbsp;[3]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#Dataframe manipulation library</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Pandas - Dataframe manipulation library</span>
 <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
-<span class="c1">#Math functions, we&#39;ll only need the sqrt function so let&#39;s import only that</span>
+<span class="c1"># Math - Math functions, we&#39;ll only need the sqrt function so let&#39;s import only that</span>
 <span class="kn">from</span> <span class="nn">math</span> <span class="kn">import</span> <span class="n">sqrt</span>
+<span class="c1"># numpy - for all numeric operations</span>
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="c1"># matplotlib - to plot charts</span>
+
 <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
 <span class="o">%</span><span class="k">matplotlib</span> inline
 </pre></div>
@@ -391,12 +400,12 @@ Archive:  moviedataset.zip
 <div class="prompt input_prompt">In&nbsp;[4]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#Storing the movie information into a pandas dataframe</span>
-<span class="n">movies_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;movies.csv&#39;</span><span class="p">)</span>
-<span class="c1">#Storing the user information into a pandas dataframe</span>
-<span class="n">ratings_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;ratings.csv&#39;</span><span class="p">)</span>
-<span class="c1">#Head is a function that gets the first N rows of a dataframe. N&#39;s default is 5.</span>
-<span class="n">movies_df</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Storing the movie information into a pandas dataframe</span>
+<span class="n">dataframe_movies</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;movies.csv&#39;</span><span class="p">)</span>
+<span class="c1"># Storing the user information into a pandas dataframe</span>
+<span class="n">rating_scores_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;rating_scores.csv&#39;</span><span class="p">)</span>
+<span class="c1"># Head is a function that gets the first N rows of a dataframe. N&#39;s default is 5.</span>
+<span class="n">dataframe_movies</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
 </pre></div>
 
     </div>
@@ -432,9 +441,9 @@ Archive:  moviedataset.zip
   <thead>
     <tr style="text-align: right;">
       <th></th>
-      <th>movieId</th>
-      <th>title</th>
-      <th>genres</th>
+      <th>Id_movie</th>
+      <th>name</th>
+      <th>genres_class</th>
     </tr>
   </thead>
   <tbody>
@@ -482,26 +491,26 @@ Archive:  moviedataset.zip
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>Let's also remove the year from the <strong>title</strong> column by using pandas' replace function and store in a new <strong>year</strong> column.</p>
+<p>From the <strong> name </strong> we also need to remove the column "year". We will use pandas' replace function & store it in a new column</p>
 
 </div>
 </div>
 </div>
+
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
 <div class="prompt input_prompt">In&nbsp;[5]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#Using regular expressions to find a year stored between parentheses</span>
-<span class="c1">#We specify the parantheses so we don&#39;t conflict with movies that have years in their titles</span>
-<span class="n">movies_df</span><span class="p">[</span><span class="s1">&#39;year&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">movies_df</span><span class="o">.</span><span class="n">title</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">extract</span><span class="p">(</span><span class="s1">&#39;(\(\d\d\d\d\))&#39;</span><span class="p">,</span><span class="n">expand</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
-<span class="c1">#Removing the parentheses</span>
-<span class="n">movies_df</span><span class="p">[</span><span class="s1">&#39;year&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">movies_df</span><span class="o">.</span><span class="n">year</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">extract</span><span class="p">(</span><span class="s1">&#39;(\d\d\d\d)&#39;</span><span class="p">,</span><span class="n">expand</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
-<span class="c1">#Removing the years from the &#39;title&#39; column</span>
-<span class="n">movies_df</span><span class="p">[</span><span class="s1">&#39;title&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">movies_df</span><span class="o">.</span><span class="n">title</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;(\(\d\d\d\d\))&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span></span>
+<span class="n">dataframe_movies</span><span class="p">[</span><span class="s1">&#39;year&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">dataframe_movies</span><span class="o">.</span><span class="n">name</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">extract</span><span class="p">(</span><span class="s1">&#39;(\(\d\d\d\d\))&#39;</span><span class="p">,</span><span class="n">expand</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="c1"># Removing paranthesis{}</span>
+<span class="n">dataframe_movies</span><span class="p">[</span><span class="s1">&#39;year&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">dataframe_movies</span><span class="o">.</span><span class="n">year</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">extract</span><span class="p">(</span><span class="s1">&#39;(\d\d\d\d)&#39;</span><span class="p">,</span><span class="n">expand</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="c1"># Removing the years from the &#39;name&#39; column</span>
+<span class="n">dataframe_movies</span><span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">dataframe_movies</span><span class="o">.</span><span class="n">name</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;(\(\d\d\d\d\))&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)</span>
 <span class="c1">#Applying the strip function to get rid of any ending whitespace characters that may have appeared</span>
-<span class="n">movies_df</span><span class="p">[</span><span class="s1">&#39;title&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">movies_df</span><span class="p">[</span><span class="s1">&#39;title&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="o">.</span><span class="n">strip</span><span class="p">())</span>
-<span class="n">movies_df</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+<span class="n">dataframe_movies</span><span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">dataframe_movies</span><span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="o">.</span><span class="n">strip</span><span class="p">())</span>
+<span class="n">dataframe_movies</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
 </pre></div>
 
     </div>
@@ -537,9 +546,9 @@ Archive:  moviedataset.zip
   <thead>
     <tr style="text-align: right;">
       <th></th>
-      <th>movieId</th>
-      <th>title</th>
-      <th>genres</th>
+      <th>Id_movie</th>
+      <th>name</th>
+      <th>genres_class</th>
       <th>year</th>
     </tr>
   </thead>
@@ -593,7 +602,7 @@ Archive:  moviedataset.zip
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>With that, let's also split the values in the <strong>Genres</strong> column into a <strong>list of Genres</strong> to simplify future use. This can be achieved by applying Python's split string function on the correct column.</p>
+<p>Now as we have performed some preprocessing on our data, let us also split the values according to <strong>genres_class</strong> column into a <strong>list of genres_class</strong> to simplify future use. This can be achieved by applying Python's split string function on the correct column.</p>
 
 </div>
 </div>
@@ -604,8 +613,8 @@ Archive:  moviedataset.zip
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#Every genre is separated by a | so we simply have to call the split function on |</span>
-<span class="n">movies_df</span><span class="p">[</span><span class="s1">&#39;genres&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">movies_df</span><span class="o">.</span><span class="n">genres</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;|&#39;</span><span class="p">)</span>
-<span class="n">movies_df</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+<span class="n">dataframe_movies</span><span class="p">[</span><span class="s1">&#39;genres_class&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">dataframe_movies</span><span class="o">.</span><span class="n">genres_class</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;|&#39;</span><span class="p">)</span>
+<span class="n">dataframe_movies</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
 </pre></div>
 
     </div>
@@ -641,9 +650,9 @@ Archive:  moviedataset.zip
   <thead>
     <tr style="text-align: right;">
       <th></th>
-      <th>movieId</th>
-      <th>title</th>
-      <th>genres</th>
+      <th>Id_movie</th>
+      <th>name</th>
+      <th>genres_class</th>
       <th>year</th>
     </tr>
   </thead>
@@ -697,7 +706,8 @@ Archive:  moviedataset.zip
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>Since keeping genres in a list format isn't optimal for the content-based recommendation system technique, we will use the One Hot Encoding technique to convert the list of genres to a vector where each column corresponds to one possible value of the feature. This encoding is needed for feeding categorical data. In this case, we store every different genre in columns that contain either 1 or 0. 1 shows that a movie has that genre and 0 shows that it doesn't. Let's also store this dataframe in another variable since genres won't be important for our first recommendation system.</p>
+<p>We will use a technique named One Hot Encoding to convert the list of genres_class to a vector where each column corresponds to one possible value of the feature because keeping genres_class in a list format isn't optimal for a recommendation system which is content-based. 
+We will input the categorical data to one hot encoding like we will our data of genres_class in columns which represents either 0 or . 0 represents that a movie does not have that genre and 1 represents that it does.</p>
 
 </div>
 </div>
@@ -708,15 +718,15 @@ Archive:  moviedataset.zip
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#Copying the movie dataframe into a new one since we won&#39;t need to use the genre information in our first case.</span>
-<span class="n">moviesWithGenres_df</span> <span class="o">=</span> <span class="n">movies_df</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+<span class="n">moviesWithgenres_class_df</span> <span class="o">=</span> <span class="n">dataframe_movies</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
 
-<span class="c1">#For every row in the dataframe, iterate through the list of genres and place a 1 into the corresponding column</span>
-<span class="k">for</span> <span class="n">index</span><span class="p">,</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">movies_df</span><span class="o">.</span><span class="n">iterrows</span><span class="p">():</span>
-    <span class="k">for</span> <span class="n">genre</span> <span class="ow">in</span> <span class="n">row</span><span class="p">[</span><span class="s1">&#39;genres&#39;</span><span class="p">]:</span>
-        <span class="n">moviesWithGenres_df</span><span class="o">.</span><span class="n">at</span><span class="p">[</span><span class="n">index</span><span class="p">,</span> <span class="n">genre</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="c1">#For every row in the dataframe, iterate through the list of genres_class and place a 1 into the corresponding column</span>
+<span class="k">for</span> <span class="n">index</span><span class="p">,</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">dataframe_movies</span><span class="o">.</span><span class="n">iterrows</span><span class="p">():</span>
+    <span class="k">for</span> <span class="n">genre</span> <span class="ow">in</span> <span class="n">row</span><span class="p">[</span><span class="s1">&#39;genres_class&#39;</span><span class="p">]:</span>
+        <span class="n">moviesWithgenres_class_df</span><span class="o">.</span><span class="n">at</span><span class="p">[</span><span class="n">index</span><span class="p">,</span> <span class="n">genre</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>
 <span class="c1">#Filling in the NaN values with 0 to show that a movie doesn&#39;t have that column&#39;s genre</span>
-<span class="n">moviesWithGenres_df</span> <span class="o">=</span> <span class="n">moviesWithGenres_df</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
-<span class="n">moviesWithGenres_df</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+<span class="n">moviesWithgenres_class_df</span> <span class="o">=</span> <span class="n">moviesWithgenres_class_df</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">moviesWithgenres_class_df</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
 </pre></div>
 
     </div>
@@ -752,9 +762,9 @@ Archive:  moviedataset.zip
   <thead>
     <tr style="text-align: right;">
       <th></th>
-      <th>movieId</th>
-      <th>title</th>
-      <th>genres</th>
+      <th>Id_movie</th>
+      <th>name</th>
+      <th>genres_class</th>
       <th>year</th>
       <th>Adventure</th>
       <th>Animation</th>
@@ -772,7 +782,7 @@ Archive:  moviedataset.zip
       <th>Musical</th>
       <th>Western</th>
       <th>Film-Noir</th>
-      <th>(no genres listed)</th>
+      <th>(no genres_class listed)</th>
     </tr>
   </thead>
   <tbody>
@@ -911,7 +921,7 @@ Archive:  moviedataset.zip
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>Next, let's look at the ratings dataframe.</p>
+<p>Next, let's look at the rating_scores dataframe.</p>
 
 </div>
 </div>
@@ -921,7 +931,7 @@ Archive:  moviedataset.zip
 <div class="prompt input_prompt">In&nbsp;[8]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">ratings_df</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">rating_scores_df</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
 </pre></div>
 
     </div>
@@ -958,8 +968,8 @@ Archive:  moviedataset.zip
     <tr style="text-align: right;">
       <th></th>
       <th>userId</th>
-      <th>movieId</th>
-      <th>rating</th>
+      <th>Id_movie</th>
+      <th>rating_score</th>
       <th>timestamp</th>
     </tr>
   </thead>
@@ -1013,7 +1023,7 @@ Archive:  moviedataset.zip
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>Every row in the ratings dataframe has a user id associated with at least one movie, a rating and a timestamp showing when they reviewed it. We won't be needing the timestamp column, so let's drop it to save on memory.</p>
+<p>As we do not require it, we will be removing timestamp from df</p>
 
 </div>
 </div>
@@ -1024,8 +1034,8 @@ Archive:  moviedataset.zip
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#Drop removes a specified row or column from a dataframe</span>
-<span class="n">ratings_df</span> <span class="o">=</span> <span class="n">ratings_df</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="s1">&#39;timestamp&#39;</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
-<span class="n">ratings_df</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+<span class="n">rating_scores_df</span> <span class="o">=</span> <span class="n">rating_scores_df</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="s1">&#39;timestamp&#39;</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<span class="n">rating_scores_df</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
 </pre></div>
 
     </div>
@@ -1062,8 +1072,8 @@ Archive:  moviedataset.zip
     <tr style="text-align: right;">
       <th></th>
       <th>userId</th>
-      <th>movieId</th>
-      <th>rating</th>
+      <th>Id_movie</th>
+      <th>rating_score</th>
     </tr>
   </thead>
   <tbody>
@@ -1119,7 +1129,7 @@ Archive:  moviedataset.zip
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>Now, let's take a look at how to implement <strong>Content-Based</strong> or <strong>Item-Item recommendation systems</strong>. This technique attempts to figure out what a user's favourite aspects of an item is, and then recommends items that present those aspects. In our case, we're going to try to figure out the input's favorite genres from the movies and ratings given.</p>
+<p>Now, let's take a look at how to implement <strong>Content-Based</strong> or <strong>Item-Item recommendation systems</strong>. This technique attempts to figure out what a user's favourite aspects of an item is, and then recommends items that present those aspects. In our case, we're going to try to figure out the input's favorite genres_class from the movies and rating_scores given.</p>
 <p>Let's begin by creating an input user to recommend movies to:</p>
 <p>Notice: To add more movies, simply increase the amount of elements in the <strong>userInput</strong>. Feel free to add more in! Just be sure to write it in with capital letters and if a movie starts with a "The", like "The Matrix" then write it in like this: 'Matrix, The' .</p>
 
@@ -1132,14 +1142,14 @@ Archive:  moviedataset.zip
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">userInput</span> <span class="o">=</span> <span class="p">[</span>
-            <span class="p">{</span><span class="s1">&#39;title&#39;</span><span class="p">:</span><span class="s1">&#39;Breakfast Club, The&#39;</span><span class="p">,</span> <span class="s1">&#39;rating&#39;</span><span class="p">:</span><span class="mi">5</span><span class="p">},</span>
-            <span class="p">{</span><span class="s1">&#39;title&#39;</span><span class="p">:</span><span class="s1">&#39;Toy Story&#39;</span><span class="p">,</span> <span class="s1">&#39;rating&#39;</span><span class="p">:</span><span class="mf">3.5</span><span class="p">},</span>
-            <span class="p">{</span><span class="s1">&#39;title&#39;</span><span class="p">:</span><span class="s1">&#39;Jumanji&#39;</span><span class="p">,</span> <span class="s1">&#39;rating&#39;</span><span class="p">:</span><span class="mi">2</span><span class="p">},</span>
-            <span class="p">{</span><span class="s1">&#39;title&#39;</span><span class="p">:</span><span class="s2">&quot;Pulp Fiction&quot;</span><span class="p">,</span> <span class="s1">&#39;rating&#39;</span><span class="p">:</span><span class="mi">5</span><span class="p">},</span>
-            <span class="p">{</span><span class="s1">&#39;title&#39;</span><span class="p">:</span><span class="s1">&#39;Akira&#39;</span><span class="p">,</span> <span class="s1">&#39;rating&#39;</span><span class="p">:</span><span class="mf">4.5</span><span class="p">}</span>
+            <span class="p">{</span><span class="s1">&#39;name&#39;</span><span class="p">:</span><span class="s1">&#39;Dinner&#39;</span><span class="p">,</span> <span class="s1">&#39;rating_score&#39;</span><span class="p">:</span><span class="mi">6</span><span class="p">},</span>
+            <span class="p">{</span><span class="s1">&#39;name&#39;</span><span class="p">:</span><span class="s1">&#39;Titanic&#39;</span><span class="p">,</span> <span class="s1">&#39;rating_score&#39;</span><span class="p">:</span><span class="mf">5</span><span class="p">},</span>
+            <span class="p">{</span><span class="s1">&#39;name&#39;</span><span class="p">:</span><span class="s1">&#39;Notebook&#39;</span><span class="p">,</span> <span class="s1">&#39;rating_score&#39;</span><span class="p">:</span><span class="mi">2</span><span class="p">},</span>
+            <span class="p">{</span><span class="s1">&#39;name&#39;</span><span class="p">:</span><span class="s2">&quot;Inception&quot;</span><span class="p">,</span> <span class="s1">&#39;rating_score&#39;</span><span class="p">:</span><span class="mi">5</span><span class="p">},</span>
+            <span class="p">{</span><span class="s1">&#39;name&#39;</span><span class="p">:</span><span class="s1">&#39;Fast2Furious&#39;</span><span class="p">,</span> <span class="s1">&#39;rating_score&#39;</span><span class="p">:</span><span class="mf">4</span><span class="p">}</span>
          <span class="p">]</span> 
-<span class="n">inputMovies</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">userInput</span><span class="p">)</span>
-<span class="n">inputMovies</span>
+<span class="n">movie_input</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">userInput</span><span class="p">)</span>
+<span class="n">movie_input</span>
 </pre></div>
 
     </div>
@@ -1175,8 +1185,8 @@ Archive:  moviedataset.zip
   <thead>
     <tr style="text-align: right;">
       <th></th>
-      <th>title</th>
-      <th>rating</th>
+      <th>name</th>
+      <th>rating_score</th>
     </tr>
   </thead>
   <tbody>
@@ -1219,8 +1229,8 @@ Archive:  moviedataset.zip
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h4 id="Add-movieId-to-input-user">Add movieId to input user<a class="anchor-link" href="#Add-movieId-to-input-user"> </a></h4><p>With the input complete, let's extract the input movie's ID's from the movies dataframe and add them into it.</p>
-<p>We can achieve this by first filtering out the rows that contain the input movie's title and then merging this subset with the input dataframe. We also drop unnecessary columns for the input to save memory space.</p>
+<h4 id="Add-Id_movie-to-input-user">Add Id_movie to input user<a class="anchor-link" href="#Add-Id_movie-to-input-user"> </a></h4><p>With the input finalised, let us extract the ID of the input movie from the dataframe df and add the ID into it.</p>
+<p>We can now achieve this by 1st filtering out the rows which contain the input_movie's name and then merging this subset with the input df dataframe. Also, we can drop not-required columns from the input to save some memory.</p>
 
 </div>
 </div>
@@ -1230,16 +1240,14 @@ Archive:  moviedataset.zip
 <div class="prompt input_prompt">In&nbsp;[11]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#Filtering out the movies by title</span>
-<span class="n">inputId</span> <span class="o">=</span> <span class="n">movies_df</span><span class="p">[</span><span class="n">movies_df</span><span class="p">[</span><span class="s1">&#39;title&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">isin</span><span class="p">(</span><span class="n">inputMovies</span><span class="p">[</span><span class="s1">&#39;title&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">tolist</span><span class="p">())]</span>
-<span class="c1">#Then merging it so we can get the movieId. It&#39;s implicitly merging it by title.</span>
-<span class="n">inputMovies</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">inputId</span><span class="p">,</span> <span class="n">inputMovies</span><span class="p">)</span>
-<span class="c1">#Dropping information we won&#39;t use from the input dataframe</span>
-<span class="n">inputMovies</span> <span class="o">=</span> <span class="n">inputMovies</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="s1">&#39;genres&#39;</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="s1">&#39;year&#39;</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># searching movies by name</span>
+<span class="n">inputId</span> <span class="o">=</span> <span class="n">dataframe_movies</span><span class="p">[</span><span class="n">dataframe_movies</span><span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">isin</span><span class="p">(</span><span class="n">movie_input</span><span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">tolist</span><span class="p">())]</span>
+<span class="c1"># merging it to get the Id_movie.</span>
+<span class="n">movie_input</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">inputId</span><span class="p">,</span> <span class="n">movie_input</span><span class="p">)</span>
+<span class="c1"># Deleting columns that are not required</span>
+<span class="n">movie_input</span> <span class="o">=</span> <span class="n">movie_input</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="s1">&#39;genres_class&#39;</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="s1">&#39;year&#39;</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
 <span class="c1">#Final input dataframe</span>
-<span class="c1">#If a movie you added in above isn&#39;t here, then it might not be in the original </span>
-<span class="c1">#dataframe or it might spelled differently, please check capitalisation.</span>
-<span class="n">inputMovies</span>
+<span class="n">movie_input</span>
 </pre></div>
 
     </div>
@@ -1275,9 +1283,9 @@ Archive:  moviedataset.zip
   <thead>
     <tr style="text-align: right;">
       <th></th>
-      <th>movieId</th>
-      <th>title</th>
-      <th>rating</th>
+      <th>Id_movie</th>
+      <th>name</th>
+      <th>rating_score</th>
     </tr>
   </thead>
   <tbody>
@@ -1325,7 +1333,7 @@ Archive:  moviedataset.zip
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>We're going to start by learning the input's preferences, so let's get the subset of movies that the input has watched from the Dataframe containing genres defined with binary values.</p>
+<p>We're going to start by learning the input's preferences, so let's get the subset of movies that the input has watched from the Dataframe containing genres_class defined with binary values.</p>
 
 </div>
 </div>
@@ -1336,7 +1344,7 @@ Archive:  moviedataset.zip
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#Filtering out the movies from the input</span>
-<span class="n">userMovies</span> <span class="o">=</span> <span class="n">moviesWithGenres_df</span><span class="p">[</span><span class="n">moviesWithGenres_df</span><span class="p">[</span><span class="s1">&#39;movieId&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">isin</span><span class="p">(</span><span class="n">inputMovies</span><span class="p">[</span><span class="s1">&#39;movieId&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">tolist</span><span class="p">())]</span>
+<span class="n">userMovies</span> <span class="o">=</span> <span class="n">moviesWithgenres_class_df</span><span class="p">[</span><span class="n">moviesWithgenres_class_df</span><span class="p">[</span><span class="s1">&#39;Id_movie&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">isin</span><span class="p">(</span><span class="n">movie_input</span><span class="p">[</span><span class="s1">&#39;Id_movie&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">tolist</span><span class="p">())]</span>
 <span class="n">userMovies</span>
 </pre></div>
 
@@ -1373,9 +1381,9 @@ Archive:  moviedataset.zip
   <thead>
     <tr style="text-align: right;">
       <th></th>
-      <th>movieId</th>
-      <th>title</th>
-      <th>genres</th>
+      <th>Id_movie</th>
+      <th>name</th>
+      <th>genres_class</th>
       <th>year</th>
       <th>Adventure</th>
       <th>Animation</th>
@@ -1393,7 +1401,7 @@ Archive:  moviedataset.zip
       <th>Musical</th>
       <th>Western</th>
       <th>Film-Noir</th>
-      <th>(no genres listed)</th>
+      <th>(no genres_class listed)</th>
     </tr>
   </thead>
   <tbody>
@@ -1532,7 +1540,7 @@ Archive:  moviedataset.zip
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>We'll only need the actual genre table, so let's clean this up a bit by resetting the index and dropping the movieId, title, genres and year columns.</p>
+<p>We'll only need the actual genre table, so let's clean this up a bit by resetting the index and dropping the Id_movie, name, genres_class and year columns.</p>
 
 </div>
 </div>
@@ -1545,8 +1553,8 @@ Archive:  moviedataset.zip
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#Resetting the index to avoid future issues</span>
 <span class="n">userMovies</span> <span class="o">=</span> <span class="n">userMovies</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 <span class="c1">#Dropping unnecessary issues due to save memory and to avoid issues</span>
-<span class="n">userGenreTable</span> <span class="o">=</span> <span class="n">userMovies</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="s1">&#39;movieId&#39;</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="s1">&#39;title&#39;</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="s1">&#39;genres&#39;</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="s1">&#39;year&#39;</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
-<span class="n">userGenreTable</span>
+<span class="n">usertable_genre</span> <span class="o">=</span> <span class="n">userMovies</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="s1">&#39;Id_movie&#39;</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="s1">&#39;name&#39;</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="s1">&#39;genres_class&#39;</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="s1">&#39;year&#39;</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<span class="n">usertable_genre</span>
 </pre></div>
 
     </div>
@@ -1601,7 +1609,7 @@ Archive:  moviedataset.zip
       <th>Musical</th>
       <th>Western</th>
       <th>Film-Noir</th>
-      <th>(no genres listed)</th>
+      <th>(no genres_class listed)</th>
     </tr>
   </thead>
   <tbody>
@@ -1745,7 +1753,7 @@ Archive:  moviedataset.zip
 <div class="prompt input_prompt">In&nbsp;[14]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">inputMovies</span><span class="p">[</span><span class="s1">&#39;rating&#39;</span><span class="p">]</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">movie_input</span><span class="p">[</span><span class="s1">&#39;rating_score&#39;</span><span class="p">]</span>
 </pre></div>
 
     </div>
@@ -1769,7 +1777,7 @@ Archive:  moviedataset.zip
 2    5.0
 3    4.5
 4    5.0
-Name: rating, dtype: float64</pre>
+Name: rating_score, dtype: float64</pre>
 </div>
 
 </div>
@@ -1784,7 +1792,7 @@ Name: rating, dtype: float64</pre>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#Dot produt to get weights</span>
-<span class="n">userProfile</span> <span class="o">=</span> <span class="n">userGenreTable</span><span class="o">.</span><span class="n">transpose</span><span class="p">()</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">inputMovies</span><span class="p">[</span><span class="s1">&#39;rating&#39;</span><span class="p">])</span>
+<span class="n">userProfile</span> <span class="o">=</span> <span class="n">usertable_genre</span><span class="o">.</span><span class="n">transpose</span><span class="p">()</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">movie_input</span><span class="p">[</span><span class="s1">&#39;rating_score&#39;</span><span class="p">])</span>
 <span class="c1">#The user profile</span>
 <span class="n">userProfile</span>
 </pre></div>
@@ -1805,13 +1813,13 @@ Name: rating, dtype: float64</pre>
 
 
 <div class="output_text output_subarea output_execute_result">
-<pre>Adventure             10.0
-Animation              8.0
+<pre>Drama                 9.99
+Adventure             10.0
 Children               5.5
 Comedy                13.5
+Animation              8.0
 Fantasy                5.5
 Romance                0.0
-Drama                 10.0
 Action                 4.5
 Crime                  5.0
 Thriller               5.0
@@ -1824,7 +1832,7 @@ War                    0.0
 Musical                0.0
 Western                0.0
 Film-Noir              0.0
-(no genres listed)     0.0
+(no genres_class listed)     0.0
 dtype: float64</pre>
 </div>
 
@@ -1837,7 +1845,7 @@ dtype: float64</pre>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>Now, we have the weights for every of the user's preferences. This is known as the User Profile. Using this, we can recommend movies that satisfy the user's preferences.</p>
+<p>After this step, we have weights of each of the user's movie choices, we term this as the User's Profile. By utilizing this information, we can suggest movies that satisfy the user's preferences.</p>
 
 </div>
 </div>
@@ -1855,11 +1863,11 @@ dtype: float64</pre>
 <div class="prompt input_prompt">In&nbsp;[16]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#Now let&#39;s get the genres of every movie in our original dataframe</span>
-<span class="n">genreTable</span> <span class="o">=</span> <span class="n">moviesWithGenres_df</span><span class="o">.</span><span class="n">set_index</span><span class="p">(</span><span class="n">moviesWithGenres_df</span><span class="p">[</span><span class="s1">&#39;movieId&#39;</span><span class="p">])</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#Now let&#39;s get the genres_class of every movie in our original dataframe</span>
+<span class="n">table_genre</span> <span class="o">=</span> <span class="n">moviesWithgenres_class_df</span><span class="o">.</span><span class="n">set_index</span><span class="p">(</span><span class="n">moviesWithgenres_class_df</span><span class="p">[</span><span class="s1">&#39;Id_movie&#39;</span><span class="p">])</span>
 <span class="c1">#And drop the unnecessary information</span>
-<span class="n">genreTable</span> <span class="o">=</span> <span class="n">genreTable</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="s1">&#39;movieId&#39;</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="s1">&#39;title&#39;</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="s1">&#39;genres&#39;</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="s1">&#39;year&#39;</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
-<span class="n">genreTable</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+<span class="n">table_genre</span> <span class="o">=</span> <span class="n">table_genre</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="s1">&#39;Id_movie&#39;</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="s1">&#39;name&#39;</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="s1">&#39;genres_class&#39;</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="s1">&#39;year&#39;</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<span class="n">table_genre</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
 </pre></div>
 
     </div>
@@ -1914,10 +1922,10 @@ dtype: float64</pre>
       <th>Musical</th>
       <th>Western</th>
       <th>Film-Noir</th>
-      <th>(no genres listed)</th>
+      <th>(no genres_class listed)</th>
     </tr>
     <tr>
-      <th>movieId</th>
+      <th>Id_movie</th>
       <th></th>
       <th></th>
       <th></th>
@@ -2072,7 +2080,7 @@ dtype: float64</pre>
 <div class="prompt input_prompt">In&nbsp;[17]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">genreTable</span><span class="o">.</span><span class="n">shape</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">table_genre</span><span class="o">.</span><span class="n">shape</span>
 </pre></div>
 
     </div>
@@ -2103,7 +2111,7 @@ dtype: float64</pre>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>With the input's profile and the complete list of movies and their genres in hand, we're going to take the weighted average of every movie based on the input profile and recommend the top twenty movies that most satisfy it.</p>
+<p>With the input's profile and the complete list of movies and their genres_class in hand, we're going to take the weighted average of every movie based on the input profile and recommend the top twenty movies that most satisfy it.</p>
 
 </div>
 </div>
@@ -2113,9 +2121,9 @@ dtype: float64</pre>
 <div class="prompt input_prompt">In&nbsp;[18]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#Multiply the genres by the weights and then take the weighted average</span>
-<span class="n">recommendationTable_df</span> <span class="o">=</span> <span class="p">((</span><span class="n">genreTable</span><span class="o">*</span><span class="n">userProfile</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">))</span><span class="o">/</span><span class="p">(</span><span class="n">userProfile</span><span class="o">.</span><span class="n">sum</span><span class="p">())</span>
-<span class="n">recommendationTable_df</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#Multiply the genres_class by the weights and then take the weighted average</span>
+<span class="n">table_df_recomendation</span> <span class="o">=</span> <span class="p">((</span><span class="n">table_genre</span><span class="o">*</span><span class="n">userProfile</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">))</span><span class="o">/</span><span class="p">(</span><span class="n">userProfile</span><span class="o">.</span><span class="n">sum</span><span class="p">())</span>
+<span class="n">table_df_recomendation</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
 </pre></div>
 
     </div>
@@ -2134,7 +2142,7 @@ dtype: float64</pre>
 
 
 <div class="output_text output_subarea output_execute_result">
-<pre>movieId
+<pre>Id_movie
 1    0.594406
 2    0.293706
 3    0.188811
@@ -2154,10 +2162,10 @@ dtype: float64</pre>
 <div class="prompt input_prompt">In&nbsp;[19]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#Sort our recommendations in descending order</span>
-<span class="n">recommendationTable_df</span> <span class="o">=</span> <span class="n">recommendationTable_df</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">ascending</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Now we will sort our recommendations in descending order</span>
+<span class="n">table_df_recomendation</span> <span class="o">=</span> <span class="n">table_df_recomendation</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">ascending</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 <span class="c1">#Just a peek at the values</span>
-<span class="n">recommendationTable_df</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+<span class="n">table_df_recomendation</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
 </pre></div>
 
     </div>
@@ -2176,7 +2184,7 @@ dtype: float64</pre>
 
 
 <div class="output_text output_subarea output_execute_result">
-<pre>movieId
+<pre>Id_movie
 5018      0.748252
 26093     0.734266
 27344     0.720280
@@ -2205,7 +2213,7 @@ dtype: float64</pre>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#The final recommendation table</span>
-<span class="n">movies_df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">movies_df</span><span class="p">[</span><span class="s1">&#39;movieId&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">isin</span><span class="p">(</span><span class="n">recommendationTable_df</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">20</span><span class="p">)</span><span class="o">.</span><span class="n">keys</span><span class="p">())]</span>
+<span class="n">dataframe_movies</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">dataframe_movies</span><span class="p">[</span><span class="s1">&#39;Id_movie&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">isin</span><span class="p">(</span><span class="n">table_df_recomendation</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">20</span><span class="p">)</span><span class="o">.</span><span class="n">keys</span><span class="p">())]</span>
 </pre></div>
 
     </div>
@@ -2241,9 +2249,9 @@ dtype: float64</pre>
   <thead>
     <tr style="text-align: right;">
       <th></th>
-      <th>movieId</th>
-      <th>title</th>
-      <th>genres</th>
+      <th>Id_movie</th>
+      <th>name</th>
+      <th>genres_class</th>
       <th>year</th>
     </tr>
   </thead>
@@ -2411,25 +2419,7 @@ dtype: float64</pre>
 <li>Extracting data is not always intuitive</li>
 <li>Determining what characteristics of the item the user dislikes or likes is not always obvious</li>
 </ul>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span> 
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-</div>
-    </div>
-  </div>
+</div></div></div></div></div>
 </body>
 
     </div>
@@ -2441,7 +2431,6 @@ dtype: float64</pre>
       <footer class="post-footer">
           
           <div class="post-tags">
-              <a href="/tags/2020/" rel="tag"><i class="fa fa-tag"></i> 2020</a>
               <a href="/tags/Content-Based-Filtering/" rel="tag"><i class="fa fa-tag"></i> Content Based Filtering</a>
               <a href="/tags/Recommendation-Engine/" rel="tag"><i class="fa fa-tag"></i> Recommendation Engine</a>
           </div>
@@ -2452,12 +2441,12 @@ dtype: float64</pre>
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/Building_your_Deep_Neural_Network/" rel="prev" title="Building Your Deep Neural Network Step by Step">
-      <i class="fa fa-chevron-left"></i> Building Your Deep Neural Network Step by Step
+    <a href="/k_means_clustering/" rel="prev" title="Practical Approach to K-Means Clustering">
+      <i class="fa fa-chevron-left"></i> Practical Approach to K-Means Clustering
     </a></div>
       <div class="post-nav-item">
-    <a href="/Density_Based_Clustering/" rel="next" title="Practical Impletation of Density-Based Clustering">
-      Practical Impletation of Density-Based Clustering <i class="fa fa-chevron-right"></i>
+    <a href="/data_preprocessing_feature/" rel="next" title="Data Preprocessing || Feature Scaling (With Code Implementation)">
+      Data Preprocessing || Feature Scaling (With Code Implementation) <i class="fa fa-chevron-right"></i>
     </a></div>
     </div>
       </footer>
@@ -2517,7 +2506,7 @@ dtype: float64</pre>
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Table-of-contents"><span class="nav-number">1.</span> <span class="nav-text">Table of contents</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Acquiring-the-Data"><span class="nav-number"></span> <span class="nav-text">Acquiring the Data</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Preprocessing"><span class="nav-number"></span> <span class="nav-text">Preprocessing</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Content-Based-recommendation-system"><span class="nav-number"></span> <span class="nav-text">Content-Based recommendation system</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Add-movieId-to-input-user"><span class="nav-number">0.1.</span> <span class="nav-text">Add movieId to input user</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Advantages-and-Disadvantages-of-Content-Based-Filtering"><span class="nav-number">1.</span> <span class="nav-text">Advantages and Disadvantages of Content-Based Filtering</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#Advantages"><span class="nav-number">1.0.1.</span> <span class="nav-text">Advantages</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Disadvantages"><span class="nav-number">1.0.2.</span> <span class="nav-text">Disadvantages</span></a></li></ol></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Table-of-contents"><span class="nav-number">1.</span> <span class="nav-text">Steps we will follow in this blog</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Acquiring-the-Data"><span class="nav-number"></span> <span class="nav-text">Step 1: Acquiring the Data</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Preprocessing"><span class="nav-number"></span> <span class="nav-text">Data Preprocessing</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Content-Based-recommendation-system"><span class="nav-number"></span> <span class="nav-text">Content-Based recommendation system</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Add-Id_movie-to-input-user"><span class="nav-number">0.1.</span> <span class="nav-text">Add Id_movie to input user</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Advantages-and-Disadvantages-of-Content-Based-Filtering"><span class="nav-number">1.</span> <span class="nav-text">Advantages and Disadvantages of Content-Based Filtering</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#Advantages"><span class="nav-number">1.0.1.</span> <span class="nav-text">Advantages</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Disadvantages"><span class="nav-number">1.0.2.</span> <span class="nav-text">Disadvantages</span></a></li></ol></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -2540,13 +2529,13 @@ dtype: float64</pre>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">13</span>
+        <span class="site-state-item-count">20</span>
         <span class="site-state-item-name">categories</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">42</span>
+        <span class="site-state-item-count">46</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>
@@ -2591,13 +2580,13 @@ dtype: float64</pre>
       <i class="fa fa-chart-area"></i>
     </span>
       <span class="post-meta-item-text">Symbols count total: </span>
-    <span title="Symbols count total">446k</span>
+    <span title="Symbols count total">452k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span class="post-meta-item-text">Reading time total &asymp;</span>
-    <span title="Reading time total">6:45</span>
+    <span title="Reading time total">6:51</span>
 </div>
 
         

@@ -22,16 +22,19 @@
   </script>
 
   <meta property="og:type" content="article">
-<meta property="og:title" content="Practical Implementation of Apriori Association">
+<meta property="og:title" content="Apriori Association (Implementation)">
 <meta property="og:url" content="https://massivefile.com/Apriori_Association/index.html">
 <meta property="og:site_name" content="Massivefile.com - Blog">
 <meta property="og:locale" content="en_US">
-<meta property="article:published_time" content="2020-02-01T00:58:53.000Z">
-<meta property="article:modified_time" content="2021-10-13T15:42:56.460Z">
+<meta property="og:image" content="https://lh3.googleusercontent.com/cToppoHWmdbfKQINv0OODk0RZfoJaisqnn9lpR4cdLG1dhYgaNEv67a2-DAJoOOVxS2OGm9thSm91l7hmkQmv_vgcCwd7IHCkjvuWXboaVCEypXdCKgQFRiweiLp9XukttkpxbsxSQ=w2400">
+<meta property="og:image" content="https://lh3.googleusercontent.com/93RtbCPj3NEM0Clpdk4Ja4oCjM3Rp5lcqIaPYRqX_p9I_5r81QbRiP0kb_jsB2lyu4zet8krt3tWYOBmKCZ0JNqW0_ZWdWkMpD9JheqnbZiw17imNwc9oiXZ9ge18iCRofyrOw8E7A=w2400">
+<meta property="article:published_time" content="2021-07-30T01:00:53.000Z">
+<meta property="article:modified_time" content="2021-10-17T23:22:24.147Z">
 <meta property="article:author" content="Karan Arora">
-<meta property="article:tag" content="2020">
 <meta property="article:tag" content="Apriori Association">
+<meta property="article:tag" content="Unsupervised Machine Learning">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://lh3.googleusercontent.com/cToppoHWmdbfKQINv0OODk0RZfoJaisqnn9lpR4cdLG1dhYgaNEv67a2-DAJoOOVxS2OGm9thSm91l7hmkQmv_vgcCwd7IHCkjvuWXboaVCEypXdCKgQFRiweiLp9XukttkpxbsxSQ=w2400">
 
 <link rel="canonical" href="https://massivefile.com/Apriori_Association/">
 
@@ -46,7 +49,7 @@
   };
 </script>
 
-  <title>Practical Implementation of Apriori Association | Massivefile.com - Blog</title>
+  <title>Apriori Association (Implementation) | Massivefile.com - Blog</title>
   
     <script>
       function sendPageView() {
@@ -140,12 +143,12 @@
   </li>
         <li class="menu-item menu-item-tags">
 
-    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags<span class="badge">42</span></a>
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags<span class="badge">46</span></a>
 
   </li>
         <li class="menu-item menu-item-categories">
 
-    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories<span class="badge">13</span></a>
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories<span class="badge">20</span></a>
 
   </li>
         <li class="menu-item menu-item-archives">
@@ -203,7 +206,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          Practical Implementation of Apriori Association
+          Apriori Association (Implementation)
         </h1>
 
         <div class="post-meta">
@@ -213,7 +216,7 @@
               </span>
               <span class="post-meta-item-text">Posted on</span>
 
-              <time title="Created: 2020-02-01 06:28:53" itemprop="dateCreated datePublished" datetime="2020-02-01T06:28:53+05:30">2020-02-01</time>
+              <time title="Created: 2021-07-30 06:30:53" itemprop="dateCreated datePublished" datetime="2021-07-30T06:30:53+05:30">2021-07-30</time>
             </span>
 
           <br>
@@ -222,14 +225,14 @@
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">Symbols count in article: </span>
-              <span>4.2k</span>
+              <span>7.8k</span>
             </span>
             <span class="post-meta-item" title="Reading time">
               <span class="post-meta-item-icon">
                 <i class="far fa-clock"></i>
               </span>
                 <span class="post-meta-item-text">Reading time &asymp;</span>
-              <span>4 mins.</span>
+              <span>7 mins.</span>
             </span>
 
         </div>
@@ -250,12 +253,22 @@
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
+Apriori Association is a type of unsupervised learning technique. It looks for the relation of one entity to another entity and then maps them accordingly so that it can be more appropriate. The entity can be anything ranging from grocery items like milk to clithing items like a shirt. The technique finds some interesting associations or relations among the variables of dataset. 
 
-<p>You can download the dataset from <a href = 'https://www.kaggle.com/roshansharma/market-basket-optimization' target = blank_>Click Here</a></p>
+Apriori Association uses a Hash Tree search and breadth-first to calculate the associations in the entities effectively. The process of finding the frequent items for a massive dataset is an iterative process.
+
+This algorithm was introduced by the R. Agrawal and Srikant in 1994. It is majorly utilised for market basket analysis. It helps in finding those products which can be bought together. It can also be used in the medical dimain to find potential drug reactions for patients.
+
+One of the use case of Association is inside malls where the store owner can use this unsupervised machine learning algorithms to find association between multiple items like eggs, milk, bread or vegetables after taking and reading the costumer insights. If the relation is high, the store owner will keep them together in the store and increase the sales as the probability of the costumer buying them is much higher.<br> With that said, let's start. <br>To download the dataset I have used in this article- <a href= "https://www.kaggle.com/roshansharma/market-basket-optimization" target="_blank">click here</a>
+
+<p>You will understand more about the model in the article in coming pages</a></p>
+
+<h3>Simple step by Step Process</h3>
+ <p>Please follow this step by step process to get a high view understanding of Association and Apriori Association which is one of the important concept in Machine Learning and Computer Science. <br> I will execute the model on a sample dataset with by solving a typical association problem in simple steps with a workable accuracy for your understanding.</p>
 </div>
 </div>
 </div>
-<h4> First we will download some basic libraries</h4>
+<h4> First we import libraries</h4>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
 <div class="prompt input_prompt">In&nbsp;[2]:</div>
@@ -271,6 +284,10 @@
 </div>
 
 </div>
+
+<h4> Now understanding our downloaded dataset</h4>
+
+
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
 <div class="prompt input_prompt">In&nbsp;[3]:</div>
@@ -477,8 +494,14 @@
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
+ <h4> Brief on the problem we are dealing with </h4>
+   <br> The dataset is having 20 columns and 7501 columns, we have 20 food items in a grocery store as columns and the rows represents the costumer
 <p>This data explains that costumer 0 buys shrimp, almonds, avocado together<br>
 Costumer 1 buys burgers, meatballs and eggs toghter and so on</p>
+
+<p>To visualize this data, let us take this image into imagination</p>
+<img src="https://lh3.googleusercontent.com/cToppoHWmdbfKQINv0OODk0RZfoJaisqnn9lpR4cdLG1dhYgaNEv67a2-DAJoOOVxS2OGm9thSm91l7hmkQmv_vgcCwd7IHCkjvuWXboaVCEypXdCKgQFRiweiLp9XukttkpxbsxSQ=w2400">
+<p>Here is the transaction per costumers, the model's role is to understand what kind of items the customer bought together and then give us the output what is the association of item 1 with another, for instance it will tell us that wrt customer buying patterns, how is milk related to egges</p>
 
 </div>
 </div>
@@ -519,7 +542,8 @@ Costumer 1 buys burgers, meatballs and eggs toghter and so on</p>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>Aprori expects a list and not a dataframe So we will transform this dataset to a list</p>
+<h4> Data Transformation: </h4>
+As aprori expects a list and not a dataframe So we will transform this dataset to a list in this step
 
 </div>
 </div>
@@ -575,13 +599,13 @@ Costumer 1 buys burgers, meatballs and eggs toghter and so on</p>
 <div class="prompt input_prompt">In&nbsp;[17]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">listt</span><span class="p">[:</span><span class="mi">5</span><span class="p">]</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">listt</span><span class="p">[:</span><span class="mi">1</span><span class="p">]</span>
 </pre></div>
 
     </div>
 </div>
 </div>
-
+<p>Let's have a look to our data which should be in list form for the next step</p>
 <div class="output_wrapper">
 <div class="output">
 
@@ -614,7 +638,8 @@ Costumer 1 buys burgers, meatballs and eggs toghter and so on</p>
   &#39;frozen smoothie&#39;,
   &#39;spinach&#39;,
   &#39;olive oil&#39;],
- [&#39;burgers&#39;,
+ [#1st Customer's Purchase Data,
+  &#39;burgers&#39;,
   &#39;meatballs&#39;,
   &#39;eggs&#39;,
   &#39;nan&#39;,
@@ -634,51 +659,12 @@ Costumer 1 buys burgers, meatballs and eggs toghter and so on</p>
   &#39;nan&#39;,
   &#39;nan&#39;,
   &#39;nan&#39;],
- [&#39;chutney&#39;,
+ [#2nd Customer's Purchase Data,
+  &#39;chutney&#39;,
   &#39;nan&#39;,
   &#39;nan&#39;,
   &#39;nan&#39;,
   &#39;nan&#39;,
-  &#39;nan&#39;,
-  &#39;nan&#39;,
-  &#39;nan&#39;,
-  &#39;nan&#39;,
-  &#39;nan&#39;,
-  &#39;nan&#39;,
-  &#39;nan&#39;,
-  &#39;nan&#39;,
-  &#39;nan&#39;,
-  &#39;nan&#39;,
-  &#39;nan&#39;,
-  &#39;nan&#39;,
-  &#39;nan&#39;,
-  &#39;nan&#39;,
-  &#39;nan&#39;],
- [&#39;turkey&#39;,
-  &#39;avocado&#39;,
-  &#39;nan&#39;,
-  &#39;nan&#39;,
-  &#39;nan&#39;,
-  &#39;nan&#39;,
-  &#39;nan&#39;,
-  &#39;nan&#39;,
-  &#39;nan&#39;,
-  &#39;nan&#39;,
-  &#39;nan&#39;,
-  &#39;nan&#39;,
-  &#39;nan&#39;,
-  &#39;nan&#39;,
-  &#39;nan&#39;,
-  &#39;nan&#39;,
-  &#39;nan&#39;,
-  &#39;nan&#39;,
-  &#39;nan&#39;,
-  &#39;nan&#39;],
- [&#39;mineral water&#39;,
-  &#39;milk&#39;,
-  &#39;energy bar&#39;,
-  &#39;whole wheat rice&#39;,
-  &#39;green tea&#39;,
   &#39;nan&#39;,
   &#39;nan&#39;,
   &#39;nan&#39;,
@@ -705,10 +691,10 @@ Costumer 1 buys burgers, meatballs and eggs toghter and so on</p>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3>Training aprori for this dataset<br></h3>
-<p>We will download the apriori algorithm file and we will import aprori class from that file<br>
-To download the apyori file <a herf = 'ahttps://sds-platform-private.s3-us-east-2.amazonaws.com/uploads/P14-Part5-Association-Rule-Learning.zip'> CLICK HERE </a> <br></p>
-<h3 id="The-file-we-need-is-apyori.py,-Ignore-other-files-and-continue-here">The file we need is apyori.py, Ignore other files and continue here<a class="anchor-link" href="#The-file-we-need-is-apyori.py,-Ignore-other-files-and-continue-here">  </a></h3>
+<h4>Model fitting and training on the dataset(list)</h4>
+<p>As aprori is an unsupervised learning method, We will download the pretrained apriori algorithm file and we will import aprori class from that file which we will later use to work with our store dataset<br>
+To download the Pretrained Aprori Model <a herf = 'ahttps://sds-platform-private.s3-us-east-2.amazonaws.com/uploads/P14-Part5-Association-Rule-Learning.zip'> CLICK HERE </a> <br></p>
+<p id="The-file-we-need-is-apyori.py,-Ignore-other-files-and-continue-here">The file we need is apyori.py, Ignore other files and continue here<a class="anchor-link" href="#The-file-we-need-is-apyori.py,-Ignore-other-files-and-continue-here">  </a></p>
 </div>
 </div>
 </div>
@@ -717,12 +703,14 @@ To download the apyori file <a herf = 'ahttps://sds-platform-private.s3-us-east-
 <div class="prompt input_prompt">In&nbsp;[22]:</div>
 <div class="inner_cell">
     <div class="input_area">
+      <h4>Importing the model</h4>
 <div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">apyori</span> <span class="kn">import</span> <span class="n">apriori</span>
 </pre></div>
 
     </div>
 </div>
 </div>
+      <p>Now, we will need to instantiate the class with an object with which we will call our class later</p>
 
 </div>
 <div class="cell border-box-sizing code_cell rendered">
@@ -739,12 +727,20 @@ To download the apyori file <a herf = 'ahttps://sds-platform-private.s3-us-east-
 
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
+</div>
+
+<h4 class="more_introduction">Brief into basic association concepts and the parameters</h4>
+<p>The Apriori Association takes in the parameters: input list, minimum support, minumum confidence, minimum lift and minimum length</p>
+
+<img src="https://lh3.googleusercontent.com/93RtbCPj3NEM0Clpdk4Ja4oCjM3Rp5lcqIaPYRqX_p9I_5r81QbRiP0kb_jsB2lyu4zet8krt3tWYOBmKCZ0JNqW0_ZWdWkMpD9JheqnbZiw17imNwc9oiXZ9ge18iCRofyrOw8E7A=w2400">
+
+<div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="min_support">min_support<a class="anchor-link" href="#min_support">  </a></h2><p>All right so let's start with the support the support of a set of items I is equal to the number of
-transactions contained in this set of items I divided by the total number of transactions and the support argument that we're putting here is actually the minimum support you want to have in your rules.
-<br><b>That means that the items that are going to appear in your rules will have a higher support than this
-minimum support here.
+<h5 id="min_support">min_support<a class="anchor-link" href="#min_support">  </a></h5><p>All right so let's start with the support, <br> support of a set of item 1 (e.g. milk) and item 2 (e.g egg) will be equal to the number of
+transactions executed (frequency) in our data of total 7500 transactions which had the frequency of egg and milk together (I) divided by the total number of transactions performed which is 7500 in this case.
+<br>
+The support argument that we're putting here is actually the minimum support you want to have in your rules.
+<br><b>That means that the items that are going to appear in your rules will have a higher support than this, i.e higher frequency of occurance (of milk and egg in this case) in the dataset than the min_support parameter
 <br>
 So what we must ask ourselves Is that what supports Do we want to have our different items in the rules
 </b><br></p>
@@ -755,26 +751,61 @@ So what we must ask ourselves Is that what supports Do we want to have our diffe
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="min_confidence">min_confidence<a class="anchor-link" href="#min_confidence">  </a></h2>
+<h5 id="min_confidence">min_confidence<a class="anchor-link" href="#min_confidence">  </a></h5>
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>We can see the confidence of this rule is 0.3
-30 percent which means that if French people in the south of France purchase mushroom cream sauce in
-the store Well they have 30 percent chance of being as close as well.</p>
+<p>We can see that the minimum confidence of this rule is 0.2,
+0.2 here implies 20 percent of occurances which implies that if for instance 100 people in California and same in Texas purchase mushroom cream sauce in the store, they have 20 percent chance of being as close together as well.</p>
 
 </div>
 </div>
 </div>
+
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h5 id="min_confidence">min_lift<a class="anchor-link" href="#min_confidence">  </a></h5>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>We can see that the minimum confidence of this rule is 0.2,
+0.2 here implies 20 percent of occurances which implies that if for instance 100 people in California and same in Texas purchase mushroom cream sauce in the store, they have 20 percent chance of being as close together as well.</p>
+
+</div>
+</div>
+</div>
+
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h5 id="min_confidence">min_length<a class="anchor-link" href="#min_confidence">  </a></h5>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>min_length: This indicates what is the minimum number of items that should be in a transaction which in our case is 2, therefore we are considering the trnsactions or custumers data which are having minimum 2 in the cart at time of purchase.</p>
+
+</div>
+</div>
+</div>
+<h4>Fitting the model</h4>
+<p>In this step we will fit our model to the dataset, it will now learn and generalize to the list data structure with name"rules" we will provide to it</p>
+
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
 <div class="prompt input_prompt">In&nbsp;[27]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#visualizing the results</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"></span>
 
 <span class="n">rules</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">rules</span><span class="p">)</span>
 </pre></div>
@@ -784,12 +815,13 @@ the store Well they have 30 percent chance of being as close as well.</p>
 </div>
 
 </div>
+<h4>See results</h4>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
 <div class="prompt input_prompt">In&nbsp;[31]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">rules</span><span class="p">[:</span><span class="mi">1</span><span class="p">]</span> <span class="c1">#these are the results</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">rules</span><span class="p">[:</span><span class="mi">1</span><span class="p">]</span> <span class="c1">#getting the 1st item from the output</span>
 </pre></div>
 
     </div>
@@ -817,21 +849,44 @@ the store Well they have 30 percent chance of being as close as well.</p>
 </div>
 
 </div>
+<p>Here, as we can see. We have our first association from the output list from the Apriori Association algorithm which gives the associative value of "burgers" and "almonds" with support of 55%, confidence of only 26% and a lift of 3<br> We can say that burgers and almonds are not very well suited together<br>
+Let us see another output</p>
+
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="prompt input_prompt">In&nbsp;[31]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span> 
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">rules</span><span class="p">[30:</span><span class="mi">31</span><span class="p">]</span> <span class="c1">#getting the 30th item from the output</span>
 </pre></div>
 
     </div>
 </div>
 </div>
 
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt output_prompt">Out[31]:</div>
+
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>[RelationRecord(items=frozenset({&#39;milk&#39;, &#39;bread&#39;}), support=0.009592235556175531, ordered_statistics=[OrderedStatistic(items_base=frozenset({&#39;milk&#39;}), items_add=frozenset({&#39;bread&#39;}), confidence=0.7771235575511127, lift=6.000555746668677)])]</pre>
 </div>
-    </div>
-  </div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<p>Here, as we can see. We have our second association from the 30th item from the output list from the Apriori Association algorithm which gives the associative value of "milk" and "bread" with support of 96%, confidence of 77% and a lift of 6<br> We can say that milk and bread are highly bough together and must be kept together to increase store sales<br>
+</p>
 </body>
     </div>
 
@@ -842,8 +897,8 @@ the store Well they have 30 percent chance of being as close as well.</p>
       <footer class="post-footer">
           
           <div class="post-tags">
-              <a href="/tags/2020/" rel="tag"><i class="fa fa-tag"></i> 2020</a>
               <a href="/tags/Apriori-Association/" rel="tag"><i class="fa fa-tag"></i> Apriori Association</a>
+              <a href="/tags/Unsupervised-Machine-Learning/" rel="tag"><i class="fa fa-tag"></i> Unsupervised Machine Learning</a>
           </div>
 
         
@@ -851,10 +906,13 @@ the store Well they have 30 percent chance of being as close as well.</p>
 
         
     <div class="post-nav">
-      <div class="post-nav-item"></div>
       <div class="post-nav-item">
-    <a href="/Vim_no_plugins/" rel="next" title="Classic Vim Without Plugins">
-      Classic Vim Without Plugins <i class="fa fa-chevron-right"></i>
+    <a href="/data_preprocessing_feature/" rel="prev" title="Data Preprocessing || Feature Scaling (With Code Implementation)">
+      <i class="fa fa-chevron-left"></i> Data Preprocessing || Feature Scaling (With Code Implementation)
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/ChoosingBestRegressionModel/" rel="next" title="Choosing the Best Regression Model">
+      Choosing the Best Regression Model <i class="fa fa-chevron-right"></i>
     </a></div>
     </div>
       </footer>
@@ -914,8 +972,7 @@ the store Well they have 30 percent chance of being as close as well.</p>
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#notebook-container"><span class="nav-number">1.</span> <span class="nav-text"> First we will download some basic libraries</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#notebook-container"><span class="nav-number"></span> <span class="nav-text">Training aprori for this dataset
-</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#The-file-we-need-is-apyori.py,-Ignore-other-files-and-continue-here"><span class="nav-number"></span> <span class="nav-text">The file we need is apyori.py, Ignore other files and continue here</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#min_support"><span class="nav-number"></span> <span class="nav-text">min_support</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#min_confidence"><span class="nav-number"></span> <span class="nav-text">min_confidence</span></a></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#notebook-container"><span class="nav-number">1.</span> <span class="nav-text">Simple step by Step Process</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#notebook-container"><span class="nav-number">1.1.</span> <span class="nav-text"> First we import libraries</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#notebook-container"><span class="nav-number">1.2.</span> <span class="nav-text"> Now understanding our downloaded dataset</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#notebook-container"><span class="nav-number">1.3.</span> <span class="nav-text"> Brief on the problem we are dealing with </span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#notebook-container"><span class="nav-number">1.4.</span> <span class="nav-text"> Data Transformation: </span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#notebook-container"><span class="nav-number">1.5.</span> <span class="nav-text">Model fitting and training on the dataset(list)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#notebook-container"><span class="nav-number">1.6.</span> <span class="nav-text">Importing the model</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#notebook-container"><span class="nav-number">1.7.</span> <span class="nav-text">Brief into basic association concepts and the parameters</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#min_support"><span class="nav-number">1.7.1.</span> <span class="nav-text">min_support</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#min_confidence"><span class="nav-number">1.7.2.</span> <span class="nav-text">min_confidence</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#min_confidence"><span class="nav-number">1.7.3.</span> <span class="nav-text">min_lift</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#min_confidence"><span class="nav-number">1.7.4.</span> <span class="nav-text">min_length</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#notebook-container"><span class="nav-number">1.8.</span> <span class="nav-text">Fitting the model</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#notebook-container"><span class="nav-number">1.9.</span> <span class="nav-text">See results</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -938,13 +995,13 @@ the store Well they have 30 percent chance of being as close as well.</p>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">13</span>
+        <span class="site-state-item-count">20</span>
         <span class="site-state-item-name">categories</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">42</span>
+        <span class="site-state-item-count">46</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>
@@ -989,13 +1046,13 @@ the store Well they have 30 percent chance of being as close as well.</p>
       <i class="fa fa-chart-area"></i>
     </span>
       <span class="post-meta-item-text">Symbols count total: </span>
-    <span title="Symbols count total">446k</span>
+    <span title="Symbols count total">452k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span class="post-meta-item-text">Reading time total &asymp;</span>
-    <span title="Reading time total">6:45</span>
+    <span title="Reading time total">6:51</span>
 </div>
 
         
