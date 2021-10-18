@@ -26,12 +26,12 @@
 <meta property="og:url" content="https://massivefile.com/Deep_Neural_Network_Application/index.html">
 <meta property="og:site_name" content="Massivefile.com - Blog">
 <meta property="og:locale" content="en_US">
-<meta property="article:published_time" content="2020-05-02T00:56:53.000Z">
-<meta property="article:modified_time" content="2021-10-13T15:44:05.267Z">
+<meta property="article:published_time" content="2019-05-01T18:30:00.000Z">
+<meta property="article:modified_time" content="2021-10-18T01:36:11.473Z">
 <meta property="article:author" content="Karan Arora">
-<meta property="article:tag" content="2020">
-<meta property="article:tag" content="Assignment">
-<meta property="article:tag" content="Deep Neural Network Application">
+<meta property="article:tag" content="Neural Network Step by Step">
+<meta property="article:tag" content="Machine Learning">
+<meta property="article:tag" content="Neural Network">
 <meta name="twitter:card" content="summary">
 
 <link rel="canonical" href="https://massivefile.com/Deep_Neural_Network_Application/">
@@ -141,17 +141,17 @@
   </li>
         <li class="menu-item menu-item-tags">
 
-    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags<span class="badge">46</span></a>
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags<span class="badge">48</span></a>
 
   </li>
         <li class="menu-item menu-item-categories">
 
-    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories<span class="badge">20</span></a>
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories<span class="badge">29</span></a>
 
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives<span class="badge">40</span></a>
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives<span class="badge">39</span></a>
 
   </li>
         <li class="menu-item menu-item-about">
@@ -214,7 +214,7 @@
               </span>
               <span class="post-meta-item-text">Posted on</span>
 
-              <time title="Created: 2020-05-02 06:26:53" itemprop="dateCreated datePublished" datetime="2020-05-02T06:26:53+05:30">2020-05-02</time>
+              <time title="Created: 2019-05-02 00:00:00" itemprop="dateCreated datePublished" datetime="2019-05-02T00:00:00+05:30">2019-05-02</time>
             </span>
 
           <br>
@@ -223,7 +223,7 @@
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">Symbols count in article: </span>
-              <span>19k</span>
+              <span>18k</span>
             </span>
             <span class="post-meta-item" title="Reading time">
               <span class="post-meta-item-icon">
@@ -244,8 +244,8 @@
       
         <body><span id="more"></span> 
 
-<p><i><b>Note - These are my notes on DeepLearning Specialization Part:<br>Deep Neural Network Application  || (Course- 1 Week - 4) || Neural Networks and Deep Learning (Week 4)</i></b></p>
-<h1 id="Deep-Neural-Network-for-Image-Classification-Application"><a href="#Deep-Neural-Network-for-Image-Classification-Application" class="headerlink" title="Deep Neural Network for Image Classification: Application"></a>Deep Neural Network for Image Classification: Application</h1><p>When you finish this, you will have finished the last programming assignment of Week 4, and also the last programming assignment of this course!<br>You will use use the functions you’d implemented in the previous assignment to build a deep network, and apply it to cat vs non-cat classification. Hopefully, you will see an improvement in accuracy relative to your previous logistic regression implementation.<br><strong>After this assignment you will be able to:</strong></p>
+<p><i><b>Note - These are my learnings|notes on my DeepLearning Specialization</i></b></p>
+<h1 id="Deep-Neural-Network-for-Image-Classification-Application"><a href="#Deep-Neural-Network-for-Image-Classification-Application" class="headerlink" title="Deep Neural Network for Image Classification: Application"></a>Deep Neural Network for Image Classification: Application</h1><p>You will use use the functions you’d implemented in the previous assignment to build a deep network, and apply it to cat vs non-cat classification. Hopefully, you will see an improvement in accuracy relative to your previous logistic regression implementation.<br><strong>After this assignment you will be able to:</strong></p>
 <ul>
 <li>Build and apply a deep neural network to supervised learning. </li>
 </ul>
@@ -316,7 +316,6 @@ test_x&#39;s shape: (12288, 50)
 <p>Let’s now implement those two models!</p>
 <h2 id="4-Two-layer-neural-network"><a href="#4-Two-layer-neural-network" class="headerlink" title="4 - Two-layer neural network"></a>4 - Two-layer neural network</h2><p><strong>Question</strong>:  Use the helper functions you have implemented in the previous assignment to build a 2-layer neural network with the following structure: <em>LINEAR -&gt; RELU -&gt; LINEAR -&gt; SIGMOID</em>. The functions you may need and their inputs are:</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">initialize_parameters</span>(<span class="hljs-params">n_x, n_h, n_y</span>):</span><br>    ...<br>    <span class="hljs-keyword">return</span> parameters <br><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">linear_activation_forward</span>(<span class="hljs-params">A_prev, W, b, activation</span>):</span><br>    ...<br>    <span class="hljs-keyword">return</span> A, cache<br><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">compute_cost</span>(<span class="hljs-params">AL, Y</span>):</span><br>    ...<br>    <span class="hljs-keyword">return</span> cost<br><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">linear_activation_backward</span>(<span class="hljs-params">dA, cache, activation</span>):</span><br>    ...<br>    <span class="hljs-keyword">return</span> dA_prev, dW, db<br><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">update_parameters</span>(<span class="hljs-params">parameters, grads, learning_rate</span>):</span><br>    ...<br>    <span class="hljs-keyword">return</span> parameters<br></code></pre></td></tr></table></figure>
-
 
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment">### CONSTANTS DEFINING THE MODEL ####</span><br>n_x = <span class="hljs-number">12288</span>     <span class="hljs-comment"># num_px * num_px * 3</span><br>n_h = <span class="hljs-number">7</span><br>n_y = <span class="hljs-number">1</span><br>layers_dims = (n_x, n_h, n_y)<br></code></pre></td></tr></table></figure>
 
@@ -406,7 +405,6 @@ Cost after iteration 2400: 0.04855478562877025
 
 
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment">### CONSTANTS ###</span><br>layers_dims = [<span class="hljs-number">12288</span>, <span class="hljs-number">20</span>, <span class="hljs-number">7</span>, <span class="hljs-number">5</span>, <span class="hljs-number">1</span>] <span class="hljs-comment">#  5-layer model</span><br></code></pre></td></tr></table></figure>
-
 
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment"># GRADED FUNCTION: L_layer_model</span><br><br><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">L_layer_model</span>(<span class="hljs-params">X, Y, layers_dims, learning_rate = <span class="hljs-number">0.0075</span>, num_iterations = <span class="hljs-number">3000</span>, print_cost=<span class="hljs-literal">False</span></span>):</span><span class="hljs-comment">#lr was 0.009</span><br>    <span class="hljs-string">&quot;&quot;&quot;</span><br><span class="hljs-string">    Implements a L-layer neural network: [LINEAR-&gt;RELU]*(L-1)-&gt;LINEAR-&gt;SIGMOID.</span><br><span class="hljs-string">    </span><br><span class="hljs-string">    Arguments:</span><br><span class="hljs-string">    X -- data, numpy array of shape (number of examples, num_px * num_px * 3)</span><br><span class="hljs-string">    Y -- true &quot;label&quot; vector (containing 0 if cat, 1 if non-cat), of shape (1, number of examples)</span><br><span class="hljs-string">    layers_dims -- list containing the input size and each layer size, of length (number of layers + 1).</span><br><span class="hljs-string">    learning_rate -- learning rate of the gradient descent update rule</span><br><span class="hljs-string">    num_iterations -- number of iterations of the optimization loop</span><br><span class="hljs-string">    print_cost -- if True, it prints the cost every 100 steps</span><br><span class="hljs-string">    </span><br><span class="hljs-string">    Returns:</span><br><span class="hljs-string">    parameters -- parameters learnt by the model. They can then be used to predict.</span><br><span class="hljs-string">    &quot;&quot;&quot;</span><br><br>    np.random.seed(<span class="hljs-number">1</span>)<br>    costs = []                         <span class="hljs-comment"># keep track of cost</span><br>    <br>    <span class="hljs-comment"># Parameters initialization.</span><br>    <span class="hljs-comment">### START CODE HERE ###</span><br>    parameters = initialize_parameters_deep(layers_dims)<br>    <span class="hljs-comment">### END CODE HERE ###</span><br>    <br>    <span class="hljs-comment"># Loop (gradient descent)</span><br>    <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-number">0</span>, num_iterations):<br><br>        <span class="hljs-comment"># Forward propagation: [LINEAR -&gt; RELU]*(L-1) -&gt; LINEAR -&gt; SIGMOID.</span><br>        <span class="hljs-comment">### START CODE HERE ### (≈ 1 line of code)</span><br>        AL, caches = L_model_forward(X, parameters)<br>        <span class="hljs-comment">### END CODE HERE ###</span><br>        <br>        <span class="hljs-comment"># Compute cost.</span><br>        <span class="hljs-comment">### START CODE HERE ### (≈ 1 line of code)</span><br>        cost = compute_cost(AL, Y)<br>        <span class="hljs-comment">### END CODE HERE ###</span><br>    <br>        <span class="hljs-comment"># Backward propagation.</span><br>        <span class="hljs-comment">### START CODE HERE ### (≈ 1 line of code)</span><br>        grads = L_model_backward(AL, Y, caches)<br>        <span class="hljs-comment">### END CODE HERE ###</span><br> <br>        <span class="hljs-comment"># Update parameters.</span><br>        <span class="hljs-comment">### START CODE HERE ### (≈ 1 line of code)</span><br>        parameters = update_parameters(parameters, grads, learning_rate=learning_rate)<br>        <span class="hljs-comment">### END CODE HERE ###</span><br>                <br>        <span class="hljs-comment"># Print the cost every 100 training example</span><br>        <span class="hljs-keyword">if</span> print_cost <span class="hljs-keyword">and</span> i % <span class="hljs-number">100</span> == <span class="hljs-number">0</span>:<br>            <span class="hljs-built_in">print</span> (<span class="hljs-string">&quot;Cost after iteration %i: %f&quot;</span> %(i, cost))<br>        <span class="hljs-keyword">if</span> print_cost <span class="hljs-keyword">and</span> i % <span class="hljs-number">100</span> == <span class="hljs-number">0</span>:<br>            costs.append(cost)<br>            <br>    <span class="hljs-comment"># plot the cost</span><br>    plt.plot(np.squeeze(costs))<br>    plt.ylabel(<span class="hljs-string">&#x27;cost&#x27;</span>)<br>    plt.xlabel(<span class="hljs-string">&#x27;iterations (per tens)&#x27;</span>)<br>    plt.title(<span class="hljs-string">&quot;Learning rate =&quot;</span> + <span class="hljs-built_in">str</span>(learning_rate))<br>    plt.show()<br>    <br>    <span class="hljs-keyword">return</span> parameters<br></code></pre></td></tr></table></figure>
 
@@ -530,11 +528,7 @@ y = 1.0, your L-layer model predicts a &quot;cat&quot; picture.
 <table><tr><th>Software</th><th>Version</th></tr><tr><td>Python</td><td>3.6.6 64bit [GCC 4.2.1 Compatible Apple LLVM 6.1.0 (clang-602.0.53)]</td></tr><tr><td>IPython</td><td>7.0.1</td></tr><tr><td>OS</td><td>Darwin 17.7.0 x86_64 i386 64bit</td></tr><tr><td>numpy</td><td>1.15.1</td></tr><tr><td>PIL</td><td>5.3.0</td></tr><tr><td>matplotlib</td><td>3.0.0</td></tr><tr><td>scipy</td><td>1.1.0</td></tr><tr><td>skimage</td><td>0.14.1</td></tr><tr><td colspan='2'>Sun Oct 14 21:16:14 2018 MDT</td></tr></table>
 
 
-
-
-
-<h5>Credits - <a href='https://www.coursera.org/' target=”_blank >Coursera</a>,  <a href = 'https://en.wikipedia.org/wiki/Andrew_Ng' title="Andrew_Ng" target=”_blank>Credits to the teacher</a> , 
-<a href ='https://www.coursera.org/specializations/deep-learning?' target=”_blank>Deeplearning.ai Course</a><h5>
+<p><a href = 'https://en.wikipedia.org/wiki/Andrew_Ng' title="Andrew_Ng" target=”_blank>Credits to the teacher</a> </p>
 
     </div>
 
@@ -545,9 +539,9 @@ y = 1.0, your L-layer model predicts a &quot;cat&quot; picture.
       <footer class="post-footer">
           
           <div class="post-tags">
-              <a href="/tags/2020/" rel="tag"><i class="fa fa-tag"></i> 2020</a>
-              <a href="/tags/Assignment/" rel="tag"><i class="fa fa-tag"></i> Assignment</a>
-              <a href="/tags/Deep-Neural-Network-Application/" rel="tag"><i class="fa fa-tag"></i> Deep Neural Network Application</a>
+              <a href="/tags/Neural-Network-Step-by-Step/" rel="tag"><i class="fa fa-tag"></i> Neural Network Step by Step</a>
+              <a href="/tags/Machine-Learning/" rel="tag"><i class="fa fa-tag"></i> Machine Learning</a>
+              <a href="/tags/Neural-Network/" rel="tag"><i class="fa fa-tag"></i> Neural Network</a>
           </div>
 
         
@@ -556,12 +550,12 @@ y = 1.0, your L-layer model predicts a &quot;cat&quot; picture.
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/Theory_RSquared/" rel="prev" title="R Squared Intution || Evaluating Model Features">
-      <i class="fa fa-chevron-left"></i> R Squared Intution || Evaluating Model Features
+    <a href="/hand_recognition/" rel="prev" title="Hand Recognition | Deep-Learning | Tensorflow">
+      <i class="fa fa-chevron-left"></i> Hand Recognition | Deep-Learning | Tensorflow
     </a></div>
       <div class="post-nav-item">
-    <a href="/multiple_linear_regression/" rel="next" title="Multiple Linear Regression Implementation">
-      Multiple Linear Regression Implementation <i class="fa fa-chevron-right"></i>
+    <a href="/kNearestNeighboursclassification/" rel="next" title="K-Nearest Nrighbour Classifier">
+      K-Nearest Nrighbour Classifier <i class="fa fa-chevron-right"></i>
     </a></div>
     </div>
       </footer>
@@ -621,10 +615,7 @@ y = 1.0, your L-layer model predicts a &quot;cat&quot; picture.
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Deep-Neural-Network-for-Image-Classification-Application"><span class="nav-number">1.</span> <span class="nav-text">Deep Neural Network for Image Classification: Application</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-Packages"><span class="nav-number">1.1.</span> <span class="nav-text">1 - Packages</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-Dataset"><span class="nav-number">1.2.</span> <span class="nav-text">2 - Dataset</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-Architecture-of-your-model"><span class="nav-number">1.3.</span> <span class="nav-text">3 - Architecture of your model</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#3-1-2-layer-neural-network"><span class="nav-number">1.3.1.</span> <span class="nav-text">3.1 - 2-layer neural network</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-2-L-layer-deep-neural-network"><span class="nav-number">1.3.2.</span> <span class="nav-text">3.2 - L-layer deep neural network</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-3-General-methodology"><span class="nav-number">1.3.3.</span> <span class="nav-text">3.3 - General methodology</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-Two-layer-neural-network"><span class="nav-number">1.4.</span> <span class="nav-text">4 - Two-layer neural network</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-L-layer-Neural-Network"><span class="nav-number">1.5.</span> <span class="nav-text">5 - L-layer Neural Network</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#6-Results-Analysis"><span class="nav-number">1.6.</span> <span class="nav-text">6) Results Analysis</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#7-Test-with-your-own-image-optional-ungraded-exercise"><span class="nav-number">1.7.</span> <span class="nav-text">7) Test with your own image (optional&#x2F;ungraded exercise)</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link"><span class="nav-number">1.7.0.0.1.</span> <span class="nav-text">Credits - Coursera,  Credits to the teacher , 
-Deeplearning.ai Course
-</span></a></li><li class="nav-item nav-level-5"><a class="nav-link"><span class="nav-number">1.7.0.0.2.</span> <span class="nav-text">
-</span></a></li></ol></li></ol></li></ol></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Deep-Neural-Network-for-Image-Classification-Application"><span class="nav-number">1.</span> <span class="nav-text">Deep Neural Network for Image Classification: Application</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-Packages"><span class="nav-number">1.1.</span> <span class="nav-text">1 - Packages</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-Dataset"><span class="nav-number">1.2.</span> <span class="nav-text">2 - Dataset</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-Architecture-of-your-model"><span class="nav-number">1.3.</span> <span class="nav-text">3 - Architecture of your model</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#3-1-2-layer-neural-network"><span class="nav-number">1.3.1.</span> <span class="nav-text">3.1 - 2-layer neural network</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-2-L-layer-deep-neural-network"><span class="nav-number">1.3.2.</span> <span class="nav-text">3.2 - L-layer deep neural network</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-3-General-methodology"><span class="nav-number">1.3.3.</span> <span class="nav-text">3.3 - General methodology</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-Two-layer-neural-network"><span class="nav-number">1.4.</span> <span class="nav-text">4 - Two-layer neural network</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-L-layer-Neural-Network"><span class="nav-number">1.5.</span> <span class="nav-text">5 - L-layer Neural Network</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#6-Results-Analysis"><span class="nav-number">1.6.</span> <span class="nav-text">6) Results Analysis</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#7-Test-with-your-own-image-optional-ungraded-exercise"><span class="nav-number">1.7.</span> <span class="nav-text">7) Test with your own image (optional&#x2F;ungraded exercise)</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -640,20 +631,20 @@ Deeplearning.ai Course
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">40</span>
+          <span class="site-state-item-count">39</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">20</span>
+        <span class="site-state-item-count">29</span>
         <span class="site-state-item-name">categories</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">46</span>
+        <span class="site-state-item-count">48</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>
@@ -698,13 +689,13 @@ Deeplearning.ai Course
       <i class="fa fa-chart-area"></i>
     </span>
       <span class="post-meta-item-text">Symbols count total: </span>
-    <span title="Symbols count total">452k</span>
+    <span title="Symbols count total">409k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span class="post-meta-item-text">Reading time total &asymp;</span>
-    <span title="Reading time total">6:51</span>
+    <span title="Reading time total">6:12</span>
 </div>
 
         

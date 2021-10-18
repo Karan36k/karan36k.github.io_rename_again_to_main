@@ -22,16 +22,15 @@
   </script>
 
   <meta property="og:type" content="article">
-<meta property="og:title" content="Planar Data Classification With One Hidden Layer">
+<meta property="og:title" content="Single Hidden Layer Planar Data Classification">
 <meta property="og:url" content="https://massivefile.com/Planar_data_classification_with_one_hidden_layer/index.html">
 <meta property="og:site_name" content="Massivefile.com - Blog">
 <meta property="og:locale" content="en_US">
-<meta property="article:published_time" content="2020-04-29T00:56:53.000Z">
-<meta property="article:modified_time" content="2021-10-13T15:45:31.011Z">
+<meta property="article:published_time" content="2019-08-03T18:30:00.000Z">
+<meta property="article:modified_time" content="2021-10-18T02:37:43.454Z">
 <meta property="article:author" content="Karan Arora">
-<meta property="article:tag" content="2020">
-<meta property="article:tag" content="Assignment">
-<meta property="article:tag" content="Planar data classification with one hidden layer">
+<meta property="article:tag" content="Classification">
+<meta property="article:tag" content="Single Hidden Layer">
 <meta name="twitter:card" content="summary">
 
 <link rel="canonical" href="https://massivefile.com/Planar_data_classification_with_one_hidden_layer/">
@@ -47,7 +46,7 @@
   };
 </script>
 
-  <title>Planar Data Classification With One Hidden Layer | Massivefile.com - Blog</title>
+  <title>Single Hidden Layer Planar Data Classification | Massivefile.com - Blog</title>
   
     <script>
       function sendPageView() {
@@ -141,17 +140,17 @@
   </li>
         <li class="menu-item menu-item-tags">
 
-    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags<span class="badge">46</span></a>
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags<span class="badge">48</span></a>
 
   </li>
         <li class="menu-item menu-item-categories">
 
-    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories<span class="badge">20</span></a>
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories<span class="badge">29</span></a>
 
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives<span class="badge">40</span></a>
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives<span class="badge">39</span></a>
 
   </li>
         <li class="menu-item menu-item-about">
@@ -204,7 +203,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          Planar Data Classification With One Hidden Layer
+          Single Hidden Layer Planar Data Classification
         </h1>
 
         <div class="post-meta">
@@ -214,7 +213,7 @@
               </span>
               <span class="post-meta-item-text">Posted on</span>
 
-              <time title="Created: 2020-04-29 06:26:53" itemprop="dateCreated datePublished" datetime="2020-04-29T06:26:53+05:30">2020-04-29</time>
+              <time title="Created: 2019-08-04 00:00:00" itemprop="dateCreated datePublished" datetime="2019-08-04T00:00:00+05:30">2019-08-04</time>
             </span>
 
           <br>
@@ -223,14 +222,14 @@
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">Symbols count in article: </span>
-              <span>26k</span>
+              <span>473</span>
             </span>
             <span class="post-meta-item" title="Reading time">
               <span class="post-meta-item-icon">
                 <i class="far fa-clock"></i>
               </span>
                 <span class="post-meta-item-text">Reading time &asymp;</span>
-              <span>23 mins.</span>
+              <span>1 mins.</span>
             </span>
 
         </div>
@@ -244,549 +243,10 @@
       
         <body>
 <span id="more"></span> 
-<i><b>Note - These are my notes on DeepLearning Specialization Part: 
-Planar data classification with one hidden layer || (Course- 1 Week - 3) || Neural Networks and Deep Learning (Week 3)</i></b>
+Note - These are my notes on DeepLearning Specialization
 
-<h1 id="Table-of-Contents"><a href="#Table-of-Contents" class="headerlink" title="Table of Contents "></a>Table of Contents </center></h1> <p><div class="lev1 toc-item"><a href="#Planar-data-classification-with-one-hidden-layer" data-toc-modified-id="Planar-data-classification-with-one-hidden-layer-1"><span class="toc-item-num">1&nbsp;&nbsp;</span>Planar data classification with one hidden layer</a></div><div class="lev2 toc-item"><a href="#1---Packages" data-toc-modified-id="1---Packages-11"><span class="toc-item-num">1.1&nbsp;&nbsp;</span>1 - Packages</a></div><div class="lev2 toc-item"><a href="#2---Dataset" data-toc-modified-id="2---Dataset-12"><span class="toc-item-num">1.2&nbsp;&nbsp;</span>2 - Dataset</a></div><div class="lev2 toc-item"><a href="#3---Simple-Logistic-Regression" data-toc-modified-id="3---Simple-Logistic-Regression-13"><span class="toc-item-num">1.3&nbsp;&nbsp;</span>3 - Simple Logistic Regression</a></div><div class="lev2 toc-item"><a href="#4---Neural-Network-model" data-toc-modified-id="4---Neural-Network-model-14"><span class="toc-item-num">1.4&nbsp;&nbsp;</span>4 - Neural Network model</a></div><div class="lev3 toc-item"><a href="#4.1---Defining-the-neural-network-structure" data-toc-modified-id="4.1---Defining-the-neural-network-structure-141"><span class="toc-item-num">1.4.1&nbsp;&nbsp;</span>4.1 - Defining the neural network structure</a></div><div class="lev3 toc-item"><a href="#4.2---Initialize-the-model's-parameters" data-toc-modified-id="4.2---Initialize-the-model's-parameters-142"><span class="toc-item-num">1.4.2&nbsp;&nbsp;</span>4.2 - Initialize the model's parameters</a></div><div class="lev3 toc-item"><a href="#4.3---The-Loop" data-toc-modified-id="4.3---The-Loop-143"><span class="toc-item-num">1.4.3&nbsp;&nbsp;</span>4.3 - The Loop</a></div><div class="lev3 toc-item"><a href="#4.4---Integrate-parts-4.1,-4.2-and-4.3-in-nn_model()" data-toc-modified-id="4.4---Integrate-parts-4.1,-4.2-and-4.3-in-nn_model()-144"><span class="toc-item-num">1.4.4&nbsp;&nbsp;</span>4.4 - Integrate parts 4.1, 4.2 and 4.3 in nn_model()</a></div><div class="lev3 toc-item"><a href="#4.5-Predictions" data-toc-modified-id="4.5-Predictions-145"><span class="toc-item-num">1.4.5&nbsp;&nbsp;</span>4.5 Predictions</a></div><div class="lev3 toc-item"><a href="#4.6---Tuning-hidden-layer-size-(optional/ungraded-exercise)" data-toc-modified-id="4.6---Tuning-hidden-layer-size-(optional/ungraded-exercise)-146"><span class="toc-item-num">1.4.6&nbsp;&nbsp;</span>4.6 - Tuning hidden layer size (optional/ungraded exercise)</a></div><div class="lev2 toc-item"><a href="#5)-Performance-on-other-datasets" data-toc-modified-id="5)-Performance-on-other-datasets-15"><span class="toc-item-num">1.5&nbsp;&nbsp;</span>5) Performance on other datasets</a></div>
-
-<h1 id="Planar-data-classification-with-one-hidden-layer"><a href="#Planar-data-classification-with-one-hidden-layer" class="headerlink" title="Planar data classification with one hidden layer"></a>Planar data classification with one hidden layer</h1><p>Welcome to your week 3 programming assignment. It’s time to build your first neural network, which will have a hidden layer. You will see a big difference between this model and the one you implemented using logistic regression. </p>
-<p><strong>You will learn how to:</strong></p>
-<ul>
-<li>Implement a 2-class classification neural network with a single hidden layer</li>
-<li>Use units with a non-linear activation function, such as tanh </li>
-<li>Compute the cross entropy loss </li>
-<li>Implement forward and backward propagation</li>
-</ul>
-<h2 id="1-Packages"><a href="#1-Packages" class="headerlink" title="1 - Packages"></a>1 - Packages</h2><p>Let’s first import all the packages that you will need during this assignment.</p>
-<ul>
-<li><span class="exturl" data-url="aHR0cHM6Ly93d3cubnVtcHkub3JnLw==">numpy<i class="fa fa-external-link-alt"></i></span> is the fundamental package for scientific computing with Python.</li>
-<li><span class="exturl" data-url="aHR0cHM6Ly9zY2lraXQtbGVhcm4ub3JnL3N0YWJsZS8=">sklearn<i class="fa fa-external-link-alt"></i></span> provides simple and efficient tools for data mining and data analysis. </li>
-<li><span class="exturl" data-url="aHR0cHM6Ly9tYXRwbG90bGliLm9yZy8=">matplotlib<i class="fa fa-external-link-alt"></i></span> is a library for plotting graphs in Python.</li>
-<li>testCases provides some test examples to assess the correctness of your functions</li>
-<li>planar_utils provide various useful functions used in this assignment</li>
-</ul>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment"># Package imports</span><br><span class="hljs-keyword">import</span> numpy <span class="hljs-keyword">as</span> np<br><span class="hljs-keyword">import</span> matplotlib.pyplot <span class="hljs-keyword">as</span> plt<br><span class="hljs-keyword">from</span> testCases <span class="hljs-keyword">import</span> *<br><span class="hljs-keyword">import</span> sklearn<br><span class="hljs-keyword">import</span> sklearn.datasets<br><span class="hljs-keyword">import</span> sklearn.linear_model<br><span class="hljs-keyword">from</span> planar_utils <span class="hljs-keyword">import</span> plot_decision_boundary, sigmoid, load_planar_dataset, load_extra_datasets<br><br>%matplotlib inline<br><br>np.random.seed(<span class="hljs-number">1</span>) <span class="hljs-comment"># set a seed so that the results are consistent</span><br></code></pre></td></tr></table></figure>
-
-<h2 id="2-Dataset"><a href="#2-Dataset" class="headerlink" title="2 - Dataset"></a>2 - Dataset</h2><p>First, let’s get the dataset you will work on. The following code will load a “flower” 2-class dataset into variables <code>X</code> and <code>Y</code>.</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs python">X, Y = load_planar_dataset()<br></code></pre></td></tr></table></figure>
-
-
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs python">X.shape, Y.shape<br></code></pre></td></tr></table></figure>
-
-
-
-
-<pre><code>((2, 400), (1, 400))
-</code></pre>
-<p>Visualize the dataset using matplotlib. The data looks like a “flower” with some red (label y=0) and some blue (y=1) points. Your goal is to build a model to fit this data. </p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment"># Visualize the data:</span><br>plt.scatter(X[<span class="hljs-number">0</span>, :], X[<span class="hljs-number">1</span>, :], c=Y[<span class="hljs-number">0</span>, :], s=<span class="hljs-number">40</span>, cmap=plt.cm.Spectral);<br></code></pre></td></tr></table></figure>
-
-
-<p>You have:<br>    - a numpy-array (matrix) X that contains your features (x1, x2)<br>    - a numpy-array (vector) Y that contains your labels (red:0, blue:1).</p>
-<p>Lets first get a better sense of what our data is like. </p>
-<p><strong>Exercise</strong>: How many training examples do you have? In addition, what is the <code>shape</code> of the variables <code>X</code> and <code>Y</code>? </p>
-<p><strong>Hint</strong>: How do you get the shape of a numpy array? <span class="exturl" data-url="aHR0cHM6Ly9kb2NzLnNjaXB5Lm9yZy9kb2MvbnVtcHkvcmVmZXJlbmNlL2dlbmVyYXRlZC9udW1weS5uZGFycmF5LnNoYXBlLmh0bWw=">(help)<i class="fa fa-external-link-alt"></i></span></p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment">### START CODE HERE ### (≈ 3 lines of code)</span><br>shape_X = X.shape<br>shape_Y = Y.shape<br>m =  Y.size <span class="hljs-comment"># training set size</span><br><span class="hljs-comment">### END CODE HERE ###</span><br><br><span class="hljs-built_in">print</span> (<span class="hljs-string">&#x27;The shape of X is: &#x27;</span> + <span class="hljs-built_in">str</span>(shape_X))<br><span class="hljs-built_in">print</span> (<span class="hljs-string">&#x27;The shape of Y is: &#x27;</span> + <span class="hljs-built_in">str</span>(shape_Y))<br><span class="hljs-built_in">print</span> (<span class="hljs-string">&#x27;I have m = %d training examples!&#x27;</span> % (m))<br></code></pre></td></tr></table></figure>
-
-<pre><code>The shape of X is: (2, 400)
-The shape of Y is: (1, 400)
-I have m = 400 training examples!
-</code></pre>
-<p><strong>Expected Output</strong>:</p>
-<table style="width:20%">
-  
-  <tr>
-    <td>**shape of X**</td>
-    <td> (2, 400) </td> 
-  </tr>
-  
-  <tr>
-    <td>**shape of Y**</td>
-    <td>(1, 400) </td> 
-  </tr>
-  
-<pre><code>&lt;tr&gt;
-&lt;td&gt;**m**&lt;/td&gt;
-&lt;td&gt; 400 &lt;/td&gt; 
-</code></pre>
-  </tr>
-  
-</table>
-
-<h2 id="3-Simple-Logistic-Regression"><a href="#3-Simple-Logistic-Regression" class="headerlink" title="3 - Simple Logistic Regression"></a>3 - Simple Logistic Regression</h2><p>Before building a full neural network, lets first see how logistic regression performs on this problem. You can use sklearn’s built-in functions to do that. Run the code below to train a logistic regression classifier on the dataset.</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment"># Train the logistic regression classifier</span><br>clf = sklearn.linear_model.LogisticRegressionCV(cv=<span class="hljs-number">5</span>);<br>clf.fit(X.T, Y.T.ravel());<br></code></pre></td></tr></table></figure>
-
-<p>You can now plot the decision boundary of these models. Run the code below.</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment"># Plot the decision boundary for logistic regression</span><br>plot_decision_boundary(<span class="hljs-keyword">lambda</span> x: clf.predict(x), X, Y)<br>plt.title(<span class="hljs-string">&quot;Logistic Regression&quot;</span>)<br><br><span class="hljs-comment"># Print accuracy</span><br>LR_predictions = clf.predict(X.T)<br><span class="hljs-built_in">print</span> (<span class="hljs-string">&#x27;Accuracy of logistic regression: %d &#x27;</span> % <span class="hljs-built_in">float</span>((np.dot(Y,LR_predictions) + np.dot(<span class="hljs-number">1</span>-Y,<span class="hljs-number">1</span>-LR_predictions))/<span class="hljs-built_in">float</span>(Y.size)*<span class="hljs-number">100</span>) +<br>       <span class="hljs-string">&#x27;% &#x27;</span> + <span class="hljs-string">&quot;(percentage of correctly labelled datapoints)&quot;</span>)<br></code></pre></td></tr></table></figure>
-
-<pre><code>Accuracy of logistic regression: 47 % (percentage of correctly labelled datapoints)
-</code></pre>
-<p><strong>Expected Output</strong>:</p>
-<table style="width:20%">
-  <tr>
-    <td>**Accuracy**</td>
-    <td> 47% </td> 
-  </tr>
-  
-</table>
-
-
-<p><strong>Interpretation</strong>: The dataset is not linearly separable, so logistic regression doesn’t perform well. Hopefully a neural network will do better. Let’s try this now! </p>
-<h2 id="4-Neural-Network-model"><a href="#4-Neural-Network-model" class="headerlink" title="4 - Neural Network model"></a>4 - Neural Network model</h2><p>Logistic regression did not work well on the “flower dataset”. You are going to train a Neural Network with a single hidden layer.</p>
-<p><strong>Here is our model</strong>:<br><strong>Mathematically</strong>:</p>
-<p>For one example $x^{(i)}$:<br>$$z^{[1] (i)} =  W^{[1]} x^{(i)} + b^{[1] (i)}\tag{1}$$<br>$$a^{[1] (i)} = \tanh(z^{[1] (i)})\tag{2}$$<br>$$z^{[2] (i)} = W^{[2]} a^{[1] (i)} + b^{[2] (i)}\tag{3}$$<br>$$\hat{y}^{(i)} = a^{[2] (i)} = \sigma(z^{ [2] (i)})\tag{4}$$<br>$$y^{(i)}_{prediction} = \begin{cases} 1 &amp; \mbox{if } a^{<a href="i">2</a>} &gt; 0.5 \ 0 &amp; \mbox{otherwise } \end{cases}\tag{5}$$</p>
-<p>Given the predictions on all the examples, you can also compute the cost $J$ as follows:<br>$$J = - \frac{1}{m} \sum\limits_{i = 0}^{m} \large\left(\small y^{(i)}\log\left(a^{[2] (i)}\right) + (1-y^{(i)})\log\left(1- a^{[2] (i)}\right)  \large  \right) \small \tag{6}$$</p>
-<p><strong>Reminder</strong>: The general methodology to build a Neural Network is to:<br>    1. Define the neural network structure ( # of input units,  # of hidden units, etc).<br>    2. Initialize the model’s parameters<br>    3. Loop:<br>        - Implement forward propagation<br>        - Compute loss<br>        - Implement backward propagation to get the gradients<br>        - Update parameters (gradient descent)</p>
-<p>You often build helper functions to compute steps 1-3 and then merge them into one function we call <code>nn_model()</code>. Once you’ve built <code>nn_model()</code> and learnt the right parameters, you can make predictions on new data.</p>
-<h3 id="4-1-Defining-the-neural-network-structure"><a href="#4-1-Defining-the-neural-network-structure" class="headerlink" title="4.1 - Defining the neural network structure"></a>4.1 - Defining the neural network structure</h3><p><strong>Exercise</strong>: Define three variables:<br>    - n_x: the size of the input layer<br>    - n_h: the size of the hidden layer (set this to 4)<br>    - n_y: the size of the output layer</p>
-<p><strong>Hint</strong>: Use shapes of X and Y to find n_x and n_y. Also, hard code the hidden layer size to be 4.</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment"># GRADED FUNCTION: layer_sizes</span><br><br><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">layer_sizes</span>(<span class="hljs-params">X, Y</span>):</span><br>    <span class="hljs-string">&quot;&quot;&quot;</span><br><span class="hljs-string">    Arguments:</span><br><span class="hljs-string">    X -- input dataset of shape (input size, number of examples)</span><br><span class="hljs-string">    Y -- labels of shape (output size, number of examples)</span><br><span class="hljs-string">    </span><br><span class="hljs-string">    Returns:</span><br><span class="hljs-string">    n_x -- the size of the input layer</span><br><span class="hljs-string">    n_h -- the size of the hidden layer</span><br><span class="hljs-string">    n_y -- the size of the output layer</span><br><span class="hljs-string">    &quot;&quot;&quot;</span><br>    <span class="hljs-comment">### START CODE HERE ### (≈ 3 lines of code)</span><br>    n_x = X.shape[<span class="hljs-number">0</span>] <span class="hljs-comment"># size of input layer</span><br>    n_h = <span class="hljs-number">4</span><br>    n_y = Y.shape[<span class="hljs-number">0</span>] <span class="hljs-comment"># size of output layer</span><br>    <span class="hljs-comment">### END CODE HERE ###</span><br>    <span class="hljs-keyword">return</span> (n_x, n_h, n_y)<br></code></pre></td></tr></table></figure>
-
-
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs python">X_assess, Y_assess = layer_sizes_test_case()<br>(n_x, n_h, n_y) = layer_sizes(X_assess, Y_assess)<br><span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;The size of the input layer is: n_x = &quot;</span> + <span class="hljs-built_in">str</span>(n_x))<br><span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;The size of the hidden layer is: n_h = &quot;</span> + <span class="hljs-built_in">str</span>(n_h))<br><span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;The size of the output layer is: n_y = &quot;</span> + <span class="hljs-built_in">str</span>(n_y))<br></code></pre></td></tr></table></figure>
-
-<pre><code>The size of the input layer is: n_x = 5
-The size of the hidden layer is: n_h = 4
-The size of the output layer is: n_y = 2
-</code></pre>
-<p><strong>Expected Output</strong> (these are not the sizes you will use for your network, they are just used to assess the function you’ve just coded).</p>
-<table style="width:20%">
-  <tr>
-    <td>**n_x**</td>
-    <td> 5 </td> 
-  </tr>
-  
-<pre><code>&lt;tr&gt;
-&lt;td&gt;**n_h**&lt;/td&gt;
-&lt;td&gt; 4 &lt;/td&gt; 
-</code></pre>
-  </tr>
-  
-<pre><code>&lt;tr&gt;
-&lt;td&gt;**n_y**&lt;/td&gt;
-&lt;td&gt; 2 &lt;/td&gt; 
-</code></pre>
-  </tr>
-  
-</table>
-
-<h3 id="4-2-Initialize-the-model’s-parameters"><a href="#4-2-Initialize-the-model’s-parameters" class="headerlink" title="4.2 - Initialize the model’s parameters"></a>4.2 - Initialize the model’s parameters</h3><p><strong>Exercise</strong>: Implement the function <code>initialize_parameters()</code>.</p>
-<p><strong>Instructions</strong>:</p>
-<ul>
-<li>Make sure your parameters’ sizes are right. Refer to the neural network figure above if needed.</li>
-<li>You will initialize the weights matrices with random values. <ul>
-<li>Use: <code>np.random.randn(a,b) * 0.01</code> to randomly initialize a matrix of shape (a,b).</li>
-</ul>
-</li>
-<li>You will initialize the bias vectors as zeros. <ul>
-<li>Use: <code>np.zeros((a,b))</code> to initialize a matrix of shape (a,b) with zeros.</li>
-</ul>
-</li>
-</ul>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment"># GRADED FUNCTION: initialize_parameters</span><br><br><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">initialize_parameters</span>(<span class="hljs-params">n_x, n_h, n_y</span>):</span><br>    <span class="hljs-string">&quot;&quot;&quot;</span><br><span class="hljs-string">    Argument:</span><br><span class="hljs-string">    n_x -- size of the input layer</span><br><span class="hljs-string">    n_h -- size of the hidden layer</span><br><span class="hljs-string">    n_y -- size of the output layer</span><br><span class="hljs-string">    </span><br><span class="hljs-string">    Returns:</span><br><span class="hljs-string">    params -- python dictionary containing your parameters:</span><br><span class="hljs-string">                    W1 -- weight matrix of shape (n_h, n_x)</span><br><span class="hljs-string">                    b1 -- bias vector of shape (n_h, 1)</span><br><span class="hljs-string">                    W2 -- weight matrix of shape (n_y, n_h)</span><br><span class="hljs-string">                    b2 -- bias vector of shape (n_y, 1)</span><br><span class="hljs-string">    &quot;&quot;&quot;</span><br>    <br>    np.random.seed(<span class="hljs-number">2</span>) <span class="hljs-comment"># we set up a seed so that your output matches ours although the initialization is random.</span><br>    <br>    <span class="hljs-comment">### START CODE HERE ### (≈ 4 lines of code)</span><br>    W1 = np.random.randn(n_h, n_x) * <span class="hljs-number">0.01</span><br>    b1 = np.zeros((n_h, <span class="hljs-number">1</span>))<br>    W2 = np.random.randn(n_y, n_h) * <span class="hljs-number">0.01</span><br>    b2 = np.zeros((n_y, <span class="hljs-number">1</span>))<br>    <span class="hljs-comment">### END CODE HERE ###</span><br>    <br>    <span class="hljs-keyword">assert</span> (W1.shape == (n_h, n_x))<br>    <span class="hljs-keyword">assert</span> (b1.shape == (n_h, <span class="hljs-number">1</span>))<br>    <span class="hljs-keyword">assert</span> (W2.shape == (n_y, n_h))<br>    <span class="hljs-keyword">assert</span> (b2.shape == (n_y, <span class="hljs-number">1</span>))<br>    <br>    parameters = &#123;<span class="hljs-string">&quot;W1&quot;</span>: W1,<br>                  <span class="hljs-string">&quot;b1&quot;</span>: b1,<br>                  <span class="hljs-string">&quot;W2&quot;</span>: W2,<br>                  <span class="hljs-string">&quot;b2&quot;</span>: b2&#125;<br>    <br>    <span class="hljs-keyword">return</span> parameters<br></code></pre></td></tr></table></figure>
-
-
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs python">n_x, n_h, n_y = initialize_parameters_test_case()<br><br>parameters = initialize_parameters(n_x, n_h, n_y)<br><span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;W1 = &quot;</span> + <span class="hljs-built_in">str</span>(parameters[<span class="hljs-string">&quot;W1&quot;</span>]))<br><span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;b1 = &quot;</span> + <span class="hljs-built_in">str</span>(parameters[<span class="hljs-string">&quot;b1&quot;</span>]))<br><span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;W2 = &quot;</span> + <span class="hljs-built_in">str</span>(parameters[<span class="hljs-string">&quot;W2&quot;</span>]))<br><span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;b2 = &quot;</span> + <span class="hljs-built_in">str</span>(parameters[<span class="hljs-string">&quot;b2&quot;</span>]))<br></code></pre></td></tr></table></figure>
-
-<pre><code>W1 = [[-0.00416758 -0.00056267]
- [-0.02136196  0.01640271]
- [-0.01793436 -0.00841747]
- [ 0.00502881 -0.01245288]]
-b1 = [[0.]
- [0.]
- [0.]
- [0.]]
-W2 = [[-0.01057952 -0.00909008  0.00551454  0.02292208]]
-b2 = [[0.]]
-</code></pre>
-<p><strong>Expected Output</strong>:</p>
-<table style="width:90%">
-  <tr>
-    <td>**W1**</td>
-    <td> [[-0.00416758 -0.00056267]
- [-0.02136196  0.01640271]
- [-0.01793436 -0.00841747]
- [ 0.00502881 -0.01245288]] </td> 
-  </tr>
-  
-  <tr>
-    <td>**b1**</td>
-    <td> [[ 0.]
- [ 0.]
- [ 0.]
- [ 0.]] </td> 
-  </tr>
-  
-  <tr>
-    <td>**W2**</td>
-    <td> [[-0.01057952 -0.00909008  0.00551454  0.02292208]]</td> 
-  </tr>
-  
-
-  <tr>
-    <td>**b2**</td>
-    <td> [[ 0.]] </td> 
-  </tr>
-  
-</table>
-
-
-
-<h3 id="4-3-The-Loop"><a href="#4-3-The-Loop" class="headerlink" title="4.3 - The Loop"></a>4.3 - The Loop</h3><p><strong>Question</strong>: Implement <code>forward_propagation()</code>.</p>
-<p><strong>Instructions</strong>:</p>
-<ul>
-<li>Look above at the mathematical representation of your classifier.</li>
-<li>You can use the function <code>sigmoid()</code>. It is built-in (imported) in the notebook.</li>
-<li>You can use the function <code>np.tanh()</code>. It is part of the numpy library.</li>
-<li>The steps you have to implement are:<ol>
-<li>Retrieve each parameter from the dictionary “parameters” (which is the output of <code>initialize_parameters()</code>) by using <code>parameters[&quot;..&quot;]</code>.</li>
-<li>Implement Forward Propagation. Compute $Z^{[1]}, A^{[1]}, Z^{[2]}$ and $A^{[2]}$ (the vector of all your predictions on all the examples in the training set).</li>
-</ol>
-</li>
-<li>Values needed in the backpropagation are stored in “<code>cache</code>“. The <code>cache</code> will be given as an input to the backpropagation function.</li>
-</ul>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment"># GRADED FUNCTION: forward_propagation</span><br><br><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">forward_propagation</span>(<span class="hljs-params">X, parameters</span>):</span><br>    <span class="hljs-string">&quot;&quot;&quot;</span><br><span class="hljs-string">    Argument:</span><br><span class="hljs-string">    X -- input data of size (n_x, m)</span><br><span class="hljs-string">    parameters -- python dictionary containing your parameters (output of initialization function)</span><br><span class="hljs-string">    </span><br><span class="hljs-string">    Returns:</span><br><span class="hljs-string">    A2 -- The sigmoid output of the second activation</span><br><span class="hljs-string">    cache -- a dictionary containing &quot;Z1&quot;, &quot;A1&quot;, &quot;Z2&quot; and &quot;A2&quot;</span><br><span class="hljs-string">    &quot;&quot;&quot;</span><br>    <span class="hljs-comment"># Retrieve each parameter from the dictionary &quot;parameters&quot;</span><br>    <span class="hljs-comment">### START CODE HERE ### (≈ 4 lines of code)</span><br>    W1 = parameters[<span class="hljs-string">&quot;W1&quot;</span>]<br>    b1 = parameters[<span class="hljs-string">&quot;b1&quot;</span>]<br>    W2 = parameters[<span class="hljs-string">&quot;W2&quot;</span>]<br>    b2 = parameters[<span class="hljs-string">&quot;b2&quot;</span>]<br>    <span class="hljs-comment">#print(W1.shape, b1.shape, W2.shape, b2.shape)</span><br>    <br>    <span class="hljs-comment">### END CODE HERE ###</span><br>    <br>    <span class="hljs-comment"># Implement Forward Propagation to calculate A2 (probabilities)</span><br>    <span class="hljs-comment">### START CODE HERE ### (≈ 4 lines of code)</span><br>    Z1 = np.dot(W1, X) + b1<br>    A1 = np.tanh(Z1)<br>    Z2 = np.dot(W2, A1) + b2<br>    A2 = sigmoid(Z2)<br>    <span class="hljs-comment">### END CODE HERE ###</span><br>    <br>    <span class="hljs-keyword">assert</span>(A2.shape == (<span class="hljs-number">1</span>, X.shape[<span class="hljs-number">1</span>]))<br>    <br>    cache = &#123;<span class="hljs-string">&quot;Z1&quot;</span>: Z1,<br>             <span class="hljs-string">&quot;A1&quot;</span>: A1,<br>             <span class="hljs-string">&quot;Z2&quot;</span>: Z2,<br>             <span class="hljs-string">&quot;A2&quot;</span>: A2&#125;<br>    <br>    <span class="hljs-keyword">return</span> A2, cache<br></code></pre></td></tr></table></figure>
-
-
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs python">X_assess, parameters = forward_propagation_test_case()<br><br>A2, cache = forward_propagation(X_assess, parameters)<br><br><span class="hljs-comment"># Note: we use the mean here just to make sure that your output matches ours. </span><br><span class="hljs-built_in">print</span>(np.mean(cache[<span class="hljs-string">&#x27;Z1&#x27;</span>]) ,np.mean(cache[<span class="hljs-string">&#x27;A1&#x27;</span>]),np.mean(cache[<span class="hljs-string">&#x27;Z2&#x27;</span>]),np.mean(cache[<span class="hljs-string">&#x27;A2&#x27;</span>]))<br></code></pre></td></tr></table></figure>
-
-<pre><code>-0.0004997557777419913 -0.0004969633532317802 0.0004381874509591466 0.500109546852431
-</code></pre>
-<p><strong>Expected Output</strong>:</p>
-<table style="width:55%">
-  <tr>
-    <td> -0.000499755777742 -0.000496963353232 0.000438187450959 0.500109546852 </td> 
-  </tr>
-</table>
-
-<p>Now that you have computed $A^{[2]}$ (in the Python variable “<code>A2</code>“), which contains $a^{<a href="i">2</a>}$ for every example, you can compute the cost function as follows:</p>
-<p>$$J = - \frac{1}{m} \sum\limits_{i = 0}^{m} \large{(} \small y^{(i)}\log\left(a^{[2] (i)}\right) + (1-y^{(i)})\log\left(1- a^{[2] (i)}\right) \large{)} \small\tag{13}$$</p>
-<p><strong>Exercise</strong>: Implement <code>compute_cost()</code> to compute the value of the cost $J$.</p>
-<p><strong>Instructions</strong>:</p>
-<ul>
-<li>There are many ways to implement the cross-entropy loss. To help you, we give you how we would have implemented<br>$$<br>\sum\limits_{i=0}^{m}  y^{(i)}\log(a^{<a href="i">2</a>})<br>$$:<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs python">logprobs = np.multiply(np.log(A2),Y)<br>cost = - np.<span class="hljs-built_in">sum</span>(logprobs)                <span class="hljs-comment"># no need to use a for loop!</span><br></code></pre></td></tr></table></figure></li>
-</ul>
-<p>(you can use either <code>np.multiply()</code> and then <code>np.sum()</code> or directly <code>np.dot()</code>).</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment"># GRADED FUNCTION: compute_cost</span><br><br><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">compute_cost</span>(<span class="hljs-params">A2, Y, parameters</span>):</span><br>    <span class="hljs-string">&quot;&quot;&quot;</span><br><span class="hljs-string">    Computes the cross-entropy cost given in equation (13)</span><br><span class="hljs-string">    </span><br><span class="hljs-string">    Arguments:</span><br><span class="hljs-string">    A2 -- The sigmoid output of the second activation, of shape (1, number of examples)</span><br><span class="hljs-string">    Y -- &quot;true&quot; labels vector of shape (1, number of examples)</span><br><span class="hljs-string">    parameters -- python dictionary containing your parameters W1, b1, W2 and b2</span><br><span class="hljs-string">    </span><br><span class="hljs-string">    Returns:</span><br><span class="hljs-string">    cost -- cross-entropy cost given equation (13)</span><br><span class="hljs-string">    &quot;&quot;&quot;</span><br>    <br>    m = Y.shape[<span class="hljs-number">1</span>] <span class="hljs-comment"># number of example</span><br>    <br>    <span class="hljs-comment"># Retrieve W1 and W2 from parameters</span><br>    <span class="hljs-comment">### START CODE HERE ### (≈ 2 lines of code)</span><br>    W1 = parameters[<span class="hljs-string">&quot;W1&quot;</span>]<br>    W2 = parameters[<span class="hljs-string">&quot;W2&quot;</span>]<br>    <span class="hljs-comment">### END CODE HERE ###</span><br>    <br>    <span class="hljs-comment"># Compute the cross-entropy cost</span><br>    <span class="hljs-comment">### START CODE HERE ### (≈ 2 lines of code)</span><br>    logprobs = np.multiply(np.log(A2), Y) + np.multiply((<span class="hljs-number">1</span>-Y), np.log(<span class="hljs-number">1</span>-A2))<br>    <span class="hljs-comment">### END CODE HERE ###</span><br>    cost = -<span class="hljs-number">1</span>/m * np.<span class="hljs-built_in">sum</span>(logprobs) <br>    <br>    cost = np.squeeze(cost)     <span class="hljs-comment"># makes sure cost is the dimension we expect. </span><br>                                <span class="hljs-comment"># E.g., turns [[17]] into 17 </span><br>    <span class="hljs-keyword">assert</span>(<span class="hljs-built_in">isinstance</span>(cost, <span class="hljs-built_in">float</span>))<br>    <br>    <span class="hljs-keyword">return</span> cost<br></code></pre></td></tr></table></figure>
-
-
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs python">A2, Y_assess, parameters = compute_cost_test_case()<br><br><span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;cost = &quot;</span> + <span class="hljs-built_in">str</span>(compute_cost(A2, Y_assess, parameters)))<br></code></pre></td></tr></table></figure>
-
-<pre><code>cost = 0.6929198937761265
-</code></pre>
-<p><strong>Expected Output</strong>:</p>
-<table style="width:20%">
-  <tr>
-    <td>**cost**</td>
-    <td> 0.692919893776 </td> 
-  </tr>
-  
-</table>
-
-<p>Using the cache computed during forward propagation, you can now implement backward propagation.</p>
-<p><strong>Question</strong>: Implement the function <code>backward_propagation()</code>.</p>
-<p><strong>Instructions</strong>:<br>Backpropagation is usually the hardest (most mathematical) part in deep learning. To help you, here again is the slide from the lecture on backpropagation. You’ll want to use the six equations on the right of this slide, since you are building a vectorized implementation.  </p>
-<!--
-$\frac{\partial \mathcal{J} }{ \partial z_{2}^{(i)} } = \frac{1}{m} (a^{[2](i)} - y^{(i)})$
-
-$\frac{\partial \mathcal{J} }{ \partial W_2 } = \frac{\partial \mathcal{J} }{ \partial z_{2}^{(i)} } a^{[1] (i) T} $
-
-$\frac{\partial \mathcal{J} }{ \partial b_2 } = \sum_i{\frac{\partial \mathcal{J} }{ \partial z_{2}^{(i)}}}$
-
-$\frac{\partial \mathcal{J} }{ \partial z_{1}^{(i)} } =  W_2^T \frac{\partial \mathcal{J} }{ \partial z_{2}^{(i)} } * ( 1 - a^{[1] (i) 2}) $
-
-$\frac{\partial \mathcal{J} }{ \partial W_1 } = \frac{\partial \mathcal{J} }{ \partial z_{1}^{(i)} }  X^T $
-
-$\frac{\partial \mathcal{J} _i }{ \partial b_1 } = \sum_i{\frac{\partial \mathcal{J} }{ \partial z_{1}^{(i)}}}$
-
-- Note that $*$ denotes elementwise multiplication.
-- The notation you will use is common in deep learning coding:
-    - dW1 = $\frac{\partial \mathcal{J} }{ \partial W_1 }$
-    - db1 = $\frac{\partial \mathcal{J} }{ \partial b_1 }$
-    - dW2 = $\frac{\partial \mathcal{J} }{ \partial W_2 }$
-    - db2 = $\frac{\partial \mathcal{J} }{ \partial b_2 }$
-    
-!-->
-
-<ul>
-<li>Tips:<ul>
-<li>To compute dZ1 you’ll need to compute $g^{[1]’}(Z^{[1]})$. Since $g^{[1]}(.)$ is the tanh activation function, if $a = g^{[1]}(z)$ then $g^{[1]’}(z) = 1-a^2$. So you can compute<br>$g^{[1]’}(Z^{[1]})$ using <code>(1 - np.power(A1, 2))</code>.</li>
-</ul>
-</li>
-</ul>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment"># GRADED FUNCTION: backward_propagation</span><br><br><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">backward_propagation</span>(<span class="hljs-params">parameters, cache, X, Y</span>):</span><br>    <span class="hljs-string">&quot;&quot;&quot;</span><br><span class="hljs-string">    Implement the backward propagation using the instructions above.</span><br><span class="hljs-string">    </span><br><span class="hljs-string">    Arguments:</span><br><span class="hljs-string">    parameters -- python dictionary containing our parameters </span><br><span class="hljs-string">    cache -- a dictionary containing &quot;Z1&quot;, &quot;A1&quot;, &quot;Z2&quot; and &quot;A2&quot;.</span><br><span class="hljs-string">    X -- input data of shape (2, number of examples)</span><br><span class="hljs-string">    Y -- &quot;true&quot; labels vector of shape (1, number of examples)</span><br><span class="hljs-string">    </span><br><span class="hljs-string">    Returns:</span><br><span class="hljs-string">    grads -- python dictionary containing your gradients with respect to different parameters</span><br><span class="hljs-string">    &quot;&quot;&quot;</span><br>    m = X.shape[<span class="hljs-number">1</span>]<br>    <br>    <span class="hljs-comment"># First, retrieve W1 and W2 from the dictionary &quot;parameters&quot;.</span><br>    <span class="hljs-comment">### START CODE HERE ### (≈ 2 lines of code)</span><br>    W1 = parameters[<span class="hljs-string">&quot;W1&quot;</span>]<br>    W2 = parameters[<span class="hljs-string">&quot;W2&quot;</span>]<br>    <span class="hljs-comment">### END CODE HERE ###</span><br>        <br>    <span class="hljs-comment"># Retrieve also A1 and A2 from dictionary &quot;cache&quot;.</span><br>    <span class="hljs-comment">### START CODE HERE ### (≈ 2 lines of code)</span><br>    A1 = cache[<span class="hljs-string">&quot;A1&quot;</span>]<br>    A2 = cache[<span class="hljs-string">&quot;A2&quot;</span>]<br>    <span class="hljs-comment">### END CODE HERE ###</span><br>    <br>    <span class="hljs-comment"># Backward propagation: calculate dW1, db1, dW2, db2. </span><br>    <span class="hljs-comment">### START CODE HERE ### (≈ 6 lines of code, corresponding to 6 equations on slide above)</span><br>    dZ2= A2 - Y<br>    dW2 = (<span class="hljs-number">1</span>/m) * np.dot(dZ2, A1.T)<br>    db2 = (<span class="hljs-number">1</span>/m) * np.<span class="hljs-built_in">sum</span>(dZ2, axis=<span class="hljs-number">1</span>, keepdims=<span class="hljs-literal">True</span>)<br>    dZ1 = np.multiply(np.dot(W2.T, dZ2), (<span class="hljs-number">1</span> - np.power(A1, <span class="hljs-number">2</span>)))<br>    dW1 = (<span class="hljs-number">1</span>/m) * np.dot(dZ1, X.T)<br>    db1 = (<span class="hljs-number">1</span>/m) * np.<span class="hljs-built_in">sum</span>(dZ1, axis=<span class="hljs-number">1</span>, keepdims=<span class="hljs-literal">True</span>)<br>    <span class="hljs-comment">### END CODE HERE ###</span><br>    <br>    grads = &#123;<span class="hljs-string">&quot;dW1&quot;</span>: dW1,<br>             <span class="hljs-string">&quot;db1&quot;</span>: db1,<br>             <span class="hljs-string">&quot;dW2&quot;</span>: dW2,<br>             <span class="hljs-string">&quot;db2&quot;</span>: db2&#125;<br>    <br>    <span class="hljs-keyword">return</span> grads<br></code></pre></td></tr></table></figure>
-
-
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs python">parameters, cache, X_assess, Y_assess = backward_propagation_test_case()<br><br>grads = backward_propagation(parameters, cache, X_assess, Y_assess)<br><span class="hljs-built_in">print</span> (<span class="hljs-string">&quot;dW1 = &quot;</span>+ <span class="hljs-built_in">str</span>(grads[<span class="hljs-string">&quot;dW1&quot;</span>]))<br><span class="hljs-built_in">print</span> (<span class="hljs-string">&quot;db1 = &quot;</span>+ <span class="hljs-built_in">str</span>(grads[<span class="hljs-string">&quot;db1&quot;</span>]))<br><span class="hljs-built_in">print</span> (<span class="hljs-string">&quot;dW2 = &quot;</span>+ <span class="hljs-built_in">str</span>(grads[<span class="hljs-string">&quot;dW2&quot;</span>]))<br><span class="hljs-built_in">print</span> (<span class="hljs-string">&quot;db2 = &quot;</span>+ <span class="hljs-built_in">str</span>(grads[<span class="hljs-string">&quot;db2&quot;</span>]))<br></code></pre></td></tr></table></figure>
-
-<pre><code>dW1 = [[ 0.01018708 -0.00708701]
- [ 0.00873447 -0.0060768 ]
- [-0.00530847  0.00369379]
- [-0.02206365  0.01535126]]
-db1 = [[-0.00069728]
- [-0.00060606]
- [ 0.000364  ]
- [ 0.00151207]]
-dW2 = [[ 0.00363613  0.03153604  0.01162914 -0.01318316]]
-db2 = [[0.06589489]]
-</code></pre>
-<p><strong>Expected output</strong>:</p>
-<table style="width:80%">
-  <tr>
-    <td>**dW1**</td>
-    <td> [[ 0.01018708 -0.00708701]
- [ 0.00873447 -0.0060768 ]
- [-0.00530847  0.00369379]
- [-0.02206365  0.01535126]] </td> 
-  </tr>
-  
-  <tr>
-    <td>**db1**</td>
-    <td>  [[-0.00069728]
- [-0.00060606]
- [ 0.000364  ]
- [ 0.00151207]] </td> 
-  </tr>
-  
-  <tr>
-    <td>**dW2**</td>
-    <td> [[ 0.00363613  0.03153604  0.01162914 -0.01318316]] </td> 
-  </tr>
-  
-
-  <tr>
-    <td>**db2**</td>
-    <td> [[ 0.06589489]] </td> 
-  </tr>
-  
-</table>  
-
-<p><strong>Question</strong>: Implement the update rule. Use gradient descent. You have to use (dW1, db1, dW2, db2) in order to update (W1, b1, W2, b2).</p>
-<p><strong>General gradient descent rule</strong>: $ \theta = \theta - \alpha \frac{\partial J }{ \partial \theta }$ where $\alpha$ is the learning rate and $\theta$ represents a parameter.</p>
-<p><strong>Illustration</strong>: The gradient descent algorithm with a good learning rate (converging) and a bad learning rate (diverging). Images courtesy of Adam Harley.</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment"># GRADED FUNCTION: update_parameters</span><br><br><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">update_parameters</span>(<span class="hljs-params">parameters, grads, learning_rate = <span class="hljs-number">1.2</span></span>):</span><br>    <span class="hljs-string">&quot;&quot;&quot;</span><br><span class="hljs-string">    Updates parameters using the gradient descent update rule given above</span><br><span class="hljs-string">    </span><br><span class="hljs-string">    Arguments:</span><br><span class="hljs-string">    parameters -- python dictionary containing your parameters </span><br><span class="hljs-string">    grads -- python dictionary containing your gradients </span><br><span class="hljs-string">    </span><br><span class="hljs-string">    Returns:</span><br><span class="hljs-string">    parameters -- python dictionary containing your updated parameters </span><br><span class="hljs-string">    &quot;&quot;&quot;</span><br>    <span class="hljs-comment"># Retrieve each parameter from the dictionary &quot;parameters&quot;</span><br>    <span class="hljs-comment">### START CODE HERE ### (≈ 4 lines of code)</span><br>    W1 = parameters[<span class="hljs-string">&quot;W1&quot;</span>]<br>    b1 = parameters[<span class="hljs-string">&quot;b1&quot;</span>]<br>    W2 = parameters[<span class="hljs-string">&quot;W2&quot;</span>]<br>    b2 = parameters[<span class="hljs-string">&quot;b2&quot;</span>]<br>    <span class="hljs-comment">### END CODE HERE ###</span><br>    <br>    <span class="hljs-comment"># Retrieve each gradient from the dictionary &quot;grads&quot;</span><br>    <span class="hljs-comment">### START CODE HERE ### (≈ 4 lines of code)</span><br>    dW1 = grads[<span class="hljs-string">&quot;dW1&quot;</span>]<br>    db1 = grads[<span class="hljs-string">&quot;db1&quot;</span>]<br>    dW2 = grads[<span class="hljs-string">&quot;dW2&quot;</span>]<br>    db2 = grads[<span class="hljs-string">&quot;db2&quot;</span>]<br>    <span class="hljs-comment">## END CODE HERE ###</span><br>    <br>    <span class="hljs-comment"># Update rule for each parameter</span><br>    <span class="hljs-comment">### START CODE HERE ### (≈ 4 lines of code)</span><br>    W1 = W1 - learning_rate * dW1<br>    b1 = b1 - learning_rate * db1<br>    W2 = W2 - learning_rate * dW2<br>    b2 = b2 - learning_rate * db2<br>    <span class="hljs-comment">### END CODE HERE ###</span><br>    <br>    parameters = &#123;<span class="hljs-string">&quot;W1&quot;</span>: W1,<br>                  <span class="hljs-string">&quot;b1&quot;</span>: b1,<br>                  <span class="hljs-string">&quot;W2&quot;</span>: W2,<br>                  <span class="hljs-string">&quot;b2&quot;</span>: b2&#125;<br>    <br>    <span class="hljs-keyword">return</span> parameters<br></code></pre></td></tr></table></figure>
-
-
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs python">parameters, grads = update_parameters_test_case()<br>parameters = update_parameters(parameters, grads)<br><br><span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;W1 = &quot;</span> + <span class="hljs-built_in">str</span>(parameters[<span class="hljs-string">&quot;W1&quot;</span>]))<br><span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;b1 = &quot;</span> + <span class="hljs-built_in">str</span>(parameters[<span class="hljs-string">&quot;b1&quot;</span>]))<br><span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;W2 = &quot;</span> + <span class="hljs-built_in">str</span>(parameters[<span class="hljs-string">&quot;W2&quot;</span>]))<br><span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;b2 = &quot;</span> + <span class="hljs-built_in">str</span>(parameters[<span class="hljs-string">&quot;b2&quot;</span>]))<br></code></pre></td></tr></table></figure>
-
-<pre><code>W1 = [[-0.00643025  0.01936718]
- [-0.02410458  0.03978052]
- [-0.01653973 -0.02096177]
- [ 0.01046864 -0.05990141]]
-b1 = [[-1.02420756e-06]
- [ 1.27373948e-05]
- [ 8.32996807e-07]
- [-3.20136836e-06]]
-W2 = [[-0.01041081 -0.04463285  0.01758031  0.04747113]]
-b2 = [[0.00010457]]
-</code></pre>
-<p><strong>Expected Output</strong>:</p>
-<table style="width:80%">
-  <tr>
-    <td>**W1**</td>
-    <td> [[-0.00643025  0.01936718]
- [-0.02410458  0.03978052]
- [-0.01653973 -0.02096177]
- [ 0.01046864 -0.05990141]]</td> 
-  </tr>
-  
-  <tr>
-    <td>**b1**</td>
-    <td> [[ -1.02420756e-06]
- [  1.27373948e-05]
- [  8.32996807e-07]
- [ -3.20136836e-06]]</td> 
-  </tr>
-  
-  <tr>
-    <td>**W2**</td>
-    <td> [[-0.01041081 -0.04463285  0.01758031  0.04747113]] </td> 
-  </tr>
-  
-
-  <tr>
-    <td>**b2**</td>
-    <td> [[ 0.00010457]] </td> 
-  </tr>
-  
-</table>  
-
-<h3 id="4-4-Integrate-parts-4-1-4-2-and-4-3-in-nn-model"><a href="#4-4-Integrate-parts-4-1-4-2-and-4-3-in-nn-model" class="headerlink" title="4.4 - Integrate parts 4.1, 4.2 and 4.3 in nn_model()"></a>4.4 - Integrate parts 4.1, 4.2 and 4.3 in nn_model()</h3><p><strong>Question</strong>: Build your neural network model in <code>nn_model()</code>.</p>
-<p><strong>Instructions</strong>: The neural network model has to use the previous functions in the right order.</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment"># GRADED FUNCTION: nn_model</span><br><br><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">nn_model</span>(<span class="hljs-params">X, Y, n_h, num_iterations = <span class="hljs-number">10000</span>, print_cost=<span class="hljs-literal">False</span></span>):</span><br>    <span class="hljs-string">&quot;&quot;&quot;</span><br><span class="hljs-string">    Arguments:</span><br><span class="hljs-string">    X -- dataset of shape (2, number of examples)</span><br><span class="hljs-string">    Y -- labels of shape (1, number of examples)</span><br><span class="hljs-string">    n_h -- size of the hidden layer</span><br><span class="hljs-string">    num_iterations -- Number of iterations in gradient descent loop</span><br><span class="hljs-string">    print_cost -- if True, print the cost every 1000 iterations</span><br><span class="hljs-string">    </span><br><span class="hljs-string">    Returns:</span><br><span class="hljs-string">    parameters -- parameters learnt by the model. They can then be used to predict.</span><br><span class="hljs-string">    &quot;&quot;&quot;</span><br>    <br>    np.random.seed(<span class="hljs-number">3</span>)<br>    n_x = layer_sizes(X, Y)[<span class="hljs-number">0</span>]<br>    n_y = layer_sizes(X, Y)[<span class="hljs-number">2</span>]<br>    <br>    <span class="hljs-comment"># Initialize parameters, then retrieve W1, b1, W2, b2. Inputs: &quot;n_x, n_h, n_y&quot;. Outputs = &quot;W1, b1, W2, b2, parameters&quot;.</span><br>    <span class="hljs-comment">### START CODE HERE ### (≈ 5 lines of code)</span><br>    parameters = initialize_parameters(n_x, n_h, n_y)<br>    W1 = parameters[<span class="hljs-string">&quot;W1&quot;</span>]<br>    b1 = parameters[<span class="hljs-string">&quot;b1&quot;</span>]<br>    W2 = parameters[<span class="hljs-string">&quot;W2&quot;</span>]<br>    b2 = parameters[<span class="hljs-string">&quot;b2&quot;</span>]<br>    <span class="hljs-comment">### END CODE HERE ###</span><br>    <br>    <span class="hljs-comment"># Loop (gradient descent)</span><br><br>    <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-number">0</span>, num_iterations):<br>         <br>        <span class="hljs-comment">### START CODE HERE ### (≈ 4 lines of code)</span><br>        <span class="hljs-comment"># Forward propagation. Inputs: &quot;X, parameters&quot;. Outputs: &quot;A2, cache&quot;.</span><br>        A2, cache = forward_propagation(X, parameters)<br>        <br>        <span class="hljs-comment"># Cost function. Inputs: &quot;A2, Y, parameters&quot;. Outputs: &quot;cost&quot;.</span><br>        cost = compute_cost(A2, Y, parameters)<br> <br>        <span class="hljs-comment"># Backpropagation. Inputs: &quot;parameters, cache, X, Y&quot;. Outputs: &quot;grads&quot;.</span><br>        grads = backward_propagation(parameters, cache, X, Y)<br> <br>        <span class="hljs-comment"># Gradient descent parameter update. Inputs: &quot;parameters, grads&quot;. Outputs: &quot;parameters&quot;.</span><br>        parameters = update_parameters(parameters, grads)<br>        <br>        <span class="hljs-comment">### END CODE HERE ###</span><br>        <br>        <span class="hljs-comment"># Print the cost every 1000 iterations</span><br>        <span class="hljs-keyword">if</span> print_cost <span class="hljs-keyword">and</span> i % <span class="hljs-number">1000</span> == <span class="hljs-number">0</span>:<br>            <span class="hljs-built_in">print</span> (<span class="hljs-string">&quot;Cost after iteration %i: %f&quot;</span> %(i, cost))<br><br>    <span class="hljs-keyword">return</span> parameters<br></code></pre></td></tr></table></figure>
-
-
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs python">X_assess, Y_assess = nn_model_test_case()<br><br>parameters = nn_model(X_assess, Y_assess, <span class="hljs-number">4</span>, num_iterations=<span class="hljs-number">10000</span>, print_cost=<span class="hljs-literal">False</span>)<br><span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;W1 = &quot;</span> + <span class="hljs-built_in">str</span>(parameters[<span class="hljs-string">&quot;W1&quot;</span>]))<br><span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;b1 = &quot;</span> + <span class="hljs-built_in">str</span>(parameters[<span class="hljs-string">&quot;b1&quot;</span>]))<br><span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;W2 = &quot;</span> + <span class="hljs-built_in">str</span>(parameters[<span class="hljs-string">&quot;W2&quot;</span>]))<br><span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;b2 = &quot;</span> + <span class="hljs-built_in">str</span>(parameters[<span class="hljs-string">&quot;b2&quot;</span>]))<br></code></pre></td></tr></table></figure>
-
-<pre><code>/Users/abanihi/opt/miniconda3/envs/pangeo/lib/python3.6/site-packages/ipykernel/__main__.py:26: RuntimeWarning: divide by zero encountered in log
-/Users/abanihi/devel/personal/deep-learning-specialization-coursera/01-Neural-Networks-and-Deep-Learning/week3/Programming-Assignments/planar_utils.py:34: RuntimeWarning: overflow encountered in exp
-  s = 1/(1+np.exp(-x))
-
-
-W1 = [[-4.18491249  5.33220652]
- [-7.52991891  1.24304481]
- [-4.19257906  5.32654053]
- [ 7.52989842 -1.24305585]]
-b1 = [[ 2.32930709]
- [ 3.79453736]
- [ 2.33008777]
- [-3.79456804]]
-W2 = [[-6033.83651818 -6008.12961806 -6033.10073783  6008.06596049]]
-b2 = [[-52.66626424]]
-</code></pre>
-<p><strong>Expected Output</strong>:</p>
-<table style="width:90%">
-  <tr>
-    <td>**W1**</td>
-    <td> [[-4.18494056  5.33220609]
- [-7.52989382  1.24306181]
- [-4.1929459   5.32632331]
- [ 7.52983719 -1.24309422]]</td> 
-  </tr>
-  
-  <tr>
-    <td>**b1**</td>
-    <td> [[ 2.32926819]
- [ 3.79458998]
- [ 2.33002577]
- [-3.79468846]]</td> 
-  </tr>
-  
-  <tr>
-    <td>**W2**</td>
-    <td> [[-6033.83672146 -6008.12980822 -6033.10095287  6008.06637269]] </td> 
-  </tr>
-  
-
-  <tr>
-    <td>**b2**</td>
-    <td> [[-52.66607724]] </td> 
-  </tr>
-  
-</table>  
-
-<h3 id="4-5-Predictions"><a href="#4-5-Predictions" class="headerlink" title="4.5 Predictions"></a>4.5 Predictions</h3><p><strong>Question</strong>: Use your model to predict by building predict().<br>Use forward propagation to predict results.</p>
-<p><strong>Reminder</strong>: predictions = $y_{prediction} = \mathbb 1 \textfalse = \begin{cases}<br>      1 &amp; \text{if}\ activation &gt; 0.5 \<br>      0 &amp; \text{otherwise}<br>    \end{cases}$  </p>
-<p>As an example, if you would like to set the entries of a matrix X to 0 and 1 based on a threshold you would do: <code>X_new = (X &gt; threshold)</code></p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment"># GRADED FUNCTION: predict</span><br><br><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">predict</span>(<span class="hljs-params">parameters, X</span>):</span><br>    <span class="hljs-string">&quot;&quot;&quot;</span><br><span class="hljs-string">    Using the learned parameters, predicts a class for each example in X</span><br><span class="hljs-string">    </span><br><span class="hljs-string">    Arguments:</span><br><span class="hljs-string">    parameters -- python dictionary containing your parameters </span><br><span class="hljs-string">    X -- input data of size (n_x, m)</span><br><span class="hljs-string">    </span><br><span class="hljs-string">    Returns</span><br><span class="hljs-string">    predictions -- vector of predictions of our model (red: 0 / blue: 1)</span><br><span class="hljs-string">    &quot;&quot;&quot;</span><br>    <br>    <span class="hljs-comment"># Computes probabilities using forward propagation, and classifies to 0/1 using 0.5 as the threshold.</span><br>    <span class="hljs-comment">### START CODE HERE ### (≈ 2 lines of code)</span><br>    A2, cache = forward_propagation(X, parameters)<br>    predictions = (A2 &gt; <span class="hljs-number">0.5</span>)  <span class="hljs-comment"># Vectorized</span><br>    <span class="hljs-comment">### END CODE HERE ###</span><br>    <br>    <span class="hljs-keyword">return</span> predictions<br></code></pre></td></tr></table></figure>
-
-
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs python">parameters, X_assess = predict_test_case()<br><br>predictions = predict(parameters, X_assess)<br><span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;predictions mean = &quot;</span> + <span class="hljs-built_in">str</span>(np.mean(predictions)))<br></code></pre></td></tr></table></figure>
-
-<pre><code>predictions mean = 0.6666666666666666
-</code></pre>
-<p><strong>Expected Output</strong>: </p>
-<table style="width:40%">
-  <tr>
-    <td>**predictions mean**</td>
-    <td> 0.666666666667 </td> 
-  </tr>
-  
-</table>
-
-<p>It is time to run the model and see how it performs on a planar dataset. Run the following code to test your model with a single hidden layer of $n_h$ hidden units.</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment"># Build a model with a n_h-dimensional hidden layer</span><br>parameters = nn_model(X, Y, n_h = <span class="hljs-number">4</span>, num_iterations = <span class="hljs-number">10000</span>, print_cost=<span class="hljs-literal">True</span>)<br><br><span class="hljs-comment"># Plot the decision boundary</span><br>plot_decision_boundary(<span class="hljs-keyword">lambda</span> x: predict(parameters, x.T), X, Y)<br>plt.title(<span class="hljs-string">&quot;Decision Boundary for hidden layer size &quot;</span> + <span class="hljs-built_in">str</span>(<span class="hljs-number">4</span>))<br></code></pre></td></tr></table></figure>
-
-<pre><code>Cost after iteration 0: 0.693048
-Cost after iteration 1000: 0.288083
-Cost after iteration 2000: 0.254385
-Cost after iteration 3000: 0.233864
-Cost after iteration 4000: 0.226792
-Cost after iteration 5000: 0.222644
-Cost after iteration 6000: 0.219731
-Cost after iteration 7000: 0.217504
-Cost after iteration 8000: 0.219456
-Cost after iteration 9000: 0.218558
-
-
-
-
-
-Text(0.5, 1.0, &#39;Decision Boundary for hidden layer size 4&#39;)
-</code></pre>
-<p><strong>Expected Output</strong>:</p>
-<table style="width:40%">
-  <tr>
-    <td>**Cost after iteration 9000**</td>
-    <td> 0.218607 </td> 
-  </tr>
-  
-</table>
-
-
-
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment"># Print accuracy</span><br>predictions = predict(parameters, X)<br><span class="hljs-built_in">print</span> (<span class="hljs-string">&#x27;Accuracy: %d&#x27;</span> % <span class="hljs-built_in">float</span>((np.dot(Y,predictions.T) + np.dot(<span class="hljs-number">1</span>-Y,<span class="hljs-number">1</span>-predictions.T))/<span class="hljs-built_in">float</span>(Y.size)*<span class="hljs-number">100</span>) + <span class="hljs-string">&#x27;%&#x27;</span>)<br></code></pre></td></tr></table></figure>
-
-<pre><code>Accuracy: 90%
-</code></pre>
-<p><strong>Expected Output</strong>: </p>
-<table style="width:15%">
-  <tr>
-    <td>**Accuracy**</td>
-    <td> 90% </td> 
-  </tr>
-</table>
-
-<p>Accuracy is really high compared to Logistic Regression. The model has learnt the leaf patterns of the flower! Neural networks are able to learn even highly non-linear decision boundaries, unlike logistic regression. </p>
-<p>Now, let’s try out several hidden layer sizes.</p>
-<h3 id="4-6-Tuning-hidden-layer-size-optional-ungraded-exercise"><a href="#4-6-Tuning-hidden-layer-size-optional-ungraded-exercise" class="headerlink" title="4.6 - Tuning hidden layer size (optional/ungraded exercise)"></a>4.6 - Tuning hidden layer size (optional/ungraded exercise)</h3><p>Run the following code. It may take 1-2 minutes. You will observe different behaviors of the model for various hidden layer sizes.</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment"># This may take about 2 minutes to run</span><br><br>plt.figure(figsize=(<span class="hljs-number">16</span>, <span class="hljs-number">32</span>))<br>hidden_layer_sizes = [<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span>, <span class="hljs-number">5</span>, <span class="hljs-number">20</span>, <span class="hljs-number">50</span>]<br><span class="hljs-keyword">for</span> i, n_h <span class="hljs-keyword">in</span> <span class="hljs-built_in">enumerate</span>(hidden_layer_sizes):<br>    plt.subplot(<span class="hljs-number">5</span>, <span class="hljs-number">2</span>, i+<span class="hljs-number">1</span>)<br>    plt.title(<span class="hljs-string">&#x27;Hidden Layer of size %d&#x27;</span> % n_h)<br>    parameters = nn_model(X, Y, n_h, num_iterations = <span class="hljs-number">5000</span>)<br>    plot_decision_boundary(<span class="hljs-keyword">lambda</span> x: predict(parameters, x.T), X, Y)<br>    predictions = predict(parameters, X)<br>    accuracy = <span class="hljs-built_in">float</span>((np.dot(Y,predictions.T) + np.dot(<span class="hljs-number">1</span>-Y,<span class="hljs-number">1</span>-predictions.T))/<span class="hljs-built_in">float</span>(Y.size)*<span class="hljs-number">100</span>)<br>    <span class="hljs-built_in">print</span> (<span class="hljs-string">&quot;Accuracy for &#123;&#125; hidden units: &#123;&#125; %&quot;</span>.<span class="hljs-built_in">format</span>(n_h, accuracy))<br></code></pre></td></tr></table></figure>
-
-<pre><code>Accuracy for 1 hidden units: 67.5 %
-Accuracy for 2 hidden units: 67.25 %
-Accuracy for 3 hidden units: 90.75 %
-Accuracy for 4 hidden units: 90.5 %
-Accuracy for 5 hidden units: 91.25 %
-Accuracy for 20 hidden units: 90.5 %
-Accuracy for 50 hidden units: 90.75 %
-</code></pre>
-<p><strong>Interpretation</strong>:</p>
-<ul>
-<li>The larger models (with more hidden units) are able to fit the training set better, until eventually the largest models overfit the data. </li>
-<li>The best hidden layer size seems to be around n_h = 5. Indeed, a value around here seems to  fits the data well without also incurring noticable overfitting.</li>
-<li>You will also learn later about regularization, which lets you use very large models (such as n_h = 50) without much overfitting. </li>
-</ul>
-<p><strong>Optional questions</strong>:</p>
-<p><strong>Note</strong>: Remember to submit the assignment but clicking the blue “Submit Assignment” button at the upper-right. </p>
-<p>Some optional/ungraded questions that you can explore if you wish: </p>
-<ul>
-<li>What happens when you change the tanh activation for a sigmoid activation or a ReLU activation?</li>
-<li>Play with the learning_rate. What happens?</li>
-<li>What if we change the dataset? (See part 5 below!)</li>
-</ul>
-<font color='blue'>
-**You've learnt to:**
-- Build a complete neural network with a hidden layer
-- Make a good use of a non-linear unit
-- Implemented forward propagation and backpropagation, and trained a neural network
-- See the impact of varying the hidden layer size, including overfitting.
-</font>
-Nice work! 
-
-<h2 id="5-Performance-on-other-datasets"><a href="#5-Performance-on-other-datasets" class="headerlink" title="5) Performance on other datasets"></a>5) Performance on other datasets</h2><p>If you want, you can rerun the whole notebook (minus the dataset part) for each of the following datasets.</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment"># Datasets</span><br>noisy_circles, noisy_moons, blobs, gaussian_quantiles, no_structure = load_extra_datasets()<br><br>datasets = &#123;<span class="hljs-string">&quot;noisy_circles&quot;</span>: noisy_circles,<br>            <span class="hljs-string">&quot;noisy_moons&quot;</span>: noisy_moons,<br>            <span class="hljs-string">&quot;blobs&quot;</span>: blobs,<br>            <span class="hljs-string">&quot;gaussian_quantiles&quot;</span>: gaussian_quantiles&#125;<br><br><span class="hljs-comment">### START CODE HERE ### (choose your dataset)</span><br>dataset = <span class="hljs-string">&quot;noisy_moons&quot;</span><br><span class="hljs-comment">### END CODE HERE ###</span><br><br>X, Y = datasets[dataset]<br>X, Y = X.T, Y.reshape(<span class="hljs-number">1</span>, Y.shape[<span class="hljs-number">0</span>])<br><br><span class="hljs-comment"># make blobs binary</span><br><span class="hljs-keyword">if</span> dataset == <span class="hljs-string">&quot;blobs&quot;</span>:<br>    Y = Y%<span class="hljs-number">2</span><br><br><span class="hljs-comment"># Visualize the data</span><br>plt.scatter(X[<span class="hljs-number">0</span>, :], X[<span class="hljs-number">1</span>, :], c=Y.ravel(), s=<span class="hljs-number">40</span>, cmap=plt.cm.Spectral);<br></code></pre></td></tr></table></figure>
-
-
-
-<p>Congrats on finishing this Programming Assignment!</p>
-<p>Reference:</p>
-<ul>
-<li><span class="exturl" data-url="aHR0cHM6Ly9zY3MucnllcnNvbi5jYS9+YWhhcmxleS9uZXVyYWwtbmV0d29ya3Mv">https://scs.ryerson.ca/~aharley/neural-networks/<i class="fa fa-external-link-alt"></i></span></li>
-<li><span class="exturl" data-url="aHR0cHM6Ly9jczIzMW4uZ2l0aHViLmlvL25ldXJhbC1uZXR3b3Jrcy1jYXNlLXN0dWR5Lw==">https://cs231n.github.io/neural-networks-case-study/<i class="fa fa-external-link-alt"></i></span></li>
-</ul>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs python">%load_ext version_information<br>%version_information numpy, matplotlib, sklearn<br></code></pre></td></tr></table></figure>
-
-
-
-
-<table><tr><th>Software</th><th>Version</th></tr><tr><td>Python</td><td>3.6.6 64bit [GCC 4.2.1 Compatible Apple LLVM 6.1.0 (clang-602.0.53)]</td></tr><tr><td>IPython</td><td>7.0.1</td></tr><tr><td>OS</td><td>Darwin 17.7.0 x86_64 i386 64bit</td></tr><tr><td>numpy</td><td>1.15.1</td></tr><tr><td>matplotlib</td><td>3.0.0</td></tr><tr><td>sklearn</td><td>0.20.0</td></tr><tr><td colspan='2'>Sun Oct 14 20:51:09 2018 MDT</td></tr></table>
-
-  <p>Learn About Data Preprocessing : <a href = "https://massivefile.com/data_preprocessing_feature/" target="_blank"> Click Here </a></p>
-
-
-
-<h5>Credits - <a href='https://www.coursera.org/' target=”_blank >Coursera</a>,  <a href = 'https://en.wikipedia.org/wiki/Andrew_Ng' title="Andrew_Ng" target=”_blank>Credits to the teacher</a> , 
-<a href ='https://www.coursera.org/specializations/deep-learning?' target=”_blank>Deeplearning.ai Course</a><h5>
+<p> Table of Contents </center><br> <p>Planar data classification with one hidden layer<br><br>  1.1 1 - Packages<br>1.2 2 - Dataset<br>1.3 3 - Simple Logistic Regression<br>4 - Neural Network model<br>1.4.1 4.1 - Defining the neural network structure<br>1.4.2 4.2 - Initialize the model’s parameters1.4.3 4.3 - The Loop1.4.4 4.4 - Integrate parts 4.1, 4.2 and 4.3 in nn_model()1.4.5 4.5 Predictions1.4.6 4.6 - Tuning hidden layer size (optional/ungraded exercise)1.5 5) Performance on other datasets</p></p>
+<p> Planar data classification with one hidden layer</p>
 
     </div>
 
@@ -797,9 +257,8 @@ Nice work!
       <footer class="post-footer">
           
           <div class="post-tags">
-              <a href="/tags/2020/" rel="tag"><i class="fa fa-tag"></i> 2020</a>
-              <a href="/tags/Assignment/" rel="tag"><i class="fa fa-tag"></i> Assignment</a>
-              <a href="/tags/Planar-data-classification-with-one-hidden-layer/" rel="tag"><i class="fa fa-tag"></i> Planar data classification with one hidden layer</a>
+              <a href="/tags/Classification/" rel="tag"><i class="fa fa-tag"></i> Classification</a>
+              <a href="/tags/Single-Hidden-Layer/" rel="tag"><i class="fa fa-tag"></i> Single Hidden Layer</a>
           </div>
 
         
@@ -808,12 +267,12 @@ Nice work!
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/Standardization_Normalization/" rel="prev" title="Standardization and Normalization || Feature Scaling">
-      <i class="fa fa-chevron-left"></i> Standardization and Normalization || Feature Scaling
+    <a href="/decisiontreeclassifier/" rel="prev" title="Decision Tree Classifier">
+      <i class="fa fa-chevron-left"></i> Decision Tree Classifier
     </a></div>
       <div class="post-nav-item">
-    <a href="/quiz4/" rel="next" title="Quiz 4 || Neural Networks and Deep Learning">
-      Quiz 4 || Neural Networks and Deep Learning <i class="fa fa-chevron-right"></i>
+    <a href="/randomforestclassifier/" rel="next" title="Random Forest Classification">
+      Random Forest Classification <i class="fa fa-chevron-right"></i>
     </a></div>
     </div>
       </footer>
@@ -873,10 +332,6 @@ Nice work!
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Table-of-Contents"><span class="nav-number">1.</span> <span class="nav-text">Table of Contents </span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Planar-data-classification-with-one-hidden-layer"><span class="nav-number">2.</span> <span class="nav-text">Planar data classification with one hidden layer</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-Packages"><span class="nav-number">2.1.</span> <span class="nav-text">1 - Packages</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-Dataset"><span class="nav-number">2.2.</span> <span class="nav-text">2 - Dataset</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-Simple-Logistic-Regression"><span class="nav-number">2.3.</span> <span class="nav-text">3 - Simple Logistic Regression</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-Neural-Network-model"><span class="nav-number">2.4.</span> <span class="nav-text">4 - Neural Network model</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#4-1-Defining-the-neural-network-structure"><span class="nav-number">2.4.1.</span> <span class="nav-text">4.1 - Defining the neural network structure</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-2-Initialize-the-model%E2%80%99s-parameters"><span class="nav-number">2.4.2.</span> <span class="nav-text">4.2 - Initialize the model’s parameters</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-3-The-Loop"><span class="nav-number">2.4.3.</span> <span class="nav-text">4.3 - The Loop</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-4-Integrate-parts-4-1-4-2-and-4-3-in-nn-model"><span class="nav-number">2.4.4.</span> <span class="nav-text">4.4 - Integrate parts 4.1, 4.2 and 4.3 in nn_model()</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-5-Predictions"><span class="nav-number">2.4.5.</span> <span class="nav-text">4.5 Predictions</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-6-Tuning-hidden-layer-size-optional-ungraded-exercise"><span class="nav-number">2.4.6.</span> <span class="nav-text">4.6 - Tuning hidden layer size (optional&#x2F;ungraded exercise)</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-Performance-on-other-datasets"><span class="nav-number">2.5.</span> <span class="nav-text">5) Performance on other datasets</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link"><span class="nav-number">2.5.0.0.1.</span> <span class="nav-text">Credits - Coursera,  Credits to the teacher , 
-Deeplearning.ai Course
-</span></a></li><li class="nav-item nav-level-5"><a class="nav-link"><span class="nav-number">2.5.0.0.2.</span> <span class="nav-text">
-</span></a></li></ol></li></ol></li></ol></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -892,20 +347,20 @@ Deeplearning.ai Course
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">40</span>
+          <span class="site-state-item-count">39</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">20</span>
+        <span class="site-state-item-count">29</span>
         <span class="site-state-item-name">categories</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">46</span>
+        <span class="site-state-item-count">48</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>
@@ -950,13 +405,13 @@ Deeplearning.ai Course
       <i class="fa fa-chart-area"></i>
     </span>
       <span class="post-meta-item-text">Symbols count total: </span>
-    <span title="Symbols count total">452k</span>
+    <span title="Symbols count total">409k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span class="post-meta-item-text">Reading time total &asymp;</span>
-    <span title="Reading time total">6:51</span>
+    <span title="Reading time total">6:12</span>
 </div>
 
         

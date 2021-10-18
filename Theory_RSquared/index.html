@@ -27,10 +27,11 @@
 <meta property="og:site_name" content="Massivefile.com - Blog">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2020-05-02T00:56:53.000Z">
-<meta property="article:modified_time" content="2021-10-13T15:49:25.858Z">
+<meta property="article:modified_time" content="2021-10-18T13:29:52.516Z">
 <meta property="article:author" content="Karan Arora">
-<meta property="article:tag" content="2020">
-<meta property="article:tag" content="R Squared">
+<meta property="article:tag" content="R Squared Intution">
+<meta property="article:tag" content="Model Evaluation">
+<meta property="article:tag" content="Concepts and Theory">
 <meta name="twitter:card" content="summary">
 
 <link rel="canonical" href="https://massivefile.com/Theory_RSquared/">
@@ -140,17 +141,17 @@
   </li>
         <li class="menu-item menu-item-tags">
 
-    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags<span class="badge">46</span></a>
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags<span class="badge">48</span></a>
 
   </li>
         <li class="menu-item menu-item-categories">
 
-    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories<span class="badge">20</span></a>
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories<span class="badge">29</span></a>
 
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives<span class="badge">40</span></a>
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives<span class="badge">39</span></a>
 
   </li>
         <li class="menu-item menu-item-about">
@@ -245,7 +246,7 @@
 
 <b>What is R Squared ? <br> What is Adjusted R-Squared ? <br> How to calculate R Squared ?<br> How to Calculate Adjusted R Squared ?<br> Which Method is Better ?</b>
  
-<h2>What is R Squared ? </h2><br>
+<b>What is R Squared ? </b><br>
 <p>R-squared is a goodness-of-fit measure for linear regression models. This statistic indicates the percentage of the variance in the dependent variable that the independent variables explain collectively. R-squared measures the strength of the relationship between your model and the dependent variable on a convenient 0 – 100% scale.<br>
 
 Image of a large R-squared.After fitting a linear regression model, you need to determine how well the model fits the data. Does it do a good job of explaining changes in the dependent variable? There are a several key goodness-of-fit statistics for regression analysis. In this post, we’ll examine R-squared (R2 ), highlight some of its limitations, and discover some surprises. For instance, small R-squared values are not always a problem, and high R-squared values are not necessarily good!
@@ -256,7 +257,7 @@ Statisticians say that a regression model fits the data well if the differences 
 However, before assessing numeric measures of goodness-of-fit, like R-squared, you should evaluate the residual plots. Residual plots can expose a biased model far more effectively than the numeric output by displaying problematic patterns in the residuals. If your model is biased, you cannot trust the results.</p>
 
 
-<h2>R-squared and the Goodness-of-Fit</h2>
+<b>R-squared and the Goodness-of-Fit</b>
 <p>
 R-squared evaluates the scatter of the data points around the fitted regression line. It is also called the coefficient of determination, or the coefficient of multiple determination for multiple regression. For the same data set, higher R-squared values represent smaller differences between the observed data and the fitted values.
 <br>
@@ -270,11 +271,11 @@ R-squared is always between 0 and 100%:
 Usually, the larger the R2, the better the regression model fits your observations. However, this guideline has important caveats that I’ll discuss in both this post and the next post.
 
 
-<h2>What are the limitations of R Squared ?</h2><br>
+<b>What are the limitations of R Squared ?</b><br>
 <p>R2 increases with every predictor added to a model. As R2 always increases and never decreases, it can appear to be a better fit with the more terms you add to the model. This can be completely misleading.<br>
 Similarly, if your model has too many terms and too many high-order polynomials you can run into the problem of over-fitting the data. When you over-fit data, a misleadingly high R2 value can lead to misleading projections.</p><br>
 
-<h2>What is Adjusted R Squared ?</h2><br>
+<b>What is Adjusted R Squared ?</b><br>
 <p>R2 shows how well terms (data points) fit a curve or line. Adjusted R2 also indicates how well terms fit a curve or line, but adjusts for the number of terms in a model. If you add more and more useless variables to a model, adjusted r-squared will decrease. If you add more useful variables, adjusted r-squared will increase.
 Adjusted R2 will always be less than or equal to R2.<br><br>
 Formulae:<br>
@@ -287,14 +288,14 @@ k – Number of independent variables in the model, excluding the constant
 <br>
 Fortunately, if you have a low R-squared value but the independent variables are statistically significant, you can still draw important conclusions about the relationships between the variables. Statistically significant coefficients continue to represent the mean change in the dependent variable given a one-unit shift in the independent variable. Clearly, being able to draw conclusions like this is vital.</p><br>
 
-<h2>Which Method is Better ?</h2>
+<b>Which Method is Better ?</b>
 <p>Both R2 and the adjusted R2 give you an idea of how many data points fall within the line of the regression equation. However, there is one main difference between R2 and the adjusted R2: R2 assumes that every single variable explains the variation in the dependent variable. The adjusted R2 tells you the percentage of variation explained by only the independent variables that actually affect the dependent variable.<br>
 The adjusted R2 will penalize you for adding independent variables (K in the equation) that do not fit the model. Why? In regression analysis, it can be tempting to add more variables to the data as you think of them. Some of those variables will be significant, but you can’t be sure that significance is just by chance. The adjusted R2 will compensate for this by that penalizing you for those extra variables.<br>
 
 While values are usually positive, they can be negative as well. This could happen if your R2 is zero; After the adjustment, the value can dip below zero. This usually indicates that your model is a poor fit for your data. Other problems with your model can also cause sub-zero values, such as not putting a constant term in your model.<br></p>
 
 
-<h2> More On topic</h2><br>
+<b> More On topic</b><br>
 Please find Implementation <a href = 'https://massivefile.com/multiple_linear_regression/' , target="_blank">Here </a>
   <p>Learn About Data Preprocessing : <a href = "https://massivefile.com/data_preprocessing_feature/" target="_blank"> Click Here </a></p>
 
@@ -309,8 +310,9 @@ Please find Implementation <a href = 'https://massivefile.com/multiple_linear_re
       <footer class="post-footer">
           
           <div class="post-tags">
-              <a href="/tags/2020/" rel="tag"><i class="fa fa-tag"></i> 2020</a>
-              <a href="/tags/R-Squared/" rel="tag"><i class="fa fa-tag"></i> R Squared</a>
+              <a href="/tags/R-Squared-Intution/" rel="tag"><i class="fa fa-tag"></i> R Squared Intution</a>
+              <a href="/tags/Model-Evaluation/" rel="tag"><i class="fa fa-tag"></i> Model Evaluation</a>
+              <a href="/tags/Concepts-and-Theory/" rel="tag"><i class="fa fa-tag"></i> Concepts and Theory</a>
           </div>
 
         
@@ -323,8 +325,8 @@ Please find Implementation <a href = 'https://massivefile.com/multiple_linear_re
       <i class="fa fa-chevron-left"></i> Null Hypothesis || Evaluating Multiple Features
     </a></div>
       <div class="post-nav-item">
-    <a href="/Deep_Neural_Network_Application/" rel="next" title="Deep Neural Network Application">
-      Deep Neural Network Application <i class="fa fa-chevron-right"></i>
+    <a href="/NoneLinearRegression/" rel="next" title="Non Linear Regression Implementation">
+      Non Linear Regression Implementation <i class="fa fa-chevron-right"></i>
     </a></div>
     </div>
       </footer>
@@ -384,7 +386,6 @@ Please find Implementation <a href = 'https://massivefile.com/multiple_linear_re
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link"><span class="nav-number">1.</span> <span class="nav-text">What is R Squared ? </span></a></li><li class="nav-item nav-level-2"><a class="nav-link"><span class="nav-number">2.</span> <span class="nav-text">R-squared and the Goodness-of-Fit</span></a></li><li class="nav-item nav-level-2"><a class="nav-link"><span class="nav-number">3.</span> <span class="nav-text">What are the limitations of R Squared ?</span></a></li><li class="nav-item nav-level-2"><a class="nav-link"><span class="nav-number">4.</span> <span class="nav-text">What is Adjusted R Squared ?</span></a></li><li class="nav-item nav-level-2"><a class="nav-link"><span class="nav-number">5.</span> <span class="nav-text">Which Method is Better ?</span></a></li><li class="nav-item nav-level-2"><a class="nav-link"><span class="nav-number">6.</span> <span class="nav-text"> More On topic</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -400,20 +401,20 @@ Please find Implementation <a href = 'https://massivefile.com/multiple_linear_re
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">40</span>
+          <span class="site-state-item-count">39</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">20</span>
+        <span class="site-state-item-count">29</span>
         <span class="site-state-item-name">categories</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">46</span>
+        <span class="site-state-item-count">48</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>
@@ -458,13 +459,13 @@ Please find Implementation <a href = 'https://massivefile.com/multiple_linear_re
       <i class="fa fa-chart-area"></i>
     </span>
       <span class="post-meta-item-text">Symbols count total: </span>
-    <span title="Symbols count total">452k</span>
+    <span title="Symbols count total">409k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span class="post-meta-item-text">Reading time total &asymp;</span>
-    <span title="Reading time total">6:51</span>
+    <span title="Reading time total">6:12</span>
 </div>
 
         

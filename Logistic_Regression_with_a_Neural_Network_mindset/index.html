@@ -22,7 +22,7 @@
   </script>
 
   <meta property="og:type" content="article">
-<meta property="og:title" content="Logistic Regression With a Neural Network Mindset">
+<meta property="og:title" content="Logistic Regression With Neural Network Intution">
 <meta property="og:url" content="https://massivefile.com/Logistic_Regression_with_a_Neural_Network_mindset/index.html">
 <meta property="og:site_name" content="Massivefile.com - Blog">
 <meta property="og:locale" content="en_US">
@@ -31,12 +31,11 @@
 <meta property="og:image" content="https://lh3.googleusercontent.com/02H_4u-Q1y8hDW6L6nDzXAX6bE6QqP6WXfK_hrbXFYQ9Zxm4KVDJo9gEo3511OBsuvGzNo9GD6haI8auCtBkFlaEU2UDgCK6ReeVMyGqSg7brcTSQysUZr30K-Y7dTLdRzCVR67cMw=w2400">
 <meta property="og:image" content="https://lh3.googleusercontent.com/VISa3bYoaFyoyL4EnFg4OhGXPa_aIgC3M3hDJsOQP-3PK1ICbo9ZT3udg7Jp_nCRj9rxEjREN-wP83WaR6EVAV2dCC1FogwYI91awu3uX9EF0cUh3jApJxQb-0_VKQtBc0Telo5-Kw=w2400">
 <meta property="og:image" content="https://lh3.googleusercontent.com/zRQjYeR_0i0Az8BynDY35YelX_s5nomdk0mQAlOjWdhWvSe70Ey4EKZntInJN3WwEb9i9lusqNNqtsBXc15qaEj0eyH8uYlDNxr72DjbeGaqvPjE9iZqmZcTozgW157sVuTlGePc8Q=w2400">
-<meta property="article:published_time" content="2020-06-14T18:30:00.000Z">
-<meta property="article:modified_time" content="2021-10-13T15:44:47.851Z">
+<meta property="article:published_time" content="2020-08-10T18:30:00.000Z">
+<meta property="article:modified_time" content="2021-10-18T02:16:21.040Z">
 <meta property="article:author" content="Karan Arora">
-<meta property="article:tag" content="2020">
-<meta property="article:tag" content="Assignment">
-<meta property="article:tag" content="Logistic Regression with a Neural Network mindset">
+<meta property="article:tag" content="Regression">
+<meta property="article:tag" content="Logistic Regression">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://lh3.googleusercontent.com/p7ly3mtv7h5Y3fl4JtiFmtb-i_iAerowOHSG4EXhu3SESUPMjmZhwIjaXxWp9GOqejyWazhp-maQ9NsyVNsruLAErIu1N7cZjBWTN5NnV43bukiGrcBmGm_k4WqWKoLdbAoYUyNgPw=w2400">
 
@@ -53,7 +52,7 @@
   };
 </script>
 
-  <title>Logistic Regression With a Neural Network Mindset | Massivefile.com - Blog</title>
+  <title>Logistic Regression With Neural Network Intution | Massivefile.com - Blog</title>
   
     <script>
       function sendPageView() {
@@ -147,17 +146,17 @@
   </li>
         <li class="menu-item menu-item-tags">
 
-    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags<span class="badge">46</span></a>
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags<span class="badge">48</span></a>
 
   </li>
         <li class="menu-item menu-item-categories">
 
-    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories<span class="badge">20</span></a>
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories<span class="badge">29</span></a>
 
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives<span class="badge">40</span></a>
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives<span class="badge">39</span></a>
 
   </li>
         <li class="menu-item menu-item-about">
@@ -210,7 +209,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          Logistic Regression With a Neural Network Mindset
+          Logistic Regression With Neural Network Intution
         </h1>
 
         <div class="post-meta">
@@ -220,7 +219,7 @@
               </span>
               <span class="post-meta-item-text">Posted on</span>
 
-              <time title="Created: 2020-06-15 00:00:00" itemprop="dateCreated datePublished" datetime="2020-06-15T00:00:00+05:30">2020-06-15</time>
+              <time title="Created: 2020-08-11 00:00:00" itemprop="dateCreated datePublished" datetime="2020-08-11T00:00:00+05:30">2020-08-11</time>
             </span>
 
           <br>
@@ -375,22 +374,17 @@ sanity check after reshaping: [17 31 56 22 33]
 
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-built_in">len</span>(train_set_x)<br></code></pre></td></tr></table></figure>
 
-
-
-
-<pre><code>12288
-</code></pre>
-<p><b><h4>What you need to remember:</h4></b><br><font color='blue'></p>
+<p>Out - 12288</p>
+<p>What you need to remember: </p>
 <p>Common steps for pre-processing a new dataset are:</p>
 <ul>
 <li>Figure out the dimensions and shapes of the problem (m_train, m_test, num_px, …)</li>
 <li>Reshape the datasets such that each example is now a vector of size (num_px * num_px * 3, 1)</li>
-<li>“Standardize” the data</font></li>
+<li>“Standardize” the data</li>
 </ul>
 <h2 id="3-General-Architecture-of-the-learning-algorithm"><a href="#3-General-Architecture-of-the-learning-algorithm" class="headerlink" title="3 - General Architecture of the learning algorithm"></a>3 - General Architecture of the learning algorithm</h2><p>It’s time to design a simple algorithm to distinguish cat images from non-cat images.</p>
 <p><strong>Mathematical expression of the algorithm</strong>:</p>
-<p>For one example $x^{(i)}$:<br>$$z^{(i)} = w^T x^{(i)} + b \tag{1}$$<br>$$\hat{y}^{(i)} = a^{(i)} = sigmoid(z^{(i)})\tag{2}$$<br>$$ \mathcal{L}(a^{(i)}, y^{(i)}) =  - y^{(i)}  \log(a^{(i)}) - (1-y^{(i)} ) * $$<br>$$ \ *log(1-a^{(i)})\tag{3}$$</p>
-<p>The cost is then computed by summing over all training examples:<br>$$ J = \frac{1}{m} \sum_{i=1}^m \mathcal{L}(a^{(i)}, y^{(i)})\tag{6}$$</p>
+<p>For one example $x^{(i)}$:<br>$$z^{(i)} = w^T x^{(i)} + b \tag{1}$$<br>$$\hat{y}^{(i)} = a^{(i)} = sigmoid(z^{(i)})\tag{2}$$<br>$$ \mathcal{L}(a^{(i)}, y^{(i)}) =  - y^{(i)}  \log(a^{(i)}) - (1-y^{(i)} ) * $$</p>
 <p><strong>Key steps</strong>:<br>In this exercise, you will carry out the following steps:<br>    - Initialize the parameters of the model<br>    - Learn the parameters for the model by minimizing the cost<br>    - Use the learned parameters to make predictions (on the test set)<br>    - Analyse the results and conclude</p>
 <h2 id="4-Building-the-parts-of-our-algorithm"><a href="#4-Building-the-parts-of-our-algorithm" class="headerlink" title="4 - Building the parts of our algorithm"></a>4 - Building the parts of our algorithm</h2><p>The main steps for building a Neural Network are:</p>
 <ol>
@@ -548,8 +542,7 @@ predictions = [[1. 1.]]
 
 </table>
 
-
-<p><b><h4>What to remember </h4></b><br><font color='blue'><br>You’ve implemented several functions that:</p>
+<p>What to remember<br><font color='blue'><br>You’ve implemented several functions that:</p>
 <ul>
 <li>Initialize (w,b)</li>
 <li>Optimize the loss iteratively to learn parameters (w,b):<ul>
@@ -861,7 +854,7 @@ test accuracy: 36.0 %
 </code></pre>
 <center><img src='https://lh3.googleusercontent.com/VISa3bYoaFyoyL4EnFg4OhGXPa_aIgC3M3hDJsOQP-3PK1ICbo9ZT3udg7Jp_nCRj9rxEjREN-wP83WaR6EVAV2dCC1FogwYI91awu3uX9EF0cUh3jApJxQb-0_VKQtBc0Telo5-Kw=w2400' /></center>
 
-<p><b>Interpretation:</b> </p>
+<p>Interpretation:</p>
 <ul>
 <li>Different learning rates give different costs and thus different predictions results.</li>
 <li>If the learning rate is too large (0.01), the cost may oscillate up and down. It may even diverge (though in this example, using 0.01 still eventually ends up at a good value for the cost). </li>
@@ -886,7 +879,8 @@ y = 0.0, your algorithm predicts a &quot;non-cat&quot; picture.
 </code></pre>
 <center><img src='https://lh3.googleusercontent.com/zRQjYeR_0i0Az8BynDY35YelX_s5nomdk0mQAlOjWdhWvSe70Ey4EKZntInJN3WwEb9i9lusqNNqtsBXc15qaEj0eyH8uYlDNxr72DjbeGaqvPjE9iZqmZcTozgW157sVuTlGePc8Q=w2400' /></center>
 
-<p><b><h4>What to remember from this assignment:</h4></b><br><font color='blue'></p>
+
+<p>What to remember from this assignment:<br><font color='blue'></p>
 <ol>
 <li>Preprocessing the dataset is important.</li>
 <li>You implemented each function separately: initialize(), propagate(), optimize(). Then you built a model().</li>
@@ -906,10 +900,7 @@ y = 0.0, your algorithm predicts a &quot;non-cat&quot; picture.
 
   <p>Learn About Data Preprocessing : <a href = "https://massivefile.com/data_preprocessing_feature/" target="_blank"> Click Here </a></p>
 
-
-
-<h5>Credits - <a href='https://www.coursera.org/' target=”_blank >Coursera</a>,  <a href = 'https://en.wikipedia.org/wiki/Andrew_Ng' title="Andrew_Ng" target=”_blank>Credits to the teacher</a> , 
-<a href ='https://www.coursera.org/specializations/deep-learning?' target=”_blank>Deeplearning.ai Course</a><h5>
+<p><a href = 'https://en.wikipedia.org/wiki/Andrew_Ng' title="Andrew_Ng" target=”_blank>Credits to the teacher</a></p>
 
     </div>
 
@@ -920,9 +911,8 @@ y = 0.0, your algorithm predicts a &quot;non-cat&quot; picture.
       <footer class="post-footer">
           
           <div class="post-tags">
-              <a href="/tags/2020/" rel="tag"><i class="fa fa-tag"></i> 2020</a>
-              <a href="/tags/Assignment/" rel="tag"><i class="fa fa-tag"></i> Assignment</a>
-              <a href="/tags/Logistic-Regression-with-a-Neural-Network-mindset/" rel="tag"><i class="fa fa-tag"></i> Logistic Regression with a Neural Network mindset</a>
+              <a href="/tags/Regression/" rel="tag"><i class="fa fa-tag"></i> Regression</a>
+              <a href="/tags/Logistic-Regression/" rel="tag"><i class="fa fa-tag"></i> Logistic Regression</a>
           </div>
 
         
@@ -931,12 +921,12 @@ y = 0.0, your algorithm predicts a &quot;non-cat&quot; picture.
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/supportvectorregression/" rel="prev" title="Support Vector Regression Implementation">
-      <i class="fa fa-chevron-left"></i> Support Vector Regression Implementation
+    <a href="/NoneLinearRegression/" rel="prev" title="Non Linear Regression Implementation">
+      <i class="fa fa-chevron-left"></i> Non Linear Regression Implementation
     </a></div>
       <div class="post-nav-item">
-    <a href="/NaiveBayesClassifier/" rel="next" title="Naive Bayes Classification">
-      Naive Bayes Classification <i class="fa fa-chevron-right"></i>
+    <a href="/Hierarchical_Clustering/" rel="next" title="Hierarchical Clustering">
+      Hierarchical Clustering <i class="fa fa-chevron-right"></i>
     </a></div>
     </div>
       </footer>
@@ -996,10 +986,7 @@ y = 0.0, your algorithm predicts a &quot;non-cat&quot; picture.
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Table-of-Contents"><span class="nav-number">1.</span> <span class="nav-text">Table of Contents</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Logistic-Regression-with-a-Neural-Network-mindset"><span class="nav-number">2.</span> <span class="nav-text">Logistic Regression with a Neural Network mindset</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-Packages"><span class="nav-number">2.1.</span> <span class="nav-text">1 - Packages</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#load-lr-utils-py"><span class="nav-number">3.</span> <span class="nav-text">load lr_utils.py</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#2-Overview-of-the-Problem-set"><span class="nav-number">3.1.</span> <span class="nav-text">2 - Overview of the Problem set</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link"><span class="nav-number">3.1.0.1.</span> <span class="nav-text">What you need to remember:</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-General-Architecture-of-the-learning-algorithm"><span class="nav-number">3.2.</span> <span class="nav-text">3 - General Architecture of the learning algorithm</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-Building-the-parts-of-our-algorithm"><span class="nav-number">3.3.</span> <span class="nav-text">4 - Building the parts of our algorithm</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#4-1-Helper-functions"><span class="nav-number">3.3.1.</span> <span class="nav-text">4.1 - Helper functions</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-2-Initializing-parameters"><span class="nav-number">3.3.2.</span> <span class="nav-text">4.2 - Initializing parameters</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-3-Forward-and-Backward-propagation"><span class="nav-number">3.3.3.</span> <span class="nav-text">4.3 - Forward and Backward propagation</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#d-Optimization"><span class="nav-number">3.3.4.</span> <span class="nav-text">d) Optimization</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link"><span class="nav-number">3.3.4.1.</span> <span class="nav-text">What to remember </span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-Merge-all-functions-into-a-model"><span class="nav-number">3.4.</span> <span class="nav-text">5 - Merge all functions into a model</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#6-Further-analysis-optional-ungraded-exercise"><span class="nav-number">3.5.</span> <span class="nav-text">6 - Further analysis (optional&#x2F;ungraded exercise)</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Choice-of-learning-rate"><span class="nav-number">3.5.0.1.</span> <span class="nav-text">Choice of learning rate</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#7-Test-with-your-own-image-optional-ungraded-exercise"><span class="nav-number">3.6.</span> <span class="nav-text">7 - Test with your own image (optional&#x2F;ungraded exercise)</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link"><span class="nav-number">3.6.0.1.</span> <span class="nav-text">What to remember from this assignment:</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link"><span class="nav-number">3.6.0.1.1.</span> <span class="nav-text">Credits - Coursera,  Credits to the teacher , 
-Deeplearning.ai Course
-</span></a></li><li class="nav-item nav-level-5"><a class="nav-link"><span class="nav-number">3.6.0.1.2.</span> <span class="nav-text">
-</span></a></li></ol></li></ol></li></ol></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Table-of-Contents"><span class="nav-number">1.</span> <span class="nav-text">Table of Contents</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Logistic-Regression-with-a-Neural-Network-mindset"><span class="nav-number">2.</span> <span class="nav-text">Logistic Regression with a Neural Network mindset</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-Packages"><span class="nav-number">2.1.</span> <span class="nav-text">1 - Packages</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#load-lr-utils-py"><span class="nav-number">3.</span> <span class="nav-text">load lr_utils.py</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#2-Overview-of-the-Problem-set"><span class="nav-number">3.1.</span> <span class="nav-text">2 - Overview of the Problem set</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-General-Architecture-of-the-learning-algorithm"><span class="nav-number">3.2.</span> <span class="nav-text">3 - General Architecture of the learning algorithm</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-Building-the-parts-of-our-algorithm"><span class="nav-number">3.3.</span> <span class="nav-text">4 - Building the parts of our algorithm</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#4-1-Helper-functions"><span class="nav-number">3.3.1.</span> <span class="nav-text">4.1 - Helper functions</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-2-Initializing-parameters"><span class="nav-number">3.3.2.</span> <span class="nav-text">4.2 - Initializing parameters</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-3-Forward-and-Backward-propagation"><span class="nav-number">3.3.3.</span> <span class="nav-text">4.3 - Forward and Backward propagation</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#d-Optimization"><span class="nav-number">3.3.4.</span> <span class="nav-text">d) Optimization</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-Merge-all-functions-into-a-model"><span class="nav-number">3.4.</span> <span class="nav-text">5 - Merge all functions into a model</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#6-Further-analysis-optional-ungraded-exercise"><span class="nav-number">3.5.</span> <span class="nav-text">6 - Further analysis (optional&#x2F;ungraded exercise)</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Choice-of-learning-rate"><span class="nav-number">3.5.0.1.</span> <span class="nav-text">Choice of learning rate</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#7-Test-with-your-own-image-optional-ungraded-exercise"><span class="nav-number">3.6.</span> <span class="nav-text">7 - Test with your own image (optional&#x2F;ungraded exercise)</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -1015,20 +1002,20 @@ Deeplearning.ai Course
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">40</span>
+          <span class="site-state-item-count">39</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">20</span>
+        <span class="site-state-item-count">29</span>
         <span class="site-state-item-name">categories</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">46</span>
+        <span class="site-state-item-count">48</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>
@@ -1073,13 +1060,13 @@ Deeplearning.ai Course
       <i class="fa fa-chart-area"></i>
     </span>
       <span class="post-meta-item-text">Symbols count total: </span>
-    <span title="Symbols count total">452k</span>
+    <span title="Symbols count total">409k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span class="post-meta-item-text">Reading time total &asymp;</span>
-    <span title="Reading time total">6:51</span>
+    <span title="Reading time total">6:12</span>
 </div>
 
         
